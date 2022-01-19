@@ -2,7 +2,7 @@
 Social Media Website
 Thanks for Visiting our Teams GitHub page.
 
-Members: Team members: Vivian, Rajpreet, Emily, Robert, Kevin
+Members: Team members: Vivian, Rajpreet, Emily, Robert, Kevin, Taron
 
 Overview: Our project idea is to create a website with various social media features. Each member will focus on implementing one of these features. This may include: a user status feature, a chatbox/messaging system, a gps/location tracker for events, a built-in mini game, a tailored newsfeed, and an interest matchmaker feature.
 
@@ -15,5 +15,7 @@ Emily: For my cool cam, I’m thinking about creating a chatbox/messaging featur
 Robert: For my cool cam, I will be creating location-based features for our social media website. As of now, I am thinking of location-sharing like tracking friends or family, or assisted navigation services. Depending on the difficulty of its implementation, changes will be considered.
 
 Kevin: For my cool cam, I am implementing a online/offline user status feature. The program will detect mouse movements or interactions with the website to determine status. More things will probably be added to this in the future depending on the difficulty.
+
+Taron: 
 
 All ideas are subject to change. 
