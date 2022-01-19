@@ -16,6 +16,6 @@ Robert: For my cool cam, I will be creating location-based features for our soci
 
 Kevin: For my cool cam, I am implementing a online/offline user status feature. The program will detect mouse movements or interactions with the website to determine status. More things will probably be added to this in the future depending on the difficulty.
 
-Taron: 
+Taron: For my cool cam I'm hoping to make friend suggestions based on people in your friend's network, similar to how LinkedIn does it. To show the user who the suggested friends are, it could show them a little bit of the suggested person's feed
 
 All ideas are subject to change. 
