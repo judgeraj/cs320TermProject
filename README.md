@@ -14,7 +14,7 @@ Emily: For my cool cam, I’m thinking about creating a chatbox/messaging featur
 
 Robert: For my cool cam, I will be creating a discussion board and review board for the Anime watched by the user. The user is able to input the Anime and the current episode he/she is currently watching, and be able to make an overall review. The discussion board is used for social interactions between users talking about Anime.
 
-Kevin: For my cool cam, I am implementing a online/offline user status feature. The program will detect mouse movements or interactions with the website to determine status. More things will probably be added to this in the future depending on the difficulty.
+Kevin: For my cool cam, I am implementing a online/offline user status feature. The program will detect mouse movements or interactions with the website to determine status. I would also like to implement a meme rating addition to the website.
 
 Taron: For my cool cam I'm hoping to make friend suggestions based on people in your friend's network, similar to how LinkedIn does it. To show the user who the suggested friends are, it could show them a little bit of the suggested person's feed
 
