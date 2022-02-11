@@ -1,9 +1,5 @@
 .App {
   text-align: center;
-  font-size: calc(24px + 2vmin);
-  color: cyan;
-  font-weight: 800;
-  font-style: italic;
 }
 
 .App-header {

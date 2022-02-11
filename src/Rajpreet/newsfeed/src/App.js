@@ -3,21 +3,43 @@ import './App.css';
 
 
 async function getBusinessNews() { 
-  // let response = await fetch('https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=876fb32423264a94984a112b0dfea143');
-  // let data = response.json();
-  //return data;
-  fetch('https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=876fb32423264a94984a112b0dfea143')
-    .then(response => response.json())
-    .then(data => console.log(data));
+  
 }
 
 class App extends Component {
+  constructor(args) {
+    super(args);
+    this.state = {
+      businessArticles:[]
+    }
+  }
+
+  componentDidMount() {
+    fetch('https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=876fb32423264a94984a112b0dfea143')
+    .then((response) => {
+      return response.json()
+    })
+    .then((data) => {
+      this.setState({
+        businessArticles: data.articles
+      });
+    });
+  }
+
   render() {
-    var data = getBusinessNews();
-    // console.log(data);
+    console.log(this.state);
     return (
      <div className="App">
-        Person name newsfeed
+        {this.state.businessArticles.map((article, iterator)=> {
+          return (
+            <div> 
+              <h2 style={{textAlign:'left'}}>
+                {article.title}
+              </h2>
+              <img src={article.urlToImage}></img>
+            </div>
+          );
+          })}
       </div>
     );
   }
