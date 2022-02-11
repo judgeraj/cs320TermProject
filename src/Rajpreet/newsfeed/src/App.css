@@ -1,8 +1,33 @@
 .App {
   text-align: center;
+  background-color:pink;
 }
 
-.App-header {
+div h2 {
+  color: red;
+  text-align: left;
+  font-size: large;
+}
+div p {
+  text-align: left;
+  color:aliceblue;
+}
+
+.image {
+  width: 300px;
+  height: 200px;
+  border: solid;
+  border-width: thick;
+  border-color: aqua;
+}
+
+div {
+  border-color: black;
+  border-style: solid;
+  border-width: thick;
+}
+
+/* .App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -11,7 +36,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
+} */
 
 .App-link {
   color: #61dafb;
