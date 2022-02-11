@@ -20,6 +20,20 @@ div p {
   border-width: thick;
   border-color: aqua;
 }
+.image2 {
+  width: 300px;
+  height: 200px;
+  border: solid;
+  border-width: thick;
+  border-color: greenyellow;
+}
+.image3 {
+  width: 300px;
+  height: 200px;
+  border: solid;
+  border-width: thick;
+  border-color:darkblue;
+}
 
 div {
   border-color: black;
@@ -37,7 +51,7 @@ div {
   font-size: calc(10px + 2vmin);
   color: white;
 } */
-
+/* 
 .App-link {
   color: #61dafb;
-}
+} */
