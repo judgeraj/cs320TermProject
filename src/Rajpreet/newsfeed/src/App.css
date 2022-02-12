@@ -1,5 +1,4 @@
 .App {
-  text-align: center;
   background-color:pink;
 }
 
@@ -7,9 +6,15 @@ div h2 {
   color: red;
   text-align: left;
   font-size: large;
+  text-indent: 30px;
 }
 div p {
   text-align: left;
+  font-size: 12pt;
+  margin-left: 30px;
+  margin-right: 600px;
+  font-weight: 300;
+  font-family: 'Times New Roman', Times, serif;
   color:aliceblue;
 }
 
@@ -19,20 +24,38 @@ div p {
   border: solid;
   border-width: thick;
   border-color: aqua;
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-right: 1040px;
 }
+
 .image2 {
   width: 300px;
   height: 200px;
   border: solid;
   border-width: thick;
   border-color: greenyellow;
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-right: 1040px;
 }
+
 .image3 {
   width: 300px;
   height: 200px;
   border: solid;
   border-width: thick;
   border-color:darkblue;
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-right: 1040px;
+}
+
+.links {
+  font-size: 10px;
+  font-family: sans-serif;
+  font-style: italic;
+  margin-left: 100ex;
 }
 
 div {

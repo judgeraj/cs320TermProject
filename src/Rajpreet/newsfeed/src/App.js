@@ -57,10 +57,10 @@ class App extends Component {
     
     return (
      <div className="App">
-        {this.state.techArticles.map((article, iterator)=> {
+        {this.state.techArticles.map((article, iterator) => {
           return (
             <div id='singleArticle'> 
-              <a href={article.url}>
+              <a href={article.url} className='imageLink'>
                 <img src={article.urlToImage} className='image'></img>
               </a>
               <a href={article.url}>
@@ -69,7 +69,7 @@ class App extends Component {
                 </h2>
               </a>
               <p>{article.description}</p>
-              <a href={article.url}>{article.url}</a>
+              <a href={article.url} className='links'>{article.url}</a>
             </div>
           );
           })}
@@ -85,7 +85,7 @@ class App extends Component {
                 </h2>
               </a>
               <p>{article.description}</p>
-              <a href={article.url}>{article.url}</a>
+              <a href={article.url} className='links'>{article.url}</a>
             </div>
           );
         })}
@@ -101,7 +101,7 @@ class App extends Component {
                 </h2>
               </a>
               <p>{article.description}</p>
-              <a href={article.url}>{article.url}</a>
+              <a href={article.url} className='links'>{article.url}</a>
             </div>
           );
         })}
