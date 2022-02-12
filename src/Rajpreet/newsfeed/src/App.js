@@ -54,9 +54,9 @@ class App extends Component {
     console.log(this.state);
     // const allArticles = [this.state.techArticles, this.state.businessArticles, this];
     // console.log(allArticles)
-    
     return (
      <div className="App">
+       <h1 className='title'>KARO NEWS</h1>
         {this.state.techArticles.map((article, iterator) => {
           return (
             <div id='singleArticle'> 
