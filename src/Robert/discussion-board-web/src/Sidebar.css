@@ -1,0 +1,72 @@
+.Sidebar {
+    display: flex;
+    flex-direction: column ;
+    flex: 0.20;
+    height: 100vh;
+    background-color: #3A3B3C;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+.sidebarTitleBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+    background-color: black;
+    color: white;
+    border-top-right-radius: 15px ;
+    border-bottom:3px solid white;
+}
+.sidebarTopicsBar {
+    flex: 1;
+}
+.addTopics {
+    cursor: pointer;
+}
+.addTopics:hover {
+    color: green;
+}
+.topicsTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    padding-left: 20px;
+    background-color: #2D2D2E;
+    color: white;
+}
+.topicList{
+    flex-direction: column;
+}
+.topicsTitleBar{
+    display: flex;
+    align-items: center;
+}
+.userProfileBar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: Black;
+    padding: 10px;
+    border-bottom: 3px solid white;
+}
+.userInfo{
+    flex: 1;
+    padding: 15px;
+    color: white;
+}
+.editUser {
+    color: white;
+    padding: 10px;
+}
+.userSettings{
+    display: flex;
+    padding: 20px;
+    padding-left: 170px;
+    align-items: center;
+    justify-items: left;
+    color: white;
+    border-bottom-right-radius: 15px;
+}
+
+

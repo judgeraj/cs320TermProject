@@ -1,0 +1,37 @@
+.messageHeaderBar{
+    display: flex;
+    flex-direction: column;
+    flex: 0.80;
+    background-color: white;
+    height: 100vh;
+}
+.messageConvo{
+    flex: 1px;
+}
+.messageInput {
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #3A3B3C;
+    margin: 10px;
+    border-top: 1px solid black;
+}
+.messageInput > form > input{
+    background-color: white;
+    font-size: large;
+    width: 500px;
+    outline-width: 0;
+    border: none;
+    border-radius: 20px;
+    padding: 5px
+}
+.sendButton{
+    display: none;
+}
+.inputIcons > .MuiSvgIcon-root{
+    padding-left: 10px;
+    padding-right: 10px;
+}
