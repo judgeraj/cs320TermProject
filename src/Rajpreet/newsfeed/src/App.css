@@ -1,19 +1,81 @@
 .App {
+  background-color:darkgray;
+}
+
+.title {
+  color: #770952;
+  border: solid;
+  border-width: thick;
+  border-color: black;
   text-align: center;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-style: italic;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+div h2 {
+  color:#770952;
+  text-align: left;
+  font-size: large;
+  text-indent: 30px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+div p {
+  text-align: left;
+  font-size: 12pt;
+  margin-left: 30px;
+  margin-right: 600px;
+  font-weight: 300;
+  font-family: 'Times New Roman', Times, serif;
+  color:#770952;
 }
 
-.App-header {
+.image {
+  width: 300px;
+  height: 200px;
+  border: solid;
+  border-width: thick;
+  border-color: #770952;
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-right: 1040px;
+}
+
+.image2 {
+  width: 300px;
+  height: 200px;
+  border: solid;
+  border-width: thick;
+  border-color: #770952;
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-right: 1040px;
+}
+
+.image3 {
+  width: 300px;
+  height: 200px;
+  border: solid;
+  border-width: thick;
+  border-color:#770952;
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-right: 1040px;
+}
+
+.links {
+  font-size: 10px;
+  font-family: sans-serif;
+  font-style: italic;
+  margin-left: 100ex;
+}
+
+div {
+  border-color: black;
+  border-style: solid;
+  border-width: thick;
+}
+
+/* .App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -22,17 +84,8 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
-
+} */
+/* 
 .App-link {
   color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+} */
