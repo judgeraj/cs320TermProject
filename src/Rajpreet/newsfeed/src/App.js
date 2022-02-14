@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import './App.css';
 
 
-async function getBusinessNews() { 
-  
+async function getNews() { 
+  //will house all api calls
 }
 
 class App extends Component {
@@ -21,31 +21,31 @@ class App extends Component {
 
   componentDidMount() {
     fetch('https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=876fb32423264a94984a112b0dfea143')
-    .then((response) => {
-      return response.json()
-    })
-    .then((data) => {
-      this.setState({
-        businessArticles: data.articles
-      });
+      .then((response) => {
+        return response.json()
+      })
+      .then((data) => {
+        this.setState({
+          businessArticles: data.articles
+        });
     });
     fetch('https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=876fb32423264a94984a112b0dfea143')
-    .then((response) => {
-      return response.json()
-    })
-    .then((data) => {
-      this.setState({
-        techArticles: data.articles
-      });
+      .then((response) => {
+        return response.json()
+      })
+      .then((data) => {
+        this.setState({
+          techArticles: data.articles
+        });
     });
     fetch('https://newsapi.org/v2/everything?q=tesla&from=2022-01-11&sortBy=publishedAt&apiKey=876fb32423264a94984a112b0dfea143')
-    .then((response) => {
-      return response.json()
-    })
-    .then((data) => {
-      this.setState({
-        teslaArticles: data.articles
-      });
+      .then((response) => {
+        return response.json()
+      })
+      .then((data) => {
+        this.setState({
+          teslaArticles: data.articles
+        });
     });
 //
   }
