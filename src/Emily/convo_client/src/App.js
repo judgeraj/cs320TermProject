@@ -1,5 +1,4 @@
 // THIS FILE CONTAINS MY CODE
-
 import './App.css';
 import React from "react";
 import io from 'socket.io-client';
@@ -10,21 +9,31 @@ const socket = io.connect("http://localhost:3001");
 
 function App() {
   const [username, setUsername] = useState("");
-  const [convo, setConvo] = useState("");
-  const [showConvo, setShowConvo] = useState(false); // state first set to false
+  const [convo, setConvo] = useState(""); // convo the user is currently in
+  const [currentScreen, setCurrentScreen] = useState("login"); // represent what screen to show
+  let convoSize = 0;
 
   const joinConvo = () => {
-    if (username !== "" && convo !== "") {
-      socket.emit("joinConvo", convo);
-      setShowConvo(true);
+    if ((convo.length > 0) && (convo.length < 16)) {
+      socket.emit("joinConvo", convo); // tell server to join user in convo
+      setCurrentScreen("convo");
+      convoSize++;
     }
   }
 
+  const chooseConvo = () => {
+    if ((username.length > 0) && (username.length < 16))
+    { // names must be between 1 to 15 characters
+      setConvo("convo1");
+      setCurrentScreen("choose");      
+    }
+  }
+ 
   return (
     <div className="App">
-      {!showConvo ? (
-        <div className="joinConvoContainer">
-          <h1>Join Convo</h1>
+      {currentScreen == "login" ? (
+        <div className="loginContainer">
+          <h1>Login</h1>
           <input
             type="text"
             placeholder="Username..."
@@ -32,23 +41,24 @@ function App() {
               setUsername(event.target.value);
             }}
             onKeyPress={(event) => {
-              event.key === "Enter" && joinConvo()
+              event.key === "Enter" && chooseConvo()
             }}
           />
-          <input
-            type="text"
-            placeholder="Convo Name..."
-            onChange={(event) => {
-              setConvo(event.target.value);
-            }}
-            onKeyPress={(event) => {
-              event.key === "Enter" && joinConvo()
-            }}
-          />         
-          <button onClick={joinConvo}>Join</button> 
+          <button onClick={chooseConvo}>Enter</button> 
         </div>
+      ) : currentScreen == "convo" ? (
+        <Convo
+          socket={socket}
+          username={username}
+          convo={convo}
+          convoSize={convoSize}
+        />
       ) : (
-        <Convo socket={socket} username={username} convo={convo}/>
+        <div className="convosContainer">
+          <p>Choose a convo:</p>
+          <button onClick={joinConvo}>convo1</button>
+          <button onClick={joinConvo}>convo2</button>
+        </div>
       )}
     </div>
   );

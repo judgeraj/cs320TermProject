@@ -1,11 +1,10 @@
 // THIS FILE CONTAINS MY CODE
-
 import React from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { useState } from "react";
 import { useEffect } from "react";
 
-function Convo({socket, username, convo}){
+function Convo({socket, username, convo, convoSize}){
     const [currentMessage, setCurrentMessage] = useState("");
     const [messagesSent, setMessagesSent] = useState([]);
 
@@ -23,6 +22,9 @@ function Convo({socket, username, convo}){
         } else {
             minutes = minutes + " AM";
         }
+        if (hour === 0)  {
+            hour = 12;
+        }
 
         if (currentMessage !== "") {
             const messageInfo = {
@@ -31,18 +33,18 @@ function Convo({socket, username, convo}){
                 message: currentMessage,
                 time: hour + ":" + minutes,
             };
-            await socket.emit("sendMessage", messageInfo);
-            setMessagesSent((list) => [
-                ...list, messageInfo
+            await socket.emit("sendMessage", messageInfo);  // get your message info
+            setMessagesSent((list) => [ 
+                ...list, messageInfo // add it to the list of messages
             ]);
             setCurrentMessage(""); // when done sending message, input box is set to nothing
         }
     };
 
-    useEffect(() => { // listen for changes in the socket
-        socket.on("receiveMessage", (data) => {
+    useEffect(() => { // listen for changes in the socket (message from other users)
+        socket.on("receiveMessage", (data) => { // whenever a new message is received
             setMessagesSent((list) => [
-                ...list, data
+                ...list, data // add it to the list of messages
             ]);
         });
     }, [socket]);
@@ -51,7 +53,10 @@ function Convo({socket, username, convo}){
         <div className="convo-popup">
             <div className="convo-header">
                 <p>Convo: {convo}</p>
-            </div>
+                <div className="convo-size">
+                    <p># of users: {convoSize}</p>
+                </div>       
+            </div>     
             <div className="convo-body">
                 <ScrollToBottom className="message-container">
                     {messagesSent.map((messages) => {
@@ -64,7 +69,7 @@ function Convo({socket, username, convo}){
                                         <p>{messages.message}</p>
                                     </div>
                                     <div className="message-meta">
-                                        <p id="time">{messages.time}</p>
+                                        <p>{messages.time}</p>
                                         <p id="sender">{messages.sender}</p>
                                     </div>
                                 </div>
@@ -81,7 +86,6 @@ function Convo({socket, username, convo}){
                     onChange={(event) => {
                         setCurrentMessage(event.target.value);
                     }}
-
                     onKeyPress={(event) => {
                         event.key === "Enter" && sendMessage()
                     }}

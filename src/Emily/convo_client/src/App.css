@@ -1,5 +1,4 @@
 /* THIS FILE CONTAINS MY CODE */
-
 .App {
   width: 100vw;
   height: 100vh;
@@ -15,17 +14,16 @@ body {
 }
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700");
 
-.joinConvoContainer {
+.loginContainer {
   display: flex;
   flex-direction: column;
   text-align: center;
 }
-
-.joinConvoContainer h3 {
+.loginContainer h3 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
 }
-.joinConvoContainer input {
+.loginContainer input {
   width: 200px;
   height: 50px;
   margin: 7px;
@@ -34,8 +32,7 @@ body {
   padding: 5px;
   font-size: 16px;
 }
-
-.joinConvoContainer button {
+.loginContainer button {
   width: 210px;
   height: 50px;
   margin: 7px;
@@ -47,16 +44,47 @@ body {
   color: #ffffff;
   cursor: pointer;
 }
+.loginContainer button:hover {
+  background: #770952;
+}
 
-.joinConvoContainer button:hover {
+.convosContainer {
+  display: flex;
+  text-align: center;
+}
+.convosContainer h3 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+.convosContainer input {
+  width: 200px;
+  height: 50px;
+  margin: 7px;
+  border: 1px solid #000000;
+  border-radius: 3px;
+  padding: 5px;
+  font-size: 16px;
+}
+.convosContainer button {
+  width: 210px;
+  height: 50px;
+  margin: 7px;
+  border: none;
+  border-radius: 3px;
+  padding: 5px;
+  font-size: 16px;
   background: #000000;
+  color: #ffffff;
+  cursor: pointer;
+}
+.convosContainer button:hover {
+  background: #770952;
 }
 
 .convo-popup {
   width: 400px;
   height: 400px;
 }
-
 .convo-popup p {
   margin: 0;
 }
@@ -64,6 +92,7 @@ body {
   height: 45px;
   background: #000000;
   position: relative;
+  display: flex;
 }
 .convo-popup .convo-header p {
   display: block;
@@ -71,6 +100,14 @@ body {
   color: #ffffff;
   font-weight: 700;
   line-height: 45px;
+}
+.convo-popup .convo-size p {
+  display: flex;
+  background: #000000;
+  color: #cfcfcf;
+  font-weight: 500;
+  font-size: 12px;
+  justify-content: flex-end;
 }
 
 .convo-popup .convo-body {
@@ -84,26 +121,26 @@ body {
   height: 100%;
   overflow: hidden;
 }
-
 .convo-popup .convo-body .message {
   height: auto;
   padding: 10px;
   display: flex;
 }
-
 .convo-popup .convo-body .message .message-content {
   width: auto;
   height: auto;
-  min-height: 40px;
-  max-width: 120px;
+  min-height: 30px;
+  max-width: 150px;
   border-radius: 3px;
   color: white;
   display: flex;
   align-items: center;
   margin-right: 5px;
   margin-left: 5px;
-  padding-right: 5px;
-  padding-left: 5px;
+  padding-right: 8px;
+  padding-left: 8px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   overflow-wrap: break-word;
   word-break: break-word;
 }
@@ -111,12 +148,10 @@ body {
 #loggedIn {
   justify-content: flex-end;
 }
-
 #loggedIn .message-content {
   justify-content: center;
   background-color: #770952;
 }
-
 #loggedIn .message-meta {
   justify-content: flex-end;
   margin-right: 5px;
@@ -125,12 +160,10 @@ body {
 #other {
   justify-content: flex-start;
 }
-
 #other .message-content {
   justify-content: center;
   background-color: rgb(0, 0, 0);
 }
-
 #other .message-meta {
   justify-content: flex-start;
   margin-left: 5px;
@@ -152,7 +185,6 @@ body {
   border-top: none;
   display: flex;
 }
-
 .convo-popup .convo-footer input {
   height: 100%;
   flex: 85%;
@@ -163,7 +195,6 @@ body {
   outline: none;
   font-family: "Open Sans", sans-serif;
 }
-
 .convo-popup .convo-footer button {
   border: 0;
   display: grid;
@@ -176,7 +207,6 @@ body {
   font-size: 20px;
   color: lightgray;
 }
-
 .convo-popup .convo-footer button:hover {
   color: #770952;
 }
