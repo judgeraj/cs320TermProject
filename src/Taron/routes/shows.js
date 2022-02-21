@@ -6,22 +6,20 @@ router.get('/', (req, res) => {
     res.send('GET request to Vivian\'s shows page');
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
+    //console.log(req.body);
     const show = new Show({
         title: req.body.title,
         description: req.body.description,
         rating: req.body.rating
     });
-    console.log(req.body);
-    show.save()
-        .then(data => {
-            console.log('Saved new show');
-            res.json(data);
-        })
-        .catch(err => {
-            console.log(err); // debug print
-            res.json({ message: err });
-        });
+    
+    try {
+        const savedShow = await show.save();
+        res.json(savedShow);
+    } catch(err) {
+        res.json({ message: err });
+    }
 });
 
 module.exports = router;
