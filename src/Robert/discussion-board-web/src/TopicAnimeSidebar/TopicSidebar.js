@@ -1,5 +1,5 @@
 import React from 'react'
-import './Sidebar.css'
+import './TopicAnimeSidebar.css'
 import TopicList from './TopicList';
 
 //the following are importing icons from material-ui
@@ -9,7 +9,7 @@ import { Avatar } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import EditIcon from '@material-ui/icons/Edit';
 
-function Sidebar() { //sidebar for discussion category
+function TopicSidebar() { //sidebar for discussion category
   return (
     <div className="Sidebar">
         <div className="sidebarTitleBar"> {/** main title header in the sidebar */}
@@ -24,16 +24,15 @@ function Sidebar() { //sidebar for discussion category
                       <h3>userName</h3>
                       <p>ID: 0001</p>
                   </div>
-                <EditIcon className='editUser' fontSize='small'/>
+                <EditIcon className='editUser' />
             </div>
-            <div className='topicsTitle'>
+            <div className='topicsTitle'> {/** creates the header of the topic list */}
                 <div className='topicsTitleBar'>
                       <h4>Topics</h4>
                 </div>
-                <AddIcon className="addTopics"/>
+                <AddIcon className="addTopics"/> {/** the list of topics for discussion */}
             </div>
             <div className="topicList">
-                <TopicList/>
                 <TopicList/>
                 <TopicList/>
                 <TopicList/>
@@ -45,4 +44,5 @@ function Sidebar() { //sidebar for discussion category
     </div>
   );
 }
-export default Sidebar
+export default TopicSidebar
+// 33 lines

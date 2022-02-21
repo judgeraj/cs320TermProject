@@ -1,0 +1,117 @@
+/* below is the css for TopicSidebar.js and AnimeSidebar.js*/
+.Sidebar, .animeHeader {
+    display: flex;
+    flex-direction: column ;
+    height: 100vh;
+    background-color: #3A3B3C;
+}
+.Sidebar {
+    flex: 0.15;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+.animeHeader{
+    flex: 0.15;
+    border-top-left-radius: 15px ;
+    border-bottom-left-radius: 15px ;
+}
+.sidebarTitleBar, .animeTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+    background-color: black;
+    color: white;
+    border-bottom:3px solid white;
+}
+.sidebarTitleBar{
+    border-top-right-radius: 15px ;
+}
+.animeTitle {
+    border-top-left-radius: 15px;
+}
+.sidebarTitleBar > h3, .animeTitle > h3{
+    font-size: x-large;
+}
+.sidebarTopicsBar, .animeListBar {
+    flex: 1;
+}
+.userProfileBar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: Black;
+    padding: 10px;
+    border-bottom: 3px solid white;
+}
+.userInfo{
+    flex: 1;
+    padding: 10px;
+    color: white;
+}
+.editUser {
+    color: white;
+    padding: 10px;
+    font-size: x-large;
+}
+.userSettings{
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    justify-items: left;
+    color: white;
+    border-bottom-right-radius: 15px;
+}
+.addTopics {
+    cursor: pointer;
+}
+.addTopics:hover {
+    color: gray;
+}
+.topicsTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    padding-left: 20px;
+    background-color: #2D2D2E;
+    color: white;
+}
+.topicList, .animeList{
+    flex-direction: column;
+}
+.topicsTitleBar{
+    display: flex;
+    align-items: center;
+}
+
+/* below is the css for TopicList.js */
+.topicList:hover > h4{
+    color: white;
+    background-color: #40464b;
+}
+.topicList > h4, .animePhotoBar > h4{
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    background-color: #3A3B3C;
+    color: white;
+    cursor: pointer;
+}
+.forumIcon {
+    font-size: 10px;
+    padding: 10px;
+}
+
+/* below is the css for AnimePost.js */
+.animePhotoBar{
+    flex: 1;
+}
+.animePhoto {
+    display: flex;
+    margin: 15px;
+    margin-top: 30px;
+    border: 2px solid white;
+}
+/* 87 lines 
+    not including closing brackets, new lines, and comments*/

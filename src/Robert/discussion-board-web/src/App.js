@@ -1,14 +1,17 @@
 import React from 'react';
 import './App.css';
-import Sidebar from './Sidebar';
-import Messages from './Discussion';
+import TopicSidebar from './TopicAnimeSidebar/TopicSidebar';
+import Messages from './DiscussionBoard/Discussion';
+import AnimeSidebar from './TopicAnimeSidebar/AnimeSidebar';
 
-function App() {
+function App() { {/** create the entire webpage */}
   return ( 
     <div className="app"> 
-      <Sidebar /> {/* this creates the sidebar section of the page */}
+      <TopicSidebar /> {/* this creates the sidebar section of the page */}
       <Messages /> {/** this creates the chat section of the page */}
+      <AnimeSidebar /> {/**rate and review for Anime user Watched*/}
     </div>
   );
 }
 export default App;
+// 12 lines
