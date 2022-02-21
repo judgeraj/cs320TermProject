@@ -1,4 +1,4 @@
-// THIS FILE CONTAINS MY CODE
+// THIS FILE CONTAINS MY CODE - 22 lines
 const express = require("express");
 const app = express();
 const http = require("http");
@@ -16,9 +16,10 @@ const io = new Server(server, {
 io.on("connection", (socket) => { // listen for an event to happen. on a specific socket (specific user)
     console.log(`User with ID: ${socket.id} connected!`);
     
-    socket.on("joinConvo", (data) => { // data is convo
-        socket.join(data); // join that convo
-        console.log(`User with ID: ${socket.id} joined convo: ${data}`);
+    socket.on("joinConvo", (data) => {
+        socket.join(data.convo); // join that convo
+        socket.to(data.convo).emit("joined", data); // let convo know that user has joined
+        console.log(`User: ${data.username} (${socket.id}) joined convo: ${data.convo}`);
     });  
 
     socket.on("sendMessage", (data) => {

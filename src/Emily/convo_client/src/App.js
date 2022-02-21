@@ -1,4 +1,4 @@
-// THIS FILE CONTAINS MY CODE
+// THIS FILE CONTAINS MY CODE - 48 lines
 import './App.css';
 import React from "react";
 import io from 'socket.io-client';
@@ -11,19 +11,20 @@ function App() {
   const [username, setUsername] = useState("");
   const [convo, setConvo] = useState(""); // convo the user is currently in
   const [currentScreen, setCurrentScreen] = useState("login"); // represent what screen to show
-  let convoSize = 0;
 
   const joinConvo = () => {
     if ((convo.length > 0) && (convo.length < 16)) {
-      socket.emit("joinConvo", convo); // tell server to join user in convo
+      const user = {
+        convo: convo,
+        username: username,
+      };
+      socket.emit("joinConvo", user); // tell server to join user in convo
       setCurrentScreen("convo");
-      convoSize++;
     }
   }
 
   const chooseConvo = () => {
-    if ((username.length > 0) && (username.length < 16))
-    { // names must be between 1 to 15 characters
+    if ((username.length > 0) && (username.length < 16)) { // names must be between 1 to 15 characters
       setConvo("convo1");
       setCurrentScreen("choose");      
     }
@@ -31,7 +32,7 @@ function App() {
  
   return (
     <div className="App">
-      {currentScreen == "login" ? (
+      {currentScreen === "login" ? (
         <div className="loginContainer">
           <h1>Login</h1>
           <input
@@ -46,12 +47,11 @@ function App() {
           />
           <button onClick={chooseConvo}>Enter</button> 
         </div>
-      ) : currentScreen == "convo" ? (
+      ) : currentScreen === "convo" ? (
         <Convo
           socket={socket}
           username={username}
           convo={convo}
-          convoSize={convoSize}
         />
       ) : (
         <div className="convosContainer">

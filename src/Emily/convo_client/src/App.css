@@ -1,4 +1,4 @@
-/* THIS FILE CONTAINS MY CODE */
+/* THIS FILE CONTAINS MY CODE - 170 lines */
 .App {
   width: 100vw;
   height: 100vh;
@@ -88,6 +88,17 @@ body {
 .convo-popup p {
   margin: 0;
 }
+.convo-popup .convo-header .back button {
+  width: 10px;
+  height: 30px;
+  margin: 7px;
+  border: none;
+  position: relative;
+  font-size: 16px;
+  background: #000000;
+  color: #ffffff;
+  cursor: pointer;
+}
 .convo-popup .convo-header {
   height: 45px;
   background: #000000;
@@ -101,18 +112,39 @@ body {
   font-weight: 700;
   line-height: 45px;
 }
-.convo-popup .convo-size p {
+.convo-popup .convo-header .spacer button {
+  width: 100px;
+  height: 30px;
+  border: none;
+  position: relative;
+  font-size: 16px;
+  background: #000000;
+}
+.convo-popup .convo-header .convo-size p {
   display: flex;
+  position: relative;
   background: #000000;
   color: #cfcfcf;
   font-weight: 500;
   font-size: 12px;
   justify-content: flex-end;
 }
-
+.convo-popup .convo-header2 p {
+  display: block;
+  border-left: 1px solid #000000;
+  border-right: 1px solid #000000;
+  padding: 0 1em 0 1em;
+  background: gray;
+  color: #ffffff;
+  font-weight: 500;
+  line-height: 20px;
+  font-size: 12px;
+}
 .convo-popup .convo-body {
   height: calc(450px - (45px + 70px));
-  border: 1px solid #000000;
+  border-left:  1px solid #000000;
+  border-right:  1px solid #000000;
+  border-bottom:  1px solid #000000;
   background: #ffffff;
   position: relative;
 }
@@ -205,7 +237,7 @@ body {
   background: transparent;
   outline: none;
   font-size: 20px;
-  color: lightgray;
+  color: gray;
 }
 .convo-popup .convo-footer button:hover {
   color: #770952;

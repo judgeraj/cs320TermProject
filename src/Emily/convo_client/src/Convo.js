@@ -1,15 +1,17 @@
-// THIS FILE CONTAINS MY CODE
+// THIS FILE CONTAINS MY CODE - 74 lines
 import React from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { useState } from "react";
 import { useEffect } from "react";
 
-function Convo({socket, username, convo, convoSize}){
-    const [currentMessage, setCurrentMessage] = useState("");
-    const [messagesSent, setMessagesSent] = useState([]);
+function Convo({socket, username, convo}){
+    const [currentMessage, setCurrentMessage] = useState(""); // store message to be sent
+    const [messagesSent, setMessagesSent] = useState([]); // store messages sent
+    const [users, setUsers] = useState([username]); // store users in the convo
+    const reducer = (previousValue, currentValue) => previousValue + ", " + currentValue; // display all users
 
     const sendMessage = async () => {
-        const timeNow = new Date();
+        const timeNow = new Date(); // get message time
         let hour = timeNow.getHours();
         let minutes = timeNow.getMinutes();
 
@@ -33,7 +35,7 @@ function Convo({socket, username, convo, convoSize}){
                 message: currentMessage,
                 time: hour + ":" + minutes,
             };
-            await socket.emit("sendMessage", messageInfo);  // get your message info
+            await socket.emit("sendMessage", messageInfo);  // send message info
             setMessagesSent((list) => [ 
                 ...list, messageInfo // add it to the list of messages
             ]);
@@ -41,56 +43,74 @@ function Convo({socket, username, convo, convoSize}){
         }
     };
 
-    useEffect(() => { // listen for changes in the socket (message from other users)
+    useEffect(() => { // listen for changes in the socket (from other users)
         socket.on("receiveMessage", (data) => { // whenever a new message is received
             setMessagesSent((list) => [
-                ...list, data // add it to the list of messages
+                ...list, data // add to the list of messages
             ]);
+        });
+        socket.on("joined", (data) => {
+            if (users.includes(data.username) == false) {
+                setUsers((list) => [
+                    ...list, data.username // add to the list of users
+                ]);
+            }
         });
     }, [socket]);
 
     return (
-        <div className="convo-popup">
-            <div className="convo-header">
-                <p>Convo: {convo}</p>
-                <div className="convo-size">
-                    <p># of users: {convoSize}</p>
-                </div>       
-            </div>     
-            <div className="convo-body">
-                <ScrollToBottom className="message-container">
-                    {messagesSent.map((messages) => {
-                        return (
-                            <div className="message"id={
-                                username === messages.sender ? "loggedIn" : "other"
-                                }>
-                                <div>
-                                    <div className="message-content">
-                                        <p>{messages.message}</p>
-                                    </div>
-                                    <div className="message-meta">
-                                        <p>{messages.time}</p>
-                                        <p id="sender">{messages.sender}</p>
+        <div className="App">
+            <div className="convo-popup">
+                <div className="convo-header">
+                    <div className="back">
+                        <button>&#8592;</button>
+                    </div>                
+                    <p>{convo}</p>
+                    <div className="spacer">
+                        <button>space</button>
+                    </div>
+                    <div className="convo-size">
+                        <p># of users: {users.length}</p>
+                    </div>     
+                </div>   
+                <div className="convo-header2">
+                    <p>Users: {users.reduce(reducer)}</p>
+                </div>  
+                <div className="convo-body">
+                    <ScrollToBottom className="message-container">
+                        {messagesSent.map((messages) => {
+                            return (
+                                <div className="message"id={
+                                    username === messages.sender ? "loggedIn" : "other"
+                                    }>
+                                    <div>
+                                        <div className="message-content">
+                                            <p>{messages.message}</p>
+                                        </div>
+                                        <div className="message-meta">
+                                            <p>{messages.time}</p>
+                                            <p id="sender">{messages.sender}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        );
-                    })}
-                </ScrollToBottom>
-            </div>
-            <div className="convo-footer">
-                <input
-                    type="text"
-                    value={currentMessage}
-                    placeholder="Type Message..."
-                    onChange={(event) => {
-                        setCurrentMessage(event.target.value);
-                    }}
-                    onKeyPress={(event) => {
-                        event.key === "Enter" && sendMessage()
-                    }}
-                />
-                <button onClick={sendMessage}>{"Send"}</button>
+                            );
+                        })}
+                    </ScrollToBottom>
+                </div>
+                <div className="convo-footer">
+                    <input
+                        type="text"
+                        value={currentMessage}
+                        placeholder="Type Message..."
+                        onChange={(event) => {
+                            setCurrentMessage(event.target.value);
+                        }}
+                        onKeyPress={(event) => {
+                            event.key === "Enter" && sendMessage()
+                        }}
+                    />
+                    <button onClick={sendMessage}>{"Send"}</button>
+                </div>
             </div>
         </div>
     );
