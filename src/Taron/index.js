@@ -2,25 +2,23 @@ const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const bodyParser = require('body-parser');
-
-// Express is the wrapper for all http stuff
-const app = express();
-const serverPort = process.env.PORT || 3000;   // If 3000 in use, process will find an available port
-
-// Don't put this under git control!!!
-dotenv.config();
-
-// Middlewares
-// TODO: add function for authorization on the pages!!!!
-app.use(cors());              // Allow all cors requests
-app.use(bodyParser.json());   // Trust json in request bodies
 
 // Import routes
 const animeRoute = require('./routes/anime');
 const chatsRoute = require('./routes/chats');
 const gamesRoute = require('./routes/games');
 const showsRoute = require('./routes/shows');
+
+// Express is the wrapper for all http stuffz
+const app = express();
+const serverPort = 3000;   // Use 300 if no port set in env vars (process.env.PORT, 2020)
+
+// Get the database connection string from unpublished .env
+dotenv.config();
+
+// Middlewares
+app.use(cors());           // Allow all cors requests
+app.use(express.json());   // Use the built-in body parser to parse json
 
 // Route middlewares
 app.use('/anime', animeRoute);
@@ -33,7 +31,7 @@ app.get('/', (req, res) => {
     res.send('GET request to home page');
 });
 
-// Connect to DB, NoSQL since I don't know SQL enough
+// Connect to DB, NoSQL since I don't know enough SQL
 mongoose.connect(process.env.MONGO_URL)
         .then(() => console.log('Database connected'))
         .catch(err => console.log(err));
