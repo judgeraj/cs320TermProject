@@ -1,4 +1,4 @@
-// THIS FILE CONTAINS MY CODE - 48 lines
+// THIS FILE CONTAINS MY CODE - 47 lines
 import './App.css';
 import React from "react";
 import io from 'socket.io-client';
@@ -55,9 +55,20 @@ function App() {
         />
       ) : (
         <div className="convosContainer">
-          <p>Choose a convo:</p>
-          <button onClick={joinConvo}>convo1</button>
-          <button onClick={joinConvo}>convo2</button>
+          <h1>Choose a Convo</h1>
+          <button onClick={joinConvo}>Convo 1</button>
+          <button onClick={joinConvo}>Convo 2</button>
+          <input
+            type="text"
+            placeholder="New Convo..."
+            onChange={(event) => {
+              setConvo(event.target.value);
+            }}
+            onKeyPress={(event) => {
+              event.key === "Enter" && joinConvo()
+            }}
+          />
+          <button onClick={joinConvo}>Join</button> 
         </div>
       )}
     </div>

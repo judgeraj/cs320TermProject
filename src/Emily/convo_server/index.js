@@ -1,4 +1,4 @@
-// THIS FILE CONTAINS MY CODE - 22 lines
+// THIS FILE CONTAINS MY CODE - 23 lines
 const express = require("express");
 const app = express();
 const http = require("http");
@@ -12,18 +12,29 @@ const io = new Server(server, {
         methods: ["GET", "POST", "PUT", "DELETE"],
     },
 });
+const users = { // store current users in each convo
+    convo1: [],
+    convo2: []
+};
+const messages = { // store all messages sent in each convo
+    convo1: [],
+    convo2: [],
+};
 
 io.on("connection", (socket) => { // listen for an event to happen. on a specific socket (specific user)
     console.log(`User with ID: ${socket.id} connected!`);
     
-    socket.on("joinConvo", (data) => {
-        socket.join(data.convo); // join that convo
-        socket.to(data.convo).emit("joined", data); // let convo know that user has joined
-        console.log(`User: ${data.username} (${socket.id}) joined convo: ${data.convo}`);
+    socket.on("joinConvo", (user) => {
+        socket.join(user.convo); // join that convo
+        users[user.convo].push(user.username); // add user to the list of users in that convo
+        io.to(user.convo).emit("joined", users, messages[user.convo]); // let convo know that user has joined
+        //socket.to(data.convo).emit("getMessages", messages[data.convo]); // get existing messages in convo
+        console.log(`User: ${user.username} (${socket.id}) joined convo: ${user.convo}`);
     });  
 
-    socket.on("sendMessage", (data) => {
-        socket.to(data.convo).emit("receiveMessage", data); // send to a particular convo
+    socket.on("sendMessage", (message) => { 
+        messages[message.convo].push(message); // add to list of all messages
+        socket.to(message.convo).emit("receiveMessage", message); // send to a particular convo
     });    
 
     socket.on("disconnect", () => {
