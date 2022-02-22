@@ -1,12 +1,15 @@
 const express = require('express');
+const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-require('dotenv/config');
 
 // Express is the wrapper for all http stuff
 const app = express();
 const serverPort = process.env.PORT || 3000;   // If 3000 in use, process will find an available port
+
+// Don't put this under git control!!!
+dotenv.config();
 
 // Middlewares
 // TODO: add function for authorization on the pages!!!!
