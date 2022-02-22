@@ -14,9 +14,6 @@ class App extends Component {
       techArticles:[],
       teslaArticles: []
     }
-    // this.state = {
-    //   techArticles: []
-    // }
   }
 
   componentDidMount() {
@@ -68,12 +65,12 @@ class App extends Component {
                   {article.title}
                 </h2>
               </a>
-              <p>{article.description}</p>
+              <p className='articleText'>{article.description}</p>
               <a href={article.url} className='links'>{article.url}</a>
             </div>
           );
           })}
-        {this.state.businessArticles.map((article, iterator)=> {
+        {/* {this.state.businessArticles.map((article, iterator)=> {
           return (
             <div id='singleArticle'> 
               <a href={article.url}>
@@ -104,7 +101,7 @@ class App extends Component {
               <a href={article.url} className='links'>{article.url}</a>
             </div>
           );
-        })}
+        })} */}
       </div>
     );
   }
