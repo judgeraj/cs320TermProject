@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
     res.send('GET request to home page');
 });
 
-// Connect to DB, NoSQL since I don't know enough SQL
+// Connect to DB, NoSQL since I no SQL
 mongoose.connect(process.env.MONGO_URL)
         .then(() => console.log('Database connected'))
         .catch(err => console.log(err));
