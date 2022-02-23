@@ -90,6 +90,19 @@ body {
 .convosContainer button:hover {
   background: #770952;
 }
+.convosContainer .back-login button {
+  width: 10px;
+  height: 30px;
+  margin: 7px;
+  border: none;
+  font-size: 16px;
+  background: #000000;
+  color: #ffffff;
+  cursor: pointer;
+}
+.convosContainer .back-login button:hover {
+  background: #770952;
+}
 
 .convo-popup {
   width: 400px;
@@ -98,7 +111,7 @@ body {
 .convo-popup p {
   margin: 0;
 }
-.convo-popup .convo-header .back button {
+.convo-popup .convo-header .back-convos button {
   width: 10px;
   height: 30px;
   margin: 7px;

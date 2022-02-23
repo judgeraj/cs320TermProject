@@ -26,9 +26,10 @@ io.on("connection", (socket) => { // listen for an event to happen. on a specifi
     
     socket.on("joinConvo", (user) => {
         socket.join(user.convo); // join that convo
-        users[user.convo].push(user.username); // add user to the list of users in that convo
+        if (!users[user.convo].includes(user.username)){ // prevent a user being listed twice
+            users[user.convo].push(user.username); // add user to the list of users in that convo
+        }
         io.to(user.convo).emit("joined", users, messages[user.convo]); // let convo know that user has joined
-        //socket.to(data.convo).emit("getMessages", messages[data.convo]); // get existing messages in convo
         console.log(`User: ${user.username} (${socket.id}) joined convo: ${user.convo}`);
     });  
 
