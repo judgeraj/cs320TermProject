@@ -54,13 +54,23 @@
     padding: 10px;
     font-size: x-large;
 }
-.userSettings{
+.sidebarBottomBar{
+    background-color: black;
     display: flex;
     padding: 20px;
     align-items: center;
-    justify-items: left;
+    justify-content: space-between;
     color: white;
     border-bottom-right-radius: 15px;
+}
+.sidebarBottomBar > Button{
+    color: white;
+    background-color: #3A3B3C;
+
+}
+.sidebarBottomBar > Button:hover{
+    background-color: black;
+    color: white;
 }
 .addTopics {
     cursor: pointer;
@@ -113,5 +123,5 @@
     margin-top: 30px;
     border: 2px solid white;
 }
-/* 87 lines 
+/* 98 lines 
     not including closing brackets, new lines, and comments*/

@@ -6,7 +6,7 @@ import AddIcon from '@material-ui/icons/Add'; /** avatar icon import from materi
 
 function AnimeSidebar() {
   return (
-    <div className='animeHeader'> {/** creates the header of the anime sidebar */}
+    <section className='animeHeader'> {/** creates the header of the anime sidebar */}
         <div className="animeTitle">
             <h3>Anime Review / Rating</h3>
             <AddIcon className='addTopics'/>
@@ -20,7 +20,7 @@ function AnimeSidebar() {
                 <AnimePost />
               </div>
         </div>
-    </div>
+    </section>
   )
 }
 export default AnimeSidebar;

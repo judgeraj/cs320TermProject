@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './DiscussionBoard.css';
 import DiscussionHeader from './DiscussionHeader';
 import UserMessage from './Message';
@@ -12,7 +12,7 @@ import EmojiIcon from '@material-ui/icons/EmojiEmotions';
 
 function Discussion() {
   return (
-    <div className='messageHeaderBar'> {/** imports the discussion header for the discussion board */}
+    <section className='messageHeaderBar'> {/** imports the discussion header for the discussion board */}
         <DiscussionHeader />
 
         <div className="messageConvo"> {/** imports the messages for users */}
@@ -27,15 +27,14 @@ function Discussion() {
                 <MicIcon />
             </div>
 
-            <form>
+            <form method="POST" action="addMessage">
                 <input placeholder={'add message'}/> {/** creates the type bar */}
                 <button className='sendButton' 
                 type="submit">Send</button>
             </form>
-
             <EmojiIcon />
         </div>
-    </div>
+    </section>
   );
 }
 export default Discussion;

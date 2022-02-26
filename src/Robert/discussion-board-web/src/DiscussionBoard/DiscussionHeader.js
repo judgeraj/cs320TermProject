@@ -11,10 +11,9 @@ import HelpIcon from '@material-ui/icons/HelpRounded';
 
 function DiscussionHeader() {
   return (
-    <div className='messageHeader'>
+    <head className='messageHeader'>
         <div className="messageHeader1"> {/** creates the header of the discussion board */}
-            <h3>
-                <span className='forumHeader'><ForumIcon/></span>
+            <h3><span className='forumHeader'><ForumIcon/></span>
                 Test Channel Name
             </h3>
         </div>
@@ -29,7 +28,7 @@ function DiscussionHeader() {
             <SendIcon />
             <HelpIcon />
         </div>
-    </div>
+    </head>
   );
 }
 export default DiscussionHeader

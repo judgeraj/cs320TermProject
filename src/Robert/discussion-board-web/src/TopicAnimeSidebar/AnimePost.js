@@ -9,7 +9,8 @@ function AnimePost() {
             <img className='animePhoto' 
             src='https://cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SQSBAJOSTJD4BKWKHQUC45VYT4.jpg'
             height={100} 
-            width={100}/>
+            width={100}
+            alt=""/>
             Demon Slayer
         </h4>
     </div>
