@@ -1,6 +1,5 @@
-// THIS FILE CONTAINS MY CODE - 133 lines
+// Convo.js
 import React from "react";
-import App from "./App";
 import ConvoList from "./ConvoList";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { useState } from "react";
@@ -15,12 +14,11 @@ function Convo({socket, username, convo}){
     const [users, setUsers] = useState([username]); // store users in the convo
     const [showEmojis, setShowEmojis] = useState(false); // state to show emoji picker
     const [showDelete, setShowDelete] = useState(false); // state for delete message popup
-    const [showLeave, setShowLeave] = useState(false); // state to show when the user wants to leave convo
     const reducer = (previousValue, currentValue) => previousValue + ", " + currentValue; // display all users
-    let replyMessage = useState("");
-    let replyTo = useState("");
-    const [response, setResponse] = useState("");
-    const [responseTo, setResponseTo] = useState(""); 
+    // let replyMessage = useState("");
+    // let replyTo = useState("");
+    const [replyMessage, setReplyMessage] = useState("");
+    const [replyTo, setReplyTo] = useState(""); 
 
     const sendMessage = async () => {
         const timeNow = new Date(); // get message time
@@ -52,13 +50,13 @@ function Convo({socket, username, convo}){
                 ...list, messageInfo // add it to the list of messages
             ]);
             setCurrentMessage(""); // when done sending message, input box is set to nothing
-            replyMessage = "";
-            replyTo = "";
+            setReplyMessage("");
+            setReplyTo("");
         }
     };
 
     const reply = () => { // adds replying text to the type message box
-        setCurrentMessage(` 💬 Replying to @${replyTo}: [` + replyMessage + "]");
+        setCurrentMessage(` 💬 Replying to @${replyTo}: `);
     }
 
     const addEmoji = (event) => { 
@@ -76,11 +74,10 @@ function Convo({socket, username, convo}){
             ]);
         });
         socket.on("joined", (users, messages) => { // once a user joins,
-            setUsers(users[convo]); // update list of users in the convo
+            setUsers(users); // update list of users in the convo
             setMessagesSent(messages); // update messages sent in the convo
-
         });
-    }, [socket]);
+    }, [socket, convo]);
 
     return (
         <div className="App">
@@ -95,9 +92,6 @@ function Convo({socket, username, convo}){
                             </button>
                         </div>                
                         <p>{convo}</p>
-                        <div className="spacer">
-                            <button>space</button>
-                        </div>
                         <div className="convo-size">
                             <p># of users: {users.length}</p>
                         </div>     
@@ -117,12 +111,13 @@ function Convo({socket, username, convo}){
                                                 <p> </p>
                                             </div>
                                             <div className="message-content">
-                                                <p onClick={() =>
-                                                    replyMessage = messages.message,
-                                                    replyTo = messages.sender,
-                                                    reply
-                                                    }>
-                                                    {messages.message}
+                                                <p onClick={() => {
+                                                    return (
+                                                    setReplyMessage(messages.message),
+                                                    setReplyTo(messages.sender),
+                                                    reply );
+                                                    }}
+                                                    >{messages.message}
                                                 </p>
                                             </div>
                                             <div className="message-meta">
@@ -165,11 +160,6 @@ function Convo({socket, username, convo}){
                         </button>  
                         <button onClick={sendMessage}>{"Send"}</button>
                     </div>
-                    {showLeave && (
-                        <div>
-                            <p>Are you sure you want to leave?</p>
-                        </div>
-                    )}
                     {showEmojis && (  
                         <div>  
                         <Picker onSelect={addEmoji} />  

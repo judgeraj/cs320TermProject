@@ -1,25 +1,23 @@
-// THIS FILE CONTAINS MY CODE - 47 lines
+// App.js
 import "./App.css";
 import React from "react";
 import io from 'socket.io-client';
-import Convo from "./Convo";
 import ConvoList from "./ConvoList";
 import { useState } from "react";
+import { useEffect } from "react";
 
 const socket = io.connect("http://localhost:3001");
 
 function App() {
   const [username, setUsername] = useState("");
-  const [convo, setConvo] = useState(""); // convo the user is currently in
   const [currentScreen, setCurrentScreen] = useState("login"); // represent what screen to show
 
-  const chooseConvo = () => {
+  const loginUser = () => {
     if ((username.length > 0) && (username.length < 16)) { // names must be between 1 to 15 characters
-      setConvo("convo1");
-      setCurrentScreen("chooseConvo");      
+      setCurrentScreen("chooseConvo");
     }
   }
- 
+
   return (
     <div className="App">
       {currentScreen === "login" ? (
@@ -32,16 +30,15 @@ function App() {
               setUsername(event.target.value);
             }}
             onKeyPress={(event) => {
-              event.key === "Enter" && chooseConvo()
+              event.key === "Enter" && loginUser()
             }}
           />
-          <button onClick={chooseConvo}>Enter</button> 
+          <button onClick={loginUser}>Enter</button>
         </div>
       ) : (
         <ConvoList
           socket={socket}
           username={username}
-          convo={convo}
         />
       )}
     </div>

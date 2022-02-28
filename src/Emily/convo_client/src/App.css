@@ -1,4 +1,4 @@
-/* THIS FILE CONTAINS MY CODE - 215 lines */
+/* App.css */
 .App {
   width: 100vw;
   height: 100vh;
@@ -68,17 +68,18 @@ body {
 }
 .convosContainer input {
   width: 200px;
-  height: 50px;
-  margin: 7px;
+  height: 20px;
+  margin: 5px;
   border: 1px solid #000000;
   border-radius: 3px;
   padding: 5px;
   font-size: 16px;
+  margin-top: 2rem;
 }
 .convosContainer button {
   width: 210px;
   height: 50px;
-  margin: 7px;
+  margin: 5px;
   border: none;
   border-radius: 3px;
   padding: 5px;
@@ -91,10 +92,12 @@ body {
   background: #770952;
 }
 .convosContainer .back-login button {
-  width: 10px;
+  width: 210px;
   height: 30px;
-  margin: 7px;
+  margin: 5px;
   border: none;
+  border-radius: 3px;
+  padding: 5px;
   font-size: 16px;
   background: #000000;
   color: #ffffff;
@@ -127,6 +130,8 @@ body {
   background: #000000;
   position: relative;
   display: flex;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 .convo-popup .convo-header p {
   display: block;
@@ -135,22 +140,17 @@ body {
   font-weight: 700;
   line-height: 45px;
 }
-.convo-popup .convo-header .spacer button {
-  width: 100px;
-  height: 30px;
-  border: none;
-  position: relative;
-  font-size: 16px;
-  background: #000000;
-}
 .convo-popup .convo-header .convo-size p {
   display: flex;
-  position: relative;
+  position: absolute;
+  top: 0px;
+  right: 0px;
   background: #000000;
   color: #cfcfcf;
   font-weight: 500;
   font-size: 12px;
   justify-content: flex-end;
+  border-top-right-radius: 10px;
 }
 .convo-popup .convo-header2 p {
   display: block;
@@ -253,6 +253,8 @@ body {
   border: 1px solid #000000;
   border-top: none;
   display: flex;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 .convo-popup .convo-footer input {
   height: 100%;
@@ -264,6 +266,7 @@ body {
   border-right: 1px #000000;
   outline: none;
   font-family: "Open Sans", sans-serif;
+  border-bottom-left-radius: 10px;
 }
 .convo-popup .convo-footer button {
   border: 0;
