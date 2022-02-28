@@ -3,10 +3,12 @@ const Show = require('../models/Show');
 const router = express.Router();
 
 
-// Get all the shows, maybe for a listing of all shows?
+// Get all the shows
 router.get('/', async (req, res) => {
     // debug the GET request
     console.log('GET request to Vivian\'s shows page');
+    console.log(req.params);
+    console.log(req.body);
 
     // await getting the shows from the database
     try {
@@ -15,15 +17,17 @@ router.get('/', async (req, res) => {
     } catch (err) {
         res.status(400).json({ message: err });
     }
+
+    console.log(`Status: ${res.statusCode} ${res.statusMessage}`);
 });
 
 
-// Get a specific show, not sure the use case?
-// Maybe opening a modal window to modify the show's information?
+// Get a specific show,
 router.get('/:showId', async (req, res) => {
     // debug the params
     console.log('GET request to Vivian\'s shows page');
-    console.log(`req.params.showId = ${req.params.showId}`);
+    console.log(req.params);
+    console.log(req.body);
 
     try {
         const show = await Show.findById(req.params.showId);
@@ -31,6 +35,8 @@ router.get('/:showId', async (req, res) => {
     } catch (err) {
         res.status(404).json({ message: err });
     }
+
+    console.log(`Status: ${res.statusCode} ${res.statusMessage}`);
 });
 
 
@@ -38,7 +44,8 @@ router.get('/:showId', async (req, res) => {
 router.post('/', async (req, res) => {
     // debug the POST contents
     console.log('POST request to Vivian\'s shows page');
-    console.log(`req.body = ${req.body}`);
+    console.log(req.params);
+    console.log(req.body);
 
     // create a new Show Model from the ShowSchema
     const show = new Show({
@@ -54,6 +61,8 @@ router.post('/', async (req, res) => {
     } catch (err) {
         res.status(406).json({ message: err });
     }
+
+    console.log(`Status: ${res.statusCode} ${res.statusMessage}`);
 });
 
 
@@ -61,7 +70,8 @@ router.post('/', async (req, res) => {
 router.put('/:showId', async (req, res) => {
     // debug the params
     console.log('PUT request to Vivian\'s shows page');
-    console.log(`req.params.showId = ${req.params.showId}`);
+    console.log(req.params);
+    console.log(req.body);
 
     try {
         const updatedShow = await Show.updateOne(
@@ -76,6 +86,8 @@ router.put('/:showId', async (req, res) => {
     } catch (err) {
         res.status(406).json({ message: err });
     }
+
+    console.log(`Status: ${res.statusCode} ${res.statusMessage}`);
 });
 
 
@@ -83,7 +95,8 @@ router.put('/:showId', async (req, res) => {
 router.patch('/:showId', async (req, res) => {
     // debug the params
     console.log('PATCH request to Vivian\'s shows page');
-    console.log(`req.params.showId = ${req.params.showId}`);
+    console.log(req.params);
+    console.log(req.body);
 
     try {
         const updatedShowRating = await Show.updateOne(
@@ -94,6 +107,8 @@ router.patch('/:showId', async (req, res) => {
     } catch (err) {
         res.status(406).json({ message: err });
     }
+
+    console.log(`Status: ${res.statusCode} ${res.statusMessage}`);
 });
 
 
@@ -101,7 +116,8 @@ router.patch('/:showId', async (req, res) => {
 router.delete('/:showId', async (req, res) => {
     // debug the params
     console.log('DELETE request to Vivian\'s shows page');
-    console.log(`req.params.showId = ${req.params.showId}`);
+    console.log(req.params);
+    console.log(req.body);
 
     try {
         const removedShow = await Show.deleteOne({ _id: req.params.showId });
@@ -109,6 +125,8 @@ router.delete('/:showId', async (req, res) => {
     } catch (err) {
         res.status(406).json({ message: err });
     }
+
+    console.log(`Status: ${res.statusCode} ${res.statusMessage}`);
 });
 
 

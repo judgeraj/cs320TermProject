@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 
-const ShowSchema = mongoose.Schema({
+const AnimeDiscussionSchema = mongoose.Schema({
     title: {
         type: String,
         maxLength: 60,
@@ -15,14 +15,8 @@ const ShowSchema = mongoose.Schema({
     dateAdded: {
         type: Date,
         default: Date.now
-    },
-    rating: {
-        type: Number,
-        min: 0,
-        max: 5,
-        required: true
     }
 });
 
 
-module.exports = mongoose.model('Shows', ShowSchema);
+module.exports = mongoose.model('AnimeDiscussions', AnimeDiscussionSchema);

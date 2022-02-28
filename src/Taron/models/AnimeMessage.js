@@ -1,28 +1,24 @@
 const mongoose = require('mongoose');
 
 
-const ShowSchema = mongoose.Schema({
-    title: {
+const AnimeMessageSchema = mongoose.Schema({
+    userId: {
         type: String,
-        maxLength: 60,
         required: true
     },
-    description: {
+    animeDiscussionId: {
         type: String,
-        maxLength: 1000,
         required: true
     },
     dateAdded: {
         type: Date,
         default: Date.now
     },
-    rating: {
-        type: Number,
-        min: 0,
-        max: 5,
+    message: {
+        type: String,
         required: true
     }
 });
 
 
-module.exports = mongoose.model('Shows', ShowSchema);
+module.exports = mongoose.model('AnimeMessages', AnimeMessageSchema);
