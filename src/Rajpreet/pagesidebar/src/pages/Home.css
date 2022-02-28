@@ -1,0 +1,32 @@
+.postPicture {
+    width: 20%;
+    height: 20%;
+    align-content: center;
+    display: flex;
+}
+
+.descips {
+    text-align: center;
+    
+}
+
+.post {
+    width: 50%;
+    height: 50%;
+}
+
+.profile {
+    width: 30%;
+    display: flex;
+}
+
+.profilePic {
+    width: 10%;
+    height: 10%;
+    margin: auto;
+}
+
+.userPostHeader {
+    margin: auto;
+    font-size: 18px;
+}
