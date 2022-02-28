@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
 });
 
 
-// Get a specific show
+// Get a specific show,
 router.get('/:showId', async (req, res) => {
     // debug the params
     console.log('GET request to Vivian\'s shows page');
