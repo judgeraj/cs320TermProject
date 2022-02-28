@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 // Import routes
+const mainRoute = require('./routes/main');
 const animeRoute = require('./routes/anime');
 const chatsRoute = require('./routes/chats');
 const gamesRoute = require('./routes/games');
@@ -13,7 +14,7 @@ const showsRoute = require('./routes/shows');
 const app = express();
 const serverPort = 3000;   // Use 300 if no port set in env vars (process.env.PORT, 2020)
 
-// Get the database connection string from unpublished .env
+// Get the database connection string from ./.env
 dotenv.config();
 
 // Middlewares
@@ -21,17 +22,13 @@ app.use(cors());           // Allow all cors requests
 app.use(express.json());   // Use the built-in body parser to parse json
 
 // Route middlewares
+app.use('/', mainRoute);
 app.use('/anime', animeRoute);
 app.use('/chats', chatsRoute);
 app.use('/games', gamesRoute);
 app.use('/shows', showsRoute);
 
-// Main route, not really a home page
-app.get('/', (req, res) => {
-    res.send('GET request to home page');
-});
-
-// Connect to DB, NoSQL since I no SQL
+// Connect to DB, NoSQL MongoDB since I no SQL
 mongoose.connect(process.env.MONGO_URL)
         .then(() => console.log('Database connected'))
         .catch(err => console.log(err));

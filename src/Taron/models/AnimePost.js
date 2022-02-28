@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const AnimePostSchema = mongoose.Schema({
     userId: {
         type: String,
@@ -14,7 +15,7 @@ const AnimePostSchema = mongoose.Schema({
         default: Date.now
     },
     imageId: {
-        type: String,   // need to set up a way to use base64 encoding
+        type: String,   // use base64 encoding
         required: false
     },
     url: {
@@ -22,5 +23,6 @@ const AnimePostSchema = mongoose.Schema({
         required: false
     }
 });
+
 
 module.exports = mongoose.model('AnimePosts', AnimePostSchema);

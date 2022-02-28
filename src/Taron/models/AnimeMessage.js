@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const AnimeMessageSchema = mongoose.Schema({
     userId: {
         type: String,
@@ -18,5 +19,6 @@ const AnimeMessageSchema = mongoose.Schema({
         required: true
     }
 });
+
 
 module.exports = mongoose.model('AnimeMessages', AnimeMessageSchema);
