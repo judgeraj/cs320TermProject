@@ -70,6 +70,39 @@
     font-size: calc(10px + 2vmin);
     color: white;
   }
+
+.usButton {
+  /* display: flex; */
+  border-color: #770952;
+  border-radius: 10px;
+  width: 25%;
+  height: 25%;
+  text-align: center;
+}
+.techButton {
+  /* display: flex; */
+  border-color: #770952;
+  border-radius: 10px;
+  width: 25%;
+  height: 25%;
+  text-align: center;
+}
+.busButton {
+  /* display: flex; */
+  border-color: #770952;
+  border-radius: 10px;
+  width: 25%;
+  height: 25%;
+  text-align: center;
+}
+.tesButton {
+  /* display: flex; */
+  border-color: #770952;
+  border-radius: 10px;
+  width: 25%;
+  height: 25%;
+  text-align: center;
+}
 /*   
   .App-link {
     color: #61dafb;

@@ -12,14 +12,30 @@ var promises = ['https://newsapi.org/v2/top-headlines?country=us&category=busine
 'https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=876fb32423264a94984a112b0dfea143','https://newsapi.org/v2/everything?q=tesla&from=2022-01-22&sortBy=publishedAt&apiKey=876fb32423264a94984a112b0dfea143']
 
 function teslaButton() {
-  // if(tesla) {
-  //   tesla = false;
-  // } else {
-  //   tesla = true;
-  // }
+  if(tesla) {
+    tesla = false;
+  } else {
+    tesla = true;
+  }
 }
 
 function businessButton() {
+  if(this.state.business) {
+    this.state.business = false;
+  } else {
+    this.state.business = true;
+  }
+}
+
+function usButton() {
+  if(this.state.business) {
+    this.state.business = false;
+  } else {
+    this.state.business = true;
+  }
+}
+
+function techButton() {
   if(this.state.business) {
     this.state.business = false;
   } else {
@@ -155,8 +171,10 @@ class Feed extends Component {
     console.log(this.state.business)
       return (
         <div className="Feed">
-          {/* <button onClick={teslaButton} className='tButton'>tesla</button>
-          <button onClick={businessButton} className='tButton'>business</button> */}
+          <button onClick={teslaButton} className='tesButton'>Tesla</button>
+          <button onClick={businessButton} className='busButton'>Business</button>
+          <button onClick={usButton} className='usButton'>US News</button>
+          <button onClick={techButton} className='techButton'>Tech News</button>
           <h1 className='title'>KARO NEWS</h1>
             {allArticles.map((article, iterator) => {
               return (
