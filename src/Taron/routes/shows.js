@@ -1,3 +1,4 @@
+// shows.js
 const express = require('express');
 const Show = require('../models/Show');
 const router = express.Router();
@@ -24,7 +25,7 @@ router.get('/', async (req, res) => {
 
 // Get a specific show,
 router.get('/:showId', async (req, res) => {
-    // debug the params
+    // debug params, body
     console.log('GET request to Vivian\'s shows page');
     console.log(req.params);
     console.log(req.body);
@@ -40,7 +41,7 @@ router.get('/:showId', async (req, res) => {
 });
 
 
-// Post a single show, maybe from Add Show or something?
+// Add a show
 router.post('/', async (req, res) => {
     // debug the POST contents
     console.log('POST request to Vivian\'s shows page');
@@ -48,11 +49,13 @@ router.post('/', async (req, res) => {
     console.log(req.body);
 
     // create a new Show Model from the ShowSchema
-    const show = new Show({
-        title: req.body.title,
-        description: req.body.description,
-        rating: req.body.rating
-    });
+    const show = new Show(
+        {
+            title: req.body.title,
+            description: req.body.description,
+            rating: req.body.rating
+        }
+    );
     
     // try to save the posted data to the database
     try {
@@ -68,7 +71,7 @@ router.post('/', async (req, res) => {
 
 // Update some or all fields of a show, request.body must include all fields updated or not
 router.put('/:showId', async (req, res) => {
-    // debug the params
+    // debug params, body
     console.log('PUT request to Vivian\'s shows page');
     console.log(req.params);
     console.log(req.body);
@@ -91,17 +94,65 @@ router.put('/:showId', async (req, res) => {
 });
 
 
+// Update the title of a show
+router.patch('/title/:showId', async (req, res) => {
+    // debug params, body
+    console.log('PATCH request to Vivian\'s shows page, updating a show\'s title');
+    console.log(req.params);
+    console.log(req.body);
+
+    try {
+        const updatedShowTitle = await Show.updateOne(
+            { _id: req.params.showId },
+            { $set: {
+                title: req.body.title
+            }}
+        );
+        res.status(200).json(updatedShowTitle);
+    } catch (err) {
+        res.status(406).json({ message: err });
+    }
+
+    console.log(`Status: ${res.statusCode} ${res.statusMessage}`);
+});
+
+
 // Update the rating of a show
-router.patch('/:showId', async (req, res) => {
-    // debug the params
-    console.log('PATCH request to Vivian\'s shows page');
+router.patch('/description/:showId', async (req, res) => {
+    // debug params, body
+    console.log('PATCH request to Vivian\'s shows page, updating a show\'s description');
+    console.log(req.params);
+    console.log(req.body);
+
+    try {
+        const updatedShowDescription = await Show.updateOne(
+            { _id: req.params.showId },
+            { $set: {
+                description: req.body.description
+            }}
+        );
+        res.status(200).json(updatedShowDescription);
+    } catch (err) {
+        res.status(406).json({ message: err });
+    }
+
+    console.log(`Status: ${res.statusCode} ${res.statusMessage}`);
+});
+
+
+// Update the rating of a show
+router.patch('/rating/:showId', async (req, res) => {
+    // debug params, body
+    console.log('PATCH request to Vivian\'s shows page, updating a show\'s rating');
     console.log(req.params);
     console.log(req.body);
 
     try {
         const updatedShowRating = await Show.updateOne(
             { _id: req.params.showId },
-            { $set: { rating: req.body.rating } }
+            { $set: {
+                rating: req.body.rating
+            }}
         );
         res.status(200).json(updatedShowRating);
     } catch (err) {
@@ -114,7 +165,7 @@ router.patch('/:showId', async (req, res) => {
 
 // Delete a show by showId
 router.delete('/:showId', async (req, res) => {
-    // debug the params
+    // debug params, body
     console.log('DELETE request to Vivian\'s shows page');
     console.log(req.params);
     console.log(req.body);
