@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import MovieCards from './MovieCards';
 import './App.css';
+import SwipeButtons from "./SwipeButtons";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 
@@ -10,13 +11,17 @@ function App() {
     <div className="App">
     {/* Header */} 
     <Router>
-      <Header /> {/*keeps header across pages*/}
+      
       <Switch>   
         <Route path="/friends">
-          <h1> I am the friends page</h1>
+          <Header backButton="/" /> {/*keeps header across pages*/}
+            <h1> I am the friends page</h1>
         </Route>
         <Route path="/">    {/*default route at bottom*/}    
+          <Header />
           <MovieCards />
+          <SwipeButtons>
+          </SwipeButtons>
         </Route>
       </Switch>
     </Router>
