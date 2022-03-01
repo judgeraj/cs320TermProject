@@ -1,4 +1,4 @@
-/* App.css */
+/* App.css 326-61 = 265 lines */
 .App {
   width: 100vw;
   height: 100vh;
@@ -63,7 +63,6 @@ body {
 .loginContainer h3 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  position: absolute;
 }
 .loginContainer input {
   width: 200px;
@@ -78,7 +77,6 @@ body {
 .loginContainer button {
   width: 210px;
   height: 50px;
-  margin: 7px;
   border: none;
   border-radius: 3px;
   padding: 5px;
@@ -103,7 +101,6 @@ body {
 .convosContainer input {
   width: 200px;
   height: 20px;
-  margin: 5px;
   border: 1px solid #000000;
   border-radius: 3px;
   padding: 5px;
@@ -141,7 +138,7 @@ body {
   background: #770952;
 }
 
-.convo-popup {
+.convo-popup { 
   width: 400px;
   height: 400px;
 }
@@ -276,6 +273,9 @@ body {
   margin-left: 10px;
   font-weight: bold;
   cursor: pointer;
+}
+.message-meta #sender:hover {
+  color: #770952;
 }
 .message-meta #message-likes {
   margin-left: 10px;

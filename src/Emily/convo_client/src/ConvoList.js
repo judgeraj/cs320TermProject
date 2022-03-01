@@ -1,4 +1,4 @@
-// ConvoList.js
+// ConvoList.js - 65 lines
 import "./App.css";
 import React from "react";
 import Convo from "./Convo";
@@ -19,19 +19,19 @@ function ConvoList({socket, username}){
                 username: username,
             };
             socket.emit("joinConvo", user); // tell server to let the user join the convo
-            setCurrentScreen("convo");
+            setCurrentScreen("convo"); // show the convo screen
         } else {
-            setValid(false);
+            setValid(false); // else, convo name is invalid
         }
     }
 
     // !! Bug: requires double clicking to join convo !!
-    const attemptJoin = (convo) => {
+    const attemptJoin = (convo) => { // runs when a convo button is clicked
         setConvo(convo);
         joinConvo();
     }
 
-    useEffect(() => { // !! Bug: updated convos appear only when a new user joins !!
+    useEffect(() => { // !! Bug: updated convos appear only once when another user joins a convo !!
         socket.on("getConvos", (convos) => { // get updated list of convos
             setConvoList(convos);
         });
@@ -51,7 +51,8 @@ function ConvoList({socket, username}){
                         return (
                             <button
                                 onClick={() => {
-                                    attemptJoin(convos);}}
+                                    attemptJoin(convos);
+                                }}
                                 >{convos}
                             </button>
                         );
@@ -66,7 +67,7 @@ function ConvoList({socket, username}){
                             event.key === "Enter" && joinConvo()
                         }}
                     />
-                    <button onClick={joinConvo}>Join</button> 
+                    <button onClick={joinConvo}>Create</button> 
                     <div className="error">
                         {!valid && (
                             <p>Convo must be between 1 and 15 characters.</p>

@@ -1,4 +1,4 @@
-// index.js
+// index.js - 45 lines
 const express = require("express");
 const app = express();
 const http = require("http");
@@ -27,7 +27,7 @@ const messages = { // store all messages sent in each convo
 function startServer() {
     io.on("connection", (socket) => { // listen for an event to happen on a specific socket (specific user)
         console.log(`User with ID: ${socket.id} connected!`);
-        allUsers.push(socket.id);
+        allUsers.push(socket.id); // add to list of current users
         
         socket.on("joinConvo", (user) => {
             socket.join(user.convo); // join convo that the user requests

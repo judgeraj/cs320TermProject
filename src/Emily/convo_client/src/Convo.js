@@ -1,4 +1,4 @@
-// Convo.js
+// Convo.js - 152 lines
 import React from "react";
 import ConvoList from "./ConvoList";
 import ScrollToBottom from "react-scroll-to-bottom";
@@ -16,12 +16,12 @@ function Convo({socket, username, convo}){
     const [showEmojis, setShowEmojis] = useState(false); // state to show emoji picker
     const [showDelete, setShowDelete] = useState(false); // state for delete message popup
     // !! Bug: replies only to the latest message !!
-    let replyMessage = useState("");
-    let replyTo = useState("");
-    let selectMessage = 0;
-    const [selectedMessage, setSelectedMessage] = useState(0); // current selected message id
+    let replyMessage = useState(""); // display message to reply to
+    let replyTo = useState(""); // display user to reply to
     //const [replyMessage, setReplyMessage] = useState(""); // display message to reply to
     //const [replyTo, setReplyTo] = useState(""); // display user to reply to
+    let selectMessage = 0; // current selected message id
+    //const [selectMessage, setSelectedMessage] = useState(0); // current selected message id
     const reducer = (previous, current) => previous + ", " + current; // display all users
 
     const sendMessage = async () => {
@@ -57,18 +57,24 @@ function Convo({socket, username, convo}){
                 ...list, messageInfo // add it to the list of messages sent
             ]);
             setCurrentMessage(""); // when done sending message, input box is set to nothing
-            //setReplyMessage(""); // message and user being replied to are set to nothing
-            //setReplyTo("");
-            replyMessage = "";
+            replyMessage = ""; // message and user being replied to are set to nothing
             replyTo = "";
+            //setReplyMessage("");
+            //setReplyTo("");
         }
     };
 
-    const reply = () => { // add replying text to the input box
+    const reply = (message, sender, id) => { // add replying text to the input box
+        replyMessage = message;
+        replyTo = sender;
+        selectMessage = id;
+        //setReplyMessage(message);
+        //setReplyTo(sender);
+        //setSelectMessage(id);        
         setCurrentMessage(` 💬 Replying to @${replyTo}: `);
     }
 
-    // !! Bug: increments the wrong message likes !!
+    // !! Bug: increments the wrong message likes. Likes count restarts when a user joins !!
     const addLike = () => { // add a like to a specific message
         messagesSent[selectMessage].likes = messagesSent[selectMessage].likes + 1;
         setCurrentMessage(`Likes: ${messagesSent[selectMessage].likes}`);
@@ -80,7 +86,7 @@ function Convo({socket, username, convo}){
         sym.forEach((el) => codesArray.push("0x" + el));  // NOT MY CODE
         let emoji = String.fromCodePoint(...codesArray);  // NOT MY CODE
         setCurrentMessage(currentMessage + emoji);  
-    };  
+    };
 
     useEffect(() => { // listen for changes in the socket from other users
         socket.on("receiveMessage", (message) => { // whenever a new message is received
@@ -130,16 +136,13 @@ function Convo({socket, username, convo}){
                                             </div>
                                             <div className="grid-container">
                                                 <div className="message-content">
-                                                    <p onClick={() => 
+                                                    <p onClick={() => {
                                                         // return (
                                                         // setReplyMessage(messages.message),
                                                         // setReplyTo(messages.sender),
                                                         // reply );
-                                                        replyMessage = messages.message,
-                                                        replyTo = messages.sender,
-                                                        selectMessage = messages.id,
-                                                        reply
-                                                        }
+                                                        reply(messages.message, messages.sender, messages.id);
+                                                        }}
                                                         >{messages.message}
                                                     </p>
                                                 </div>

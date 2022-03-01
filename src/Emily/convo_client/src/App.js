@@ -1,4 +1,4 @@
-// App.js
+// App.js - 42 lines
 import "./App.css";
 import React from "react";
 import io from 'socket.io-client';
@@ -15,9 +15,9 @@ function App() {
 
   const loginUser = () => {
     if ((username.length > 0) && (username.length < 16)) { // names must be between 1 to 15 characters
-      setCurrentScreen("chooseConvo");
+      setCurrentScreen("chooseConvo"); // if so, show the convoList screen
     } else {
-      setValid(false);
+      setValid(false); // if not, the input is not valid
     }
   }
 
@@ -25,10 +25,13 @@ function App() {
     <div className="App">
       {currentScreen === "login" ? (
         <div className="loginContainer"> 
-          <h1>Login</h1>
+          <h3>Login</h3>
+          <p></p>
+          <button>Sign in with Google</button>
+          <p></p>
           <input
             type="text"
-            placeholder="Username..."
+            placeholder="Guest Username..."
             onChange={(event) => {
               setUsername(event.target.value);
             }}
