@@ -8,20 +8,24 @@ import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
 
 function Convo({socket, username, convo}){
-    const [currentScreen, setCurrentScreen] = useState("convo");
-    const [currentMessage, setCurrentMessage] = useState(""); // store message to be sent
-    const [messagesSent, setMessagesSent] = useState([]); // store messages sent
+    const [currentScreen, setCurrentScreen] = useState("convo"); // current screen
+    const [currentMessage, setCurrentMessage] = useState(""); // store typed message to be sent
+    const [messagesSent, setMessagesSent] = useState([]); // store all messages sent
+    const [id, setId] = useState(0); // store an id number for each of that user's message
     const [users, setUsers] = useState([username]); // store users in the convo
     const [showEmojis, setShowEmojis] = useState(false); // state to show emoji picker
     const [showDelete, setShowDelete] = useState(false); // state for delete message popup
-    const reducer = (previousValue, currentValue) => previousValue + ", " + currentValue; // display all users
-    // let replyMessage = useState("");
-    // let replyTo = useState("");
-    const [replyMessage, setReplyMessage] = useState("");
-    const [replyTo, setReplyTo] = useState(""); 
+    // !! Bug: replies only to the latest message !!
+    let replyMessage = useState("");
+    let replyTo = useState("");
+    let selectMessage = 0;
+    const [selectedMessage, setSelectedMessage] = useState(0); // current selected message id
+    //const [replyMessage, setReplyMessage] = useState(""); // display message to reply to
+    //const [replyTo, setReplyTo] = useState(""); // display user to reply to
+    const reducer = (previous, current) => previous + ", " + current; // display all users
 
     const sendMessage = async () => {
-        const timeNow = new Date(); // get message time
+        const timeNow = new Date(); // get current time
         let hour = timeNow.getHours();
         let minutes = timeNow.getMinutes();
 
@@ -38,46 +42,57 @@ function Convo({socket, username, convo}){
             hour = 12;
         }
 
-        if (currentMessage !== "") {
-            const messageInfo = {
+        if (currentMessage !== "") { // if input box is not blank,
+            setId(id+1);
+            const messageInfo = { // get the message info
+                id: id,
                 convo: convo,
                 sender: username,
                 message: currentMessage,
                 time: hour + ":" + minutes,
+                likes: 0,
             };
             await socket.emit("sendMessage", messageInfo);  // send message info
             setMessagesSent((list) => [ 
-                ...list, messageInfo // add it to the list of messages
+                ...list, messageInfo // add it to the list of messages sent
             ]);
             setCurrentMessage(""); // when done sending message, input box is set to nothing
-            setReplyMessage("");
-            setReplyTo("");
+            //setReplyMessage(""); // message and user being replied to are set to nothing
+            //setReplyTo("");
+            replyMessage = "";
+            replyTo = "";
         }
     };
 
-    const reply = () => { // adds replying text to the type message box
+    const reply = () => { // add replying text to the input box
         setCurrentMessage(` 💬 Replying to @${replyTo}: `);
     }
 
-    const addEmoji = (event) => { 
-        let sym = event.unified.split("-");  
-        let codesArray = [];  
-        sym.forEach((el) => codesArray.push("0x" + el));  
-        let emoji = String.fromCodePoint(...codesArray);  
+    // !! Bug: increments the wrong message likes !!
+    const addLike = () => { // add a like to a specific message
+        messagesSent[selectMessage].likes = messagesSent[selectMessage].likes + 1;
+        setCurrentMessage(`Likes: ${messagesSent[selectMessage].likes}`);
+    }
+
+    const addEmoji = (event) => { // add emojis to input box
+        let sym = event.unified.split("-");  // NOT MY CODE
+        let codesArray = [];  // NOT MY CODE
+        sym.forEach((el) => codesArray.push("0x" + el));  // NOT MY CODE
+        let emoji = String.fromCodePoint(...codesArray);  // NOT MY CODE
         setCurrentMessage(currentMessage + emoji);  
     };  
 
-    useEffect(() => { // listen for changes in the socket (from other users)
+    useEffect(() => { // listen for changes in the socket from other users
         socket.on("receiveMessage", (message) => { // whenever a new message is received
             setMessagesSent((list) => [
-                ...list, message // add to the list of messages
+                ...list, message // add to the list of messages sent
             ]);
         });
-        socket.on("joined", (users, messages) => { // once a user joins,
+        socket.on("joined", (users, messages) => { // when a new user joins,
             setUsers(users); // update list of users in the convo
             setMessagesSent(messages); // update messages sent in the convo
         });
-    }, [socket, convo]);
+    }, [socket]);
 
     return (
         <div className="App">
@@ -110,19 +125,36 @@ function Convo({socket, username, convo}){
                                             <div className="message-reply">
                                                 <p> </p>
                                             </div>
-                                            <div className="message-content">
-                                                <p onClick={() => {
-                                                    return (
-                                                    setReplyMessage(messages.message),
-                                                    setReplyTo(messages.sender),
-                                                    reply );
-                                                    }}
-                                                    >{messages.message}
-                                                </p>
+                                            <div className="message-meta">
+                                                {/* <p id="message-id">id: {messages.id}</p> */}
+                                            </div>
+                                            <div className="grid-container">
+                                                <div className="message-content">
+                                                    <p onClick={() => 
+                                                        // return (
+                                                        // setReplyMessage(messages.message),
+                                                        // setReplyTo(messages.sender),
+                                                        // reply );
+                                                        replyMessage = messages.message,
+                                                        replyTo = messages.sender,
+                                                        selectMessage = messages.id,
+                                                        reply
+                                                        }
+                                                        >{messages.message}
+                                                    </p>
+                                                </div>
+                                                <div className="heartIcon">
+                                                    <p onClick={() =>
+                                                        addLike()
+                                                    }
+                                                        >&#9825;
+                                                    </p>
+                                                </div>
                                             </div>
                                             <div className="message-meta">
                                                 <p>{messages.time}</p>
                                                 <p id="sender">{messages.sender}</p>
+                                                <p id="message-likes">&#9825; {messages.likes}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -143,9 +175,10 @@ function Convo({socket, username, convo}){
                             }}
                         /> 
                         <button className="button" onClick={() => setShowEmojis(!showEmojis)}>  
+                            {/* -----------  NOT MY CODE -----------*/}
                             <svg  
                                 xmlns="http://www.w3.org/2000/svg"  
-                                className="icon"  
+                                className="emojiIcon"  
                                 fill="none"  
                                 viewBox="0 0 30 25"  
                                 stroke="currentColor"  
@@ -156,7 +189,8 @@ function Convo({socket, username, convo}){
                                     stroke-width="1.5"  
                                     d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"  
                                 />  
-                            </svg>  
+                            </svg>
+                            {/* ----------------------------------- */}  
                         </button>  
                         <button onClick={sendMessage}>{"Send"}</button>
                     </div>

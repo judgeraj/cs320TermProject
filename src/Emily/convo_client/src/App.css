@@ -14,10 +14,39 @@ body {
 }
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700");
 
-.icon {  
+.emojiIcon {  
   height: 40px;  
   width: 40px;  
 }
+.heartIcon p {
+  display:flex;
+  position: relative;
+  height: auto;
+  width: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 30px;
+  color: gray;
+  cursor: pointer;
+}
+.heartIcon p:hover {
+  color: #770952;
+}
+.error p {
+  left: 0;
+  right: 0;
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: red;
+  align-items: center;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 0.1fr;
+  grid-gap: 2px;
+}
+
 .button {  
   background: transparent;  
   outline: none;  
@@ -28,10 +57,13 @@ body {
   display: flex;
   flex-direction: column;
   text-align: center;
+  margin: 0 auto;
+  align-items: center;
 }
 .loginContainer h3 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
+  position: absolute;
 }
 .loginContainer input {
   width: 200px;
@@ -41,6 +73,7 @@ body {
   border-radius: 3px;
   padding: 5px;
   font-size: 16px;
+  position: relative;
 }
 .loginContainer button {
   width: 210px;
@@ -59,11 +92,12 @@ body {
 }
 
 .convosContainer {
-  display: grid;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .convosContainer h3 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-bottom: 1rem;
 }
 .convosContainer input {
@@ -91,11 +125,11 @@ body {
 .convosContainer button:hover {
   background: #770952;
 }
-.convosContainer .back-login button {
+.convosContainer .back-login {
   width: 210px;
   height: 30px;
-  margin: 5px;
   border: none;
+  margin-right: 5px;
   border-radius: 3px;
   padding: 5px;
   font-size: 16px;
@@ -241,6 +275,10 @@ body {
 .message-meta #sender {
   margin-left: 10px;
   font-weight: bold;
+  cursor: pointer;
+}
+.message-meta #message-likes {
+  margin-left: 10px;
 }
 
 .convo-popup .convo-body .message .message-meta {
