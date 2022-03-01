@@ -18,15 +18,13 @@ function App() {
           <Route path="/">    {/*default route at bottom*/}    
             <Header />
             <StreamButtons/>
-
             <MovieCards />
-            <SwipeButtons>
-            </SwipeButtons>
+            {/* <SwipeButtons>
+            </SwipeButtons> */}
           </Route>
         </Switch>
       </Router>
     </div>
   );
 }
-
 export default App;
