@@ -1,6 +1,6 @@
 .swipeButtons {
     position: fixed;
-    bottom: 10vh;
+    bottom: 5vh;
     width: 60%;
     margin-left: 20%;
     margin-right: 20%;
@@ -33,6 +33,9 @@
 }
 .streamButtons {
     position: relative;
+    padding-left: 15px;
+    padding-right: 15px;
+    flex-wrap: nowrap;
     top: 0px;
     width: 170px;
     margin-left: 5px;
@@ -42,6 +45,8 @@
     justify-content: space-evenly;
 }
 .disney {
+    opacity: 1;
+    transition: opacity .2s ease-in-out;
     padding: 2vw;
     height: 30px;
     object-fit: contain; /*locks in resolution*/
@@ -71,5 +76,6 @@
     background-color: transparent;
     height: 35px;
     width: 35px;
+    cursor: pointer;
     /* box-shadow: 0px 10px 5px 0px rgba(0, 0, 0, 0.3)  */
 }

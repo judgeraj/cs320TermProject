@@ -18,7 +18,7 @@ const StreamButtons= () => {
                     alt ="hulu logo"
                     />  
             </button>
-            <button class="buttonIcons"> 
+            <button  onclick = "changeColor()" class="buttonIcons"> 
                 <img
                     className="disney"
                     src="http://assets.stickpng.com/images/6128ffaee3a15c00041a8e41.png" 

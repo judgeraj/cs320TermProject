@@ -3,7 +3,7 @@
     justify-content: space-between; /* spaces header items out evenly */
     align-items: center;
     border-bottom: 1px solid #f9f9f9; /*thin grey line*/
-
+    background-color: grey;
 }
 
 .header__logo { 

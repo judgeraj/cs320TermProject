@@ -3,11 +3,12 @@
     width: 400px;
     padding: 20px;
     max-width: 85vw;
-    height: 50vh;     
+    height: 55vh;     
     border-radius: 10px;        /*curvy corner*/
+    background-color: white;
     background-size: cover;
     background-position: center; 
-    box-shadow: 0px 10px 20px 0px rgba(15, 2, 2, 0.219);
+    box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.3); 
 }
 .card > h3 { /* title on the card*/
     position: absolute;

@@ -9,30 +9,12 @@ import "./SwipeButtons.css"
 import IconButton from "@material-ui/core/IconButton";
 import styled from 'styled-components'
 import { Button } from 'react-native'
-
-// const db = [
-//     {
-//       title: 'glee',
-//       url: "http://assets.nflxext.com/us/boxshots/hd1080/70143843.jpg"
-//     },
-//     {
-//       title: 'Erlich Bachman',
-//       url: "http://assets.nflxext.com/us/boxshots/hd1080/70143843.jpg"
-//     },
-//     {
-//       title: 'Monica Hall',
-//       url: "http://assets.nflxext.com/us/boxshots/hd1080/70143843.jpg"
-//     },
-//     {
-//       title: 'Jared Dunn',
-//       url: "http://assets.nflxext.com/us/boxshots/hd1080/70143843.jpg"
-//     },
-//     {
-//       title: 'Dinesh Chugtai',
-//       url: "http://assets.nflxext.com/us/boxshots/hd1080/70143843.jpg"
-//     }
-// ]
-
+const APIURL =
+  "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=7ecd0b11bc4cd387a22b43cb37086584";
+const SEARCH_API =
+  "https://api.themoviedb.org/3/search/movie?&api_key=7ecd0b11bc4cd387a22b43cb37086584&query="
+const IMGPATH = "https://image.tmdb.org/t/p/w1280";
+// Deadish code, working on adding functionality to the buttons so they triggere swipes
 // function Movies() {
 //     const [posters, setPosters] = useState([])
 //     useEffect(() => {   // imports the images and titles from firebase
@@ -52,8 +34,8 @@ import { Button } from 'react-native'
 // let charactersState = db
 
 const MovieCards = () => {
-    const [posters, setPosters] = useState([
-        // {
+    // const [posters, setPosters] = useState([
+        // { // original hardcoded
         //     title: "Demon Slayer", 
         //     url: "https://www.whats-on-netflix.com/wp-content/uploads/2021/01/demon-slayer-kimetsu-no-yaiba-season-1-coming-to-netflix-the-movie-poster.jpg",
         // },
@@ -61,41 +43,50 @@ const MovieCards = () => {
         //     title: "Glee", 
         //     url: "http://assets.nflxext.com/us/boxshots/hd1080/70143843.jpg",
         // },
-    ]);
-    useEffect(() => {   // imports the images and titles from firebase
-        const unsubscribe = database
-          .collection("posters")
-          .onSnapshot((snapshot) => /* gives back all docs in snapshot*/
-            setPosters(snapshot.docs.map((doc) => doc.data())) /*get back data */
-          );// gets a snapshot of the database and for every item get the data 
-        return () => {
-          unsubscribe();    // clean up detaches listener
-        };
-    }, []);// no dependencies in [] so runs once when component loads and never again
-    
+    // ]);
+    // useEffect(() => {   // imports the images and titles from firebase
+    //     const unsubscribe = database
+    //       .collection("posters")
+    //       .onSnapshot((snapshot) => /* gives back all docs in snapshot*/
+    //         setPosters(snapshot.docs.map((doc) => doc.data())) /*get back data */
+    //       );// gets a snapshot of the database and for every item get the data 
+    //     return () => {
+    //       unsubscribe();    // clean up detaches listener
+    //     };
+    // }, []);// no dependencies in [] so runs once when component loads and never again
+    const [posters, setPosters] = useState([]);
+    useEffect(() => {
+      fetch(APIURL).then(res => res.json())
+      .then(data => {
+        console.log(data);
+        setPosters(data.results);
+      });
+    }, [])
     const characters = posters
     const [lastDirection, setLastDirection] = useState()
+
     const swiped = (direction, nameToDelete) => {
         console.log('removing: ' + nameToDelete)
         setLastDirection(direction)
-      }
+    }
     
     const outOfFrame = (title) => {
         console.log(title + ' left the screen!')
     }
             
-
     return (  
         <div>
             {/* <h1 className="pageTitle">Catalog</h1> */}
             <div className="movieCards__cardContainer">
                 {posters.map((movie, index) => (
-                    <MovieCard className="swipe" key={movie.title} onSwipe={(dir) => swiped(dir, movie.title)} onCardLeftScreen={() => outOfFrame(movie.title)}>
-                        {/* // className="swipe"
-                        // key={movie.title}    //keys allow read to efficiently re-render a list to make app fast
-                        // preventSwipe={['up', 'down']}> */}
+                    <MovieCard className="swipe" 
+                            key={movie.title} 
+                            preventSwipe={["up", "down"]}
+                            onSwipe={(dir) => swiped(dir, movie.title)} 
+                            onCardLeftScreen={() => outOfFrame(movie.title)}>
                         <div
-                            style={{ backgroundImage: `url(${movie.url})` }}
+                            // style={{ backgroundImage: `url(${movie.url})` }}
+                            style={{ backgroundImage: `url(${"https://image.tmdb.org/t/p/w600_and_h900_bestv2" + movie.backdrop_path})` }}
                             className="card">
                             <h3>{movie.title}</h3>
                         </div>
@@ -105,13 +96,11 @@ const MovieCards = () => {
             <div className="swipeButtons">
                 <IconButton 
                     className="swipeButtons__left">
-                    <CloseIcon fontSize="large" 
-                    />
+                    <CloseIcon fontSize="large"/>
                 </IconButton>
                 <IconButton 
                     className="swipeButtons__right">
-                    <FavoriteIcon fontSize="large" 
-                    />
+                    <FavoriteIcon fontSize="large"/>
                 </IconButton>   
                 {/* <Button onPress={() => swipe('left')} title='Swipe left!' />
                 <Button onPress={() => swipe('right')} title='Swipe right!' /> */}
