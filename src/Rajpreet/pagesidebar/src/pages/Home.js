@@ -1,10 +1,23 @@
 import React, { Fragment } from 'react'
 import { feedData } from './userFeedData'
+import Posts from './Posts'
 import './Home.css'
 
 function Home() {
   return (
-    <>
+    <div className='grid'>
+      <section className='stories'>
+        <Posts />
+      </section>
+      <section className='suggestions'>
+        mini profile
+      </section>
+    </div>
+  );
+}
+
+export default Home
+{/* <>
       <div className='post'>
         <h1 className='userFeedTitle'>User Feed</h1>
             {feedData.map((item, index) => {
@@ -20,8 +33,4 @@ function Home() {
               );
             })}
       </div>
-    </>
-  );
-}
-
-export default Home
+    </> */}
