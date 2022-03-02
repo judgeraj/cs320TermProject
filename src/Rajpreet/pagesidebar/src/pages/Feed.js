@@ -18,30 +18,30 @@ function teslaButton() {
     tesla = true;
   }
 }
+//these didnt work but I left them anyways
+// function businessButton() {
+//   if(this.state.business) {
+//     this.state.business = false;
+//   } else {
+//     this.state.business = true;
+//   }
+// }
 
-function businessButton() {
-  if(this.state.business) {
-    this.state.business = false;
-  } else {
-    this.state.business = true;
-  }
-}
+// function usButton() {
+//   if(this.state.business) {
+//     this.state.business = false;
+//   } else {
+//     this.state.business = true;
+//   }
+// }
 
-function usButton() {
-  if(this.state.business) {
-    this.state.business = false;
-  } else {
-    this.state.business = true;
-  }
-}
-
-function techButton() {
-  if(this.state.business) {
-    this.state.business = false;
-  } else {
-    this.state.business = true;
-  }
-}
+// function techButton() {
+//   if(this.state.business) {
+//     this.state.business = false;
+//   } else {
+//     this.state.business = true;
+//   }
+// }
 
 class Feed extends Component {
   constructor(args) {
@@ -171,10 +171,10 @@ class Feed extends Component {
     console.log(this.state.business)
       return (
         <div className="Feed">
-          <button onClick={teslaButton} className='tesButton'>Tesla</button>
-          <button onClick={businessButton} className='busButton'>Business</button>
-          <button onClick={usButton} className='usButton'>US News</button>
-          <button onClick={techButton} className='techButton'>Tech News</button>
+          <button onClick={teslaButton} className='buttons'>Tesla</button>
+          <button onClick={businessButton} className='buttons'>Business</button>
+          <button onClick={usButton} className='buttons'>US News</button>
+          <button onClick={techButton} className='buttons'>Tech News</button>
           <h1 className='title'>KARO NEWS</h1>
             {allArticles.map((article, iterator) => {
               return (

@@ -1,32 +1,56 @@
+.grid {
+    display: grid;
+    grid-template-columns: 60% 40%;
+}
+
+.stories {
+    column-span: 2;
+    background-color: blue;
+}
+
+.suggestions {
+    background-color: skyblue;
+}
+/*
 .postPicture {
     width: 20%;
     height: 20%;
-    align-content: center;
+    margin: auto;
     display: flex;
 }
 
 .descips {
     text-align: center;
+    margin: auto;
+    border-style: solid;
+    border-color: blueviolet;
     
+}
+.userFeedTitle {
+    margin: auto;
+    text-align: center;
 }
 
 .post {
-    width: 50%;
-    height: 50%;
+    margin: auto;
+    width: 20%;
+    align-items: center;
 }
 
 .profile {
     width: 30%;
     display: flex;
+    margin: auto;
 }
 
 .profilePic {
-    width: 10%;
-    height: 10%;
+    width: 20%;
+    height: 30%;
     margin: auto;
 }
 
 .userPostHeader {
-    margin: auto;
-    font-size: 18px;
+    font-size: 10px;
+    text-align: left;
 }
+*/
