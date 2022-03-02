@@ -9,11 +9,13 @@ import "./SwipeButtons.css"
 import IconButton from "@material-ui/core/IconButton";
 import styled from 'styled-components'
 import { Button } from 'react-native'
+
 const APIURL =
   "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=7ecd0b11bc4cd387a22b43cb37086584";
 const SEARCH_API =
   "https://api.themoviedb.org/3/search/movie?&api_key=7ecd0b11bc4cd387a22b43cb37086584&query="
 const IMGPATH = "https://image.tmdb.org/t/p/w1280";
+
 // Deadish code, working on adding functionality to the buttons so they triggere swipes
 // function Movies() {
 //     const [posters, setPosters] = useState([])
@@ -34,6 +36,9 @@ const IMGPATH = "https://image.tmdb.org/t/p/w1280";
 // let charactersState = db
 
 const MovieCards = () => {
+    // This chunk first used hardcoded values then pulled from firebase
+    // Not currently in use, rn I'm pulling from an API, but 
+    // next step might be to import data from API to firebase so keeping this code for now
     // const [posters, setPosters] = useState([
         // { // original hardcoded
         //     title: "Demon Slayer", 
@@ -54,6 +59,7 @@ const MovieCards = () => {
     //       unsubscribe();    // clean up detaches listener
     //     };
     // }, []);// no dependencies in [] so runs once when component loads and never again
+
     const [posters, setPosters] = useState([]);
     useEffect(() => {
       fetch(APIURL).then(res => res.json())
@@ -62,11 +68,13 @@ const MovieCards = () => {
         setPosters(data.results);
       });
     }, [])
+
     const characters = posters
     const [lastDirection, setLastDirection] = useState()
 
     const swiped = (direction, nameToDelete) => {
         console.log('removing: ' + nameToDelete)
+        console.log('you swiped ' + direction)
         setLastDirection(direction)
     }
     
@@ -84,11 +92,23 @@ const MovieCards = () => {
                             preventSwipe={["up", "down"]}
                             onSwipe={(dir) => swiped(dir, movie.title)} 
                             onCardLeftScreen={() => outOfFrame(movie.title)}>
-                        <div
+                        <div 
                             // style={{ backgroundImage: `url(${movie.url})` }}
-                            style={{ backgroundImage: `url(${"https://image.tmdb.org/t/p/w600_and_h900_bestv2" + movie.backdrop_path})` }}
+                            style={{ backgroundImage: `url(${"https://image.tmdb.org/t/p/w600_and_h900_bestv2" 
+                                                            + movie.backdrop_path})` }}
                             className="card">
-                            <h3>{movie.title}</h3>
+                                {/* <img src={"https://image.tmdb.org/t/p/w600_and_h900_bestv2" + movie.backdrop_path} /> */}
+                            <div className = "movieInfo"> 
+                                <h3>{movie.title}</h3>
+                                {/* <span>{movie.vote_average}</span> */}
+                            </div>
+                            <div className="overview">
+                                <h2>Info:</h2>
+                                <p>{movie.overview}</p>
+                                <h3>Cast:</h3>
+                                <p>{movie.genre}</p>
+                            </div>
+                            
                         </div>
                     </MovieCard>
                 ))}
