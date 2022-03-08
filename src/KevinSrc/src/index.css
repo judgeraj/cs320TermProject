@@ -82,3 +82,18 @@ body {
   box-shadow: 3px 5px 7px rgba(0, 0, 0, 0.5);
   border: 3px solid white;
 }
+
+.rate {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.pizza {
+  cursor: pointer;
+  transition: color 200ms;
+}
