@@ -1,23 +1,23 @@
 import React, { Component } from 'react'
 import './Feed.css';
 
-var tech = "true";
-var business = "true";
-var tesla = "true";
-var apple = "true"; 
-var wall = "true";
+var tech = true;
+var business = true;
+var tesla = true;
+var apple = true; 
+var wall = true;
 
 //refactoring plans just havent been able to get it owrking
 var promises = ['https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=876fb32423264a94984a112b0dfea143',
 'https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=876fb32423264a94984a112b0dfea143','https://newsapi.org/v2/everything?q=tesla&from=2022-01-22&sortBy=publishedAt&apiKey=876fb32423264a94984a112b0dfea143']
 
 function teslaButton() {
-  if(tesla) {
-    tesla = false;
-  } else {
-    tesla = true;
-  }
-}
+//   if(tesla) {
+//     tesla = false;
+//   } else {
+//     tesla = true;
+//   }
+// }
 //these didnt work but I left them anyways
 // function businessButton() {
 //   if(this.state.business) {
