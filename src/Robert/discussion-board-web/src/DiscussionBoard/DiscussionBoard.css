@@ -2,9 +2,9 @@
 .messageHeaderBar{
     display: flex;
     flex-direction: column;
-    flex: 0.70;
+    flex: 1;
     background-color: white;
-    height: 100vh;
+    height: 91vh;
 }
 .messageConvo{
     flex: 1px;
@@ -40,6 +40,30 @@
 .sendButton{
     display: none;
 }
+.menuHeader{
+    display: flex;
+    border-bottom: 1px solid black;
+    justify-content: space-between;
+}
+.menuHeader > .MuiSvgIcon-root{
+    padding: 25px;
+    padding-bottom: 0;
+    color: #3A3B3C;
+}
+.sidebarActive {
+    background-color: black;
+    width: 250px;
+    justify-content: center;
+    position: fixed;
+    left: -100%;
+    transition: 850ms;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+.sidebarActive.open {
+    left: 0;
+    transition: 350ms;
+}
 
 /* Below is the css for the DiscussionaHeader.js */
 .messageHeader{
@@ -48,7 +72,7 @@
     align-items: center;
     color: gray;
     padding: 10px;
-    border-bottom: 1px solid #3A3B3C;
+    width: auto;
 }
 .messageHeader1 > h3{
     display: flex;
@@ -73,15 +97,19 @@
     cursor: pointer;
     padding: 5px;
 }
-.messageSearch {
+.messageSearch, .animeSearch{
     display: flex;
     align-items: center;
     color: white;
     padding: 3px;
     border-radius: 3px;
     background-color: #3A3B3C;
+    justify-content: space-between;
 }
-.messageSearch > input {
+.animeSearch{
+    width: 500px;
+}
+.messageSearch > input, .animeSearch > input {
     background: transparent;
     outline-width: 0;
     color: white;
@@ -93,6 +121,7 @@
     display: flex;
     align-items: center;
     padding: 20px;
+    padding-left: 100px;
     color: black;
 }
 .messageInfo{
@@ -104,5 +133,5 @@
     font-size: x-small;
 }
 
-/* 82 lines 
+/* 106 lines 
     not including closing bracket, new lines, and comments */

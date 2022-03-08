@@ -9,12 +9,12 @@ function loginUser() {
     authenticate.signInWithPopup(provider).catch((error) => alert(error.message));
   };
   return (
-    <div className='loginPage'>
+    <div className='loginPage'> {/** temporary page */}
         <div className='logo'>
           <img src='https://cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SQSBAJOSTJD4BKWKHQUC45VYT4.jpg'alt=""/>
           
         </div>
-        <Button onClick={signIn}> Sign in</Button>
+        <Button onClick={signIn}> Sign in</Button> {/** signs in the user */}
     </div>
     
   )

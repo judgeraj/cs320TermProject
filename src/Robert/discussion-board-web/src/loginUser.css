@@ -3,6 +3,7 @@
     place-items: center;
     height: 100vh;
     width: 100%;
+    background-color: #3A3B3C;
 }
 .loginPage > button {
     width: 300px;
@@ -19,6 +20,8 @@
     flex-direction: column;
 }
 .loginPage > div > img {
-    object-fit: contain;
-    height: 150px;
+    height: 500px;
+    width: 500px;
+    border: solid 5px black;
 }
+/* 21 lines*/

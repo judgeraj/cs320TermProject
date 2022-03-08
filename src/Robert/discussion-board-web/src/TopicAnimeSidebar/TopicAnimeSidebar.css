@@ -2,7 +2,7 @@
 .Sidebar, .animeHeader {
     display: flex;
     flex-direction: column ;
-    height: 100vh;
+    height: 91vh;
     background-color: #3A3B3C;
 }
 .Sidebar {
@@ -11,7 +11,7 @@
     border-bottom-right-radius: 15px;
 }
 .animeHeader{
-    flex: 0.15;
+    flex: 1;
     border-top-left-radius: 15px ;
     border-bottom-left-radius: 15px ;
 }
@@ -33,14 +33,51 @@
 .sidebarTitleBar > h3, .animeTitle > h3{
     font-size: x-large;
 }
-.sidebarTopicsBar, .animeListBar {
+.sidebarTopicsBar {
     flex: 1;
+}
+.animeListBar{
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+}
+.animeList{
+    flex: 0.50;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #3A3B3C;
+}
+.animeList > h3 {
+   color: whitesmoke;
+   background-color: #40464b;
+   padding: 20px;
+   border-radius: 10px;
+}
+.animePost{
+    flex: .50;
+}
+.animeListBody{
+    display: flex;
+    margin: 50px;
+    color: white;
+    justify-content: space-between;
+}
+.searchedResult{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+.searchedResult > h4{
+    padding: 20px;
+    font-size: large;
+    text-align: center;
 }
 .userProfileBar{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: Black;
+    background-color: #40464b;
     padding: 10px;
     border-bottom: 3px solid white;
 }
@@ -66,7 +103,6 @@
 .sidebarBottomBar > Button{
     color: white;
     background-color: #3A3B3C;
-
 }
 .sidebarBottomBar > Button:hover{
     background-color: black;
@@ -92,7 +128,6 @@
 }
 .topicsTitleBar{
     display: flex;
-    align-items: center;
 }
 
 /* below is the css for TopicList.js */
@@ -123,5 +158,5 @@
     margin-top: 30px;
     border: 2px solid white;
 }
-/* 98 lines 
+/* 124 lines 
     not including closing brackets, new lines, and comments*/
