@@ -5,7 +5,7 @@ const Title = () => {
     <div className="title">
       <h1>Karo</h1>
       <h2>Meme Review</h2>
-      <p>Upload and share your collections!</p>
+      <p>Upload and share your memes!</p>
     </div>
   )
 }
