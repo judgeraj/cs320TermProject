@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./SwipeButtons.css";
 
 const StreamButtons= () => {
+    function Darken() {
+        
+    }
     return (
         <div className="streamButtons"> 
             <button class="buttonIcons">

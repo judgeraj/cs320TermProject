@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { Link, useHistory } from "react-router-dom";
 import { withRouter } from "react-router-dom";
+
 function Header({backButton}) {
     const history = useHistory();
     return (
@@ -16,9 +17,9 @@ function Header({backButton}) {
                     <ArrowBackIosIcon className="header__icon" fontSize="large" />
                 </IconButton>
             ) : (
-            <IconButton>
-                <PersonIcon className="header__icon" fontSize="large"/>
-            </IconButton>
+                <IconButton>
+                    <PersonIcon className="header__icon" fontSize="large"/>
+                </IconButton>
             )}
         <Link to="/">
             <img
@@ -36,5 +37,4 @@ function Header({backButton}) {
         </div>
     )
 }
-
 export default Header;
