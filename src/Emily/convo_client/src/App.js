@@ -14,7 +14,7 @@ function App() {
   const [valid, setValid] = useState(true); // true when username input is valid
 
   const loginUser = () => {
-    if ((username.length > 0) && (username.length < 16)) { // names must be between 1 to 15 characters
+    if (userValid(username)) { // if valid username,
       setCurrentScreen("chooseConvo"); // if so, show the convoList screen
     } else {
       setValid(false); // if not, the input is not valid
@@ -54,6 +54,14 @@ function App() {
       )}
     </div>
   );
+}
+
+export function userValid(username) {
+  if ((username.length > 0) && (username.length < 16)) { // names must be between 1 to 15 characters
+    return true; // if so, return true
+  } else {
+    return false; // if not, the input is not valid
+  }
 }
 
 export default App;

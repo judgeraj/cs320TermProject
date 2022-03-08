@@ -28,19 +28,7 @@ function Convo({socket, username, convo}){
         const timeNow = new Date(); // get current time
         let hour = timeNow.getHours();
         let minutes = timeNow.getMinutes();
-
-        if (minutes < 10) { // format time
-            minutes = "0" + minutes;
-        }        
-        if (hour > 12) {
-            hour = hour - 12;
-            minutes = minutes + " PM";
-        } else {
-            minutes = minutes + " AM";
-        }
-        if (hour === 0)  {
-            hour = 12;
-        }
+        let time = formatTime(minutes, hour); // format time
 
         if (currentMessage !== "") { // if input box is not blank,
             setId(id+1);
@@ -49,7 +37,7 @@ function Convo({socket, username, convo}){
                 convo: convo,
                 sender: username,
                 message: currentMessage,
-                time: hour + ":" + minutes,
+                time: time,
                 likes: 0,
             };
             await socket.emit("sendMessage", messageInfo);  // send message info
@@ -114,7 +102,7 @@ function Convo({socket, username, convo}){
                         </div>                
                         <p>{convo}</p>
                         <div className="convo-size">
-                            <p># of users: {users.length}</p>
+                            <p data-test='usersNum'># of users: {users.length}</p>
                         </div>     
                     </div>   
                     <div className="convo-header2">
@@ -216,6 +204,22 @@ function Convo({socket, username, convo}){
             )}
         </div>
     );
+}
+
+function formatTime(minutes, hour){
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }        
+    if (hour > 12) {
+        hour = hour - 12;
+        minutes = minutes + " PM";
+    } else {
+        minutes = minutes + " AM";
+    }
+    if (hour === 0)  {
+        hour = 12;
+    }       
+    return hour + ":" + minutes
 }
 
 export default Convo
