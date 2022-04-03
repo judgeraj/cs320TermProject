@@ -14,7 +14,9 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "mongodb": "^4.4.0",
-    "mongoose": "^6.2.2"
+    "mongoose": "^6.2.2",
+    "node-fetch": "^2.6.7",
+    "unit.js": "^2.1.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
