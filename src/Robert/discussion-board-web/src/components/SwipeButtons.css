@@ -1,0 +1,85 @@
+.swipeButtons {
+    position: fixed;
+    bottom: 5vh;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    display: flex;
+    justify-content: space-evenly;
+}
+.swipeButtons .MuiIconButton-root {
+    background-color: white;
+    box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.3) !important; 
+}
+.swipeButtons__repeat {
+    padding: 2vw !important;
+    color: #f5b748 !important;
+}
+.swipeButtons__left {
+    padding: 2vw !important;
+    color: #ec5e6f !important;
+}
+.swipeButtons__star {
+    padding: 2vw !important;
+    color: #62b4f9 !important;
+}
+.swipeButtons__right {
+    padding: 2vw !important;
+    color: #76e2b3 !important;
+}
+.swipeButtons__lightning {
+    padding: 2vw !important;
+    color: #915dd1 !important;
+}
+.streamButtons {
+    position: relative;
+    padding-left: 15px;
+    padding-right: 15px;
+    flex-wrap: nowrap;
+    top: 0px;
+    width: 170px;
+    margin-left: 5px;
+    /* margin-right: 20px; */
+    /* align-items: right; */
+    display: flex;
+    justify-content: space-evenly;
+}
+.disney {
+    opacity: 1;
+    transition: opacity .2s ease-in-out;
+    padding: 2vw;
+    height: 30px;
+    object-fit: contain; /*locks in resolution*/
+}
+.hulu {
+    padding: 2vw;
+    height: 30px;
+    object-fit: contain; /*locks in resolution*/
+}
+.amazon {
+    padding: 2vw;
+    height: 30px;
+    object-fit: contain; /*locks in resolution*/
+}
+.netflix {
+    padding: 2vw;
+    height: 30px;
+    object-fit: contain; /*locks in resolution*/
+}
+.hbo {
+    padding: 2vw;
+    height: 30px;
+    object-fit: contain; /*locks in resolution*/
+}
+.buttonIcons {
+    border-color: transparent;
+    background-color: transparent;
+    height: 35px;
+    width: 35px;
+    cursor: pointer;
+    /* box-shadow: 0px 10px 5px 0px rgba(0, 0, 0, 0.3)  */
+}
+
+.buttonIcons:hover .hbo .netflix .amazon .hulu .disney {
+    background-color:rgba(0, 0, 0, 0.1);
+}
