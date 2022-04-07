@@ -4,16 +4,16 @@ import { Route, Routes } from "react-router-dom";
 
 import { login, logout } from "../features/userSlice";
 import { selectUser } from "../features/userSlice";
-import { authenticate } from "../firebase";
-import LogginIn from "../loginUser";
+import { authenticate } from "./firebase/firebase";
+import LogginIn from "./firebase/loginUser";
 
-import Header from "./common/Header";
-import HomePage from "./HomePage";
-import AnimeSidebar from "../TopicAnimeSidebar/AnimeSidebar";
-import Discussion from "../DiscussionBoard/Discussion";
-import Movies from "./Movies";
+import Header from "./components/common/Header";
+import HomePage from "./components/HomePage";
+import AnimeSidebar from "./components/anime/AnimeSidebar";
+import Discussion from "./components/discussiondoard/Discussion";
+import Movies from "./components/movies/Movies";
 
-import "./App.css";
+import "./styles/App.css";
 
 function UserLoggin() {
   const hook = useDispatch();
