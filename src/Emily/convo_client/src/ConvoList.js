@@ -13,12 +13,8 @@ function ConvoList({socket, username}){
     const [valid, setValid] = useState(true); // true when convo name input is valid
 
     const joinConvo = () => {
-        if ((convo.length > 0) && (convo.length < 16) && (convo !== " ")) { // convo name must be between 1 and 15 characters long
-            const user = { // store the user's convo and username
-                convo: convo,
-                username: username,
-            };
-            socket.emit("joinConvo", user); // tell server to let the user join the convo
+        if (convoValid(convo, convoList) === convo) { // convo name must be between 1 and 15 characters long
+            socket.emit("joinConvo", addUser(convo, username)); // tell server to let the user join the convo
             setCurrentScreen("convo"); // show the convo screen
         } else {
             setValid(false); // else, convo name is invalid
@@ -49,7 +45,7 @@ function ConvoList({socket, username}){
                     <h3>Choose a Convo</h3>
                     {convoList.map((convos) => {
                         return (
-                            <button
+                            <button key="{convos}"
                                 onClick={() => {
                                     attemptJoin(convos);
                                 }}
@@ -85,6 +81,26 @@ function ConvoList({socket, username}){
             )}
         </div>
     );
+}
+
+// check if convo name entered is valid and doesn't already exist
+export function convoValid(convo, convoList) {
+    if (convoList.includes(convo)){
+        return "";
+    }
+    if ((convo.length > 0) && (convo.length < 16) && (convo !== " ")) { // names must be between 1 to 15 characters
+      return convo; // if so, return the name
+    } else {
+      return ""; // if not, the input is empty
+    }
+}
+
+export function addUser(convo, username) {
+    const user = { // store the user's convo and username
+        convo: convo,
+        username: username,
+    };
+    return user;
 }
 
 export default ConvoList;
