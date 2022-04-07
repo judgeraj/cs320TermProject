@@ -8,20 +8,21 @@ import { authenticate } from './firebase';
 import LogginIn from "./loginUser";
 import './App.css';
 
-function UserLoggin(){
+export function UserLoggin(){
     const hook = useDispatch();
-        useEffect(() => { /** athenticate the logging in or logging out*/
-            authenticate.onAuthStateChanged((newUser) => {
-                if(!newUser) { /** logout if the it is authenticated */
-                    hook(logout())
-                    return;
-                } 
-                hook(login({ /** if logging in data*/
-                    photo: newUser.photoURL,
-                    displayName: newUser.displayName
-                }))
-            }) 
+    useEffect(() => { /** athenticate the logging in or logging out*/
+        authenticate.onAuthStateChanged((newUser) => {
+            if(!newUser) { /** logout if the it is authenticated */
+                hook(logout())
+                return;
+            } 
+            hook(login({ /** if logging in data*/
+                photo: newUser.photoURL,
+                displayName: newUser.displayName
+            }))
+        }) 
     },[hook]) /** dependency */
+    return;
 };
 function App() { /** create the entire webpage */
     const userId = useSelector(selectUser);
@@ -32,12 +33,12 @@ function App() { /** create the entire webpage */
     }
   
     return ( 
-        <div className="app">
-            {userId ? (<>
+        <div data-testid="appTest" className="app">
+            {userId ? (<> 
                 <div className='appTab'> {/** tabs below changing state */}
-                    <button className={tab === true ? "tab active-tab" : "tab"} onClick={() => togTab(true)}> 
+                    <button data-testid="buttonDis" className={tab === true ? "tab active-tab" : "tab"} onClick={() => togTab(true)}> 
                         <h2>Discussion Board</h2></button>
-                    <button className={tab === false ? "tab active-tab" : "tab"} onClick={() => togTab(false)}>
+                    <button data-testid="buttonAn" className={tab === false ? "tab active-tab" : "tab"} onClick={() => togTab(false)}>
                         <h2>Anime Review</h2></button>
                 </div>
 
@@ -50,7 +51,7 @@ function App() { /** create the entire webpage */
 
             </>):
             (<LogginIn/>) /** login page for the user */
-            }
+            } 
         </div>
     );
 }

@@ -22,7 +22,7 @@ function AnimeSidebar() {
 				<div className='animeHeader'> {/** creates the header of the anime sidebar */}
 						<div className="animeTitle">
 								<h3>Anime Review / Rating</h3>
-								<form className='animeSearch' onSubmit={searchForAnime}> {/** anime search section */}
+								<form data-testid="anSearch" className='animeSearch' onSubmit={searchForAnime}> {/** anime search section */}
 										<input placeholder='search for anime' 
 										required value={animeSearch} onChange={e => setAnimeSearch(e.target.value)} />
 										<SearchRounded/>

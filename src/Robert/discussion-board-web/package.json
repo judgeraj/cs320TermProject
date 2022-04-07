@@ -11,20 +11,25 @@
     "@testing-library/user-event": "^7.2.1",
     "chai": "^4.3.6",
     "firebase": "^9.6.7",
+    "justwatch-api": "^1.0.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1",
-    "react-scripts": "^5.0.0"
+    "react-scripts": "^5.0.0",
+    "react-test-renderer": "^17.0.2"
   },
   "scripts": {
     "start": "PORT=3008 react-scripts start",
     "build": "react-scripts build",
-    "test": "mocha",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
@@ -39,7 +44,8 @@
     ]
   },
   "devDependencies": {
-    "mocha": "^9.2.1",
-    "chai": "*"
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.6",
+    "chai": "*",
+    "mocha": "^9.2.1"
   }
 }
