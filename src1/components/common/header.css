@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+.tab {
+  color: black;
+  text-decoration: none;
+  position: relative;
+  cursor: pointer;
+  position: relative;
+  padding: 10px;
+}
+.active-tab {
+  background: white;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+}
