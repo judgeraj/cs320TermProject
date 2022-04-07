@@ -1,9 +1,10 @@
-import database, { authenticate } from '../firebase';
+import database , { authenticate }from '../firebase'; //, { authenticate }
 import { selectUser } from '../features/userSlice';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import TopicList from './TopicList';
 import './TopicAnimeSidebar.css'
+
 
 //the following are importing icons from material-ui
 import { Avatar, Button } from '@material-ui/core';
@@ -14,23 +15,27 @@ import EditIcon from '@material-ui/icons/Edit';
 
 function AvatarUser(){
     const userId = useSelector(selectUser)
-    return(<div className="userProfileBar"> {/** creates the user profile bar at the mid left */}
+    return(<div data-testid="avatar" className="userProfileBar"> {/** creates the user profile bar at the mid left */}
                 <Avatar src={userId.photo}/>
                     <div className="userInfo">
-                        <h3>{userId.displayName.substring(0,userId.displayName.indexOf(' '))}</h3> {/** only grabs the first name of the user */}
+                        <h3>{userId.displayName.substring(0,userId.displayName.indexOf(' '))}</h3> {/** only grabs the first name of the user*/} 
                     </div> 
                 <EditIcon className='editUser' />
             </div>)
 }
-
-function createTopic () { /** create topics then add to the database */
+export function isTopicCreated (topicName){
+    if(topicName){
+        database.collection('topics').add({
+            topicName: topicName,
+        });
+        return true
+    }
+    return false
+}
+export function createTopic () { /** create topics then add to the database */
     const addTopic = () => {
         const topicName = prompt("Enter new topic");
-        if(topicName) {
-            database.collection('topics').add({
-                topicName: topicName,
-            });
-        }
+        isTopicCreated(topicName)
     };
     return addTopic;
 }
@@ -58,7 +63,7 @@ function TopicSidebar() { //sidebar for discussion category
                     <div className='topicsTitleBar'>
                         <h4>Topics</h4>
                     </div>
-                    <AddIcon onClick={createTopic()} className="addTopics"/> {/** the list of topics for discussion */}
+                    <AddIcon data-testid="topicId" onClick={createTopic()} className="addTopics"/> {/** the list of topics for discussion */}
                 </div>
 
                 <div className="topicList">
@@ -67,7 +72,7 @@ function TopicSidebar() { //sidebar for discussion category
             </div>
             
             <div className="sidebarBottomBar">
-                <Button onClick={() => authenticate.signOut()}>Log Out</Button>
+                 <Button data-testid="signOutId" onClick={() => authenticate.signOut()}>Log Out</Button> {/**authenticate.signOut() */}
                 <SettingsIcon/></div>
         </div>
   );
