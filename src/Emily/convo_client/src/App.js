@@ -56,6 +56,7 @@ function App() {
   );
 }
 
+// check if username entered is valid
 export function userValid(username) {
   if ((username.length > 0) && (username.length < 16)) { // names must be between 1 to 15 characters
     return true; // if so, return true

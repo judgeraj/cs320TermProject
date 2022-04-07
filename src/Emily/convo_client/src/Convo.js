@@ -135,7 +135,8 @@ function Convo({socket, username, convo}){
                                                     </p>
                                                 </div>
                                                 <div className="heartIcon">
-                                                    <p onClick={() =>
+                                                    <p data-test='iconShape'
+                                                        onClick={() =>
                                                         addLike()
                                                     }
                                                         >&#9825;
@@ -165,7 +166,8 @@ function Convo({socket, username, convo}){
                                 event.key === "Enter" && sendMessage()
                             }}
                         /> 
-                        <button className="button" onClick={() => setShowEmojis(!showEmojis)}>  
+                        <button className="button" onClick={() => setShowEmojis(!showEmojis)}
+                            data-testid='emoji'>  
                             {/* -----------  NOT MY CODE -----------*/}
                             <svg  
                                 xmlns="http://www.w3.org/2000/svg"  
@@ -206,7 +208,10 @@ function Convo({socket, username, convo}){
     );
 }
 
-function formatTime(minutes, hour){
+export function formatTime(minutes, hour){
+    if ((minutes > 60) || (hour > 23)){
+        return ""
+    }
     if (minutes < 10) {
         minutes = "0" + minutes;
     }        
