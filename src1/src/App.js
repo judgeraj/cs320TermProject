@@ -2,15 +2,15 @@ import { useSelector, useDispatch } from "react-redux";
 import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 
-import { login, logout } from "../features/userSlice";
-import { selectUser } from "../features/userSlice";
+import { login, logout } from "./features/userSlice";
+import { selectUser } from "./features/userSlice";
 import { authenticate } from "./firebase/firebase";
 import LogginIn from "./firebase/loginUser";
 
 import Header from "./components/common/Header";
 import HomePage from "./components/HomePage";
 import AnimeSidebar from "./components/anime/AnimeSidebar";
-import Discussion from "./components/discussiondoard/Discussion";
+import Discussion from "./components/discussionboard/Discussion";
 import Movies from "./components/movies/Movies";
 
 import "./styles/App.css";

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './TopicAnimeSidebar.css';
-import '../DiscussionBoard/DiscussionBoard.css'
+import '../discussionboard/DiscussionBoard.css'
 import AnimePost from './AnimePost';
 
 import AddIcon from '@material-ui/icons/Add'; /** avatar icon import from material-ui */

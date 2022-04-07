@@ -1,5 +1,5 @@
-import database, { authenticate } from '../firebase';
-import { selectUser } from '../features/userSlice';
+import database, { authenticate } from '../../firebase/firebase';
+import { selectUser } from '../../features/userSlice';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import TopicList from './TopicList';

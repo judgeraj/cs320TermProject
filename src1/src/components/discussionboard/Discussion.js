@@ -1,4 +1,4 @@
-import TopicSidebar from '../TopicAnimeSidebar/TopicSidebar'
+import TopicSidebar from '../anime/TopicSidebar'
 import DiscussionHeader from './DiscussionHeader';
 import React, { useState} from 'react';
 import UserMessage from './Message';

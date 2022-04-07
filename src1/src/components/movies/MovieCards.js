@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import MovieCard from "react-tinder-card";
-import database from './firebase';
+import database from './../../firebase/firebase';
 import "./MovieCards.css";
 import CloseIcon from "@material-ui/icons/Close";
 import StarRateIcon from "@material-ui/icons/StarRate";
