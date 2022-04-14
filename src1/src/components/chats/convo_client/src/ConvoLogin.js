@@ -8,7 +8,7 @@ import { useEffect } from "react";
 
 const socket = io.connect("http://localhost:3001");
 
-function App() {
+function ConvoLogin() {
   const [username, setUsername] = useState(""); // represent the user logging in
   const [currentScreen, setCurrentScreen] = useState("login"); // represent what screen to show
   const [valid, setValid] = useState(true); // true when username input is valid
@@ -64,4 +64,4 @@ export function userValid(username) {
   }
 }
 
-export default App;
+export default ConvoLogin;

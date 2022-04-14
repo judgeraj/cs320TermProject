@@ -30,6 +30,12 @@ function Header() {
       >
         Movies
       </NavLink>
+      <NavLink
+        to="/convoLogin"
+        className={({ isActive }) => (isActive ? "tab active-tab" : "tab")}
+      >
+        Convo
+      </NavLink>      
     </nav>
   );
 }

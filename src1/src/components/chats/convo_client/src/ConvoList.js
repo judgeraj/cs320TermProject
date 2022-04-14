@@ -2,7 +2,7 @@
 import "./App.css";
 import React from "react";
 import Convo from "./Convo";
-import App from "./App";
+import ConvoLogin from "./ConvoLogin";
 import { useState } from "react";
 import { useEffect } from "react";
 
@@ -81,7 +81,7 @@ function ConvoList({socket, username}){
                     convo={convo}
                 />
             ) : (
-                <App></App>
+                <ConvoLogin></ConvoLogin>
             )}
         </div>
     );

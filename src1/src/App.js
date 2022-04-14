@@ -12,6 +12,9 @@ import HomePage from "./components/HomePage";
 import AnimeSidebar from "./components/anime/AnimeSidebar";
 import Discussion from "./components/discussionboard/Discussion";
 import Movies from "./components/movies/Movies";
+import ConvoLogin from "./components/chats/convo_client/src/ConvoLogin";
+import ConvoList from "./components/chats/convo_client/src/ConvoList";
+import Convo from "./components/chats/convo_client/src/Convo";
 
 import "./styles/App.css";
 
@@ -50,6 +53,7 @@ function App() {
             <Route path="/discussionboard" element={<Discussion />} />
             <Route path="/animereview" element={<AnimeSidebar />} />
             <Route path="/movies" element={<Movies />} />
+            <Route path="/convoLogin" element={<ConvoLogin />} />
           </Routes>
         </>
       ) : (
