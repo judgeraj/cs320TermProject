@@ -2,12 +2,12 @@
 .messageHeaderBar{
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: 0.75px;
     background-color: white;
-    height: 91vh;
+    height: 95vh;
 }
 .messageConvo{
-    flex: 1px;
+    flex: 0.50px;
 }
 .messageInput {
     display: flex;
@@ -119,13 +119,18 @@
 /* Below is the css for Message.js */
 .message{
     display: flex;
+    justify-content: flex-end;
     align-items: center;
     padding: 20px;
-    padding-left: 100px;
+    padding-right: 100px;
     color: black;
 }
+.messageInfo > h4, .messageInfo > p{
+    display: flex;
+    justify-content: flex-end;
+}
 .messageInfo{
-    margin-left: 20px;
+    margin-right: 20px;
 }
 .messageTimestamp{
     color: gray;

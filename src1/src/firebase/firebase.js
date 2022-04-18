@@ -4,6 +4,15 @@ import 'firebase/compat/firestore';
 
 
 //vivian's firebase
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDIHrOzh32YdlSq-GH-z7SB2YPxznw7GUs",
+//   authDomain: "sun-firegram.firebaseapp.com",
+//   projectId: "sun-firegram",
+//   storageBucket: "sun-firegram.appspot.com",
+//   messagingSenderId: "937870564724",
+//   appId: "1:937870564724:web:3b1a194732edcdc5782021"
+// };
+
 const firebaseConfig = {
     apiKey: "AIzaSyCdT7CsCLgKsrqB07bfCG0qgw5fI4AIt60",
     authDomain: "karo-9c91e.firebaseapp.com",

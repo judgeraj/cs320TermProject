@@ -32,13 +32,15 @@ function createTopic () { /** create topics then add to the database */
             });
         }
     };
+    console.log("create topic")
     return addTopic;
 }
 function TopicSidebar() { //sidebar for discussion category
     const [topics, setTopics] = useState([]);
+
     useEffect(() => {
-        database.collection("topics").onSnapshot((Snapshot) => /** grabs the database info  */
-            setTopics(Snapshot.docs.map((thisData) => ({
+        database.collection('topics').onSnapshot(snapshot => /** grabs the database info  */
+            setTopics(snapshot.docs.map(thisData => ({
                     topic: thisData.data(),    
                     id: thisData.id,
                 }))
@@ -62,7 +64,9 @@ function TopicSidebar() { //sidebar for discussion category
                 </div>
 
                 <div className="topicList">
-                        <TopicList />
+                    {topics.map(({id, topic}) => (
+                        <TopicList key={id} id={id} topicName={topic.topicName}/>
+                    ))}
                 </div>
             </div>
             

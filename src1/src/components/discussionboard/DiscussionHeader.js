@@ -5,13 +5,13 @@ import React from 'react';
 import { Forum, Notifications, Edit,
      Search, SendRounded, HelpRounded } from '@material-ui/icons';
 
-function DiscussionHeader() {
+function DiscussionHeader({topicName}) {
     return (
         <div className='messageHeader'>
             <div className="messageHeader1"> {/** creates the header of the discussion board */}
                 <h3><span className='forumHeader'>
                     <Forum/></span>
-                    Test Channel Name
+                    {topicName}
                 </h3>
             </div>
             

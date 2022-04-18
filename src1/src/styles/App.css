@@ -1,7 +1,8 @@
+/*display: flex removed in .app*/
 .app {
-  display: flex;
   flex-direction: column;
 }
 .button {
   border: none;
 }
+

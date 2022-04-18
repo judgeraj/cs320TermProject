@@ -5,14 +5,15 @@ import '../comps/Auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDIHrOzh32YdlSq-GH-z7SB2YPxznw7GUs",
-    authDomain: "sun-firegram.firebaseapp.com",
-    projectId: "sun-firegram",
-    storageBucket: "sun-firegram.appspot.com",
-    messagingSenderId: "937870564724",
-    appId: "1:937870564724:web:3b1a194732edcdc5782021"
-  };
-  
+  apiKey: "AIzaSyCdT7CsCLgKsrqB07bfCG0qgw5fI4AIt60",
+  authDomain: "karo-9c91e.firebaseapp.com",
+  databaseURL: "https://karo-9c91e-default-rtdb.firebaseio.com",
+  projectId: "karo-9c91e",
+  storageBucket: "karo-9c91e.appspot.com",
+  messagingSenderId: "1016393732142",
+  appId: "1:1016393732142:web:8520547e11200b53fb8fbf",
+  measurementId: "G-PN52417BZ0"
+};  
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
