@@ -1,4 +1,4 @@
-// ConvoList.js - 65 lines
+// ConvoList.js - 72 lines
 import "./App.css";
 import React from "react";
 import Convo from "./Convo";
@@ -12,7 +12,16 @@ function ConvoList({socket, username}){
     const [convoList, setConvoList] = useState(["general", "music"]); // list of convos that exist
     const [valid, setValid] = useState(true); // true when convo name input is valid
 
-    const joinConvo = () => {
+    const joinConvo = () => { // joining an existing convo
+        const user = { // store the user's convo and username
+            convo: convo,
+            username: username,
+        };
+        socket.emit("joinConvo", user); // tell server to let the user join the convo
+        setCurrentScreen("convo"); // show the convo screen
+    }
+
+    const joinNewConvo = () => { // joining a new convo
         if ((convo.length > 0) && (convo.length < 16) && (convo !== " ")) { // convo name must be between 1 and 15 characters long
             const user = { // store the user's convo and username
                 convo: convo,
@@ -49,7 +58,7 @@ function ConvoList({socket, username}){
                     <h3>Choose a Convo</h3>
                     {convoList.map((convos) => {
                         return (
-                            <button
+                            <button key={convos}
                                 onClick={() => {
                                     attemptJoin(convos);
                                 }}
@@ -64,10 +73,10 @@ function ConvoList({socket, username}){
                             setConvo(event.target.value);
                         }}
                         onKeyPress={(event) => {
-                            event.key === "Enter" && joinConvo()
+                            event.key === "Enter" && joinNewConvo()
                         }}
                     />
-                    <button onClick={joinConvo}>Create</button> 
+                    <button onClick={joinNewConvo}>Create</button> 
                     <div className="error">
                         {!valid && (
                             <p>Convo must be between 1 and 15 characters.</p>

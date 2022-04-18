@@ -1,4 +1,5 @@
 // index.js - 45 lines
+// Server
 const express = require("express");
 const app = express();
 const http = require("http");
@@ -49,6 +50,10 @@ function startServer() {
             messages[message.convo].push(message); // add it to list of all messages
             socket.to(message.convo).emit("receiveMessage", message); // send to a particular convo
         });
+
+        // socket.on("updateLikes", (message) => { // when a like has been added to a message,
+        //     console.log(message.message)
+        // });      
 
         socket.on("disconnect", () => { // when a user disconnects,
             allUsers = allUsers.filter(x => x != socket.id); // remove the username once they leave

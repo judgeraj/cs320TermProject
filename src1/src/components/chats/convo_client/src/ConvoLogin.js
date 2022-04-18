@@ -1,4 +1,4 @@
-// App.js - 42 lines
+// App.js - 44 lines
 import "./App.css";
 import React from "react";
 import io from 'socket.io-client';
@@ -26,9 +26,9 @@ function ConvoLogin() {
       {currentScreen === "login" ? (
         <div className="loginContainer"> 
           <h3>Login</h3>
-          <p></p>
+          {/* <p></p>
           <button>Sign in with Google</button>
-          <p></p>
+          <p></p> */}
           <input
             type="text"
             placeholder="Guest Username..."

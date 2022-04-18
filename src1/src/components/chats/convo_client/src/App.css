@@ -1,4 +1,4 @@
-/* App.css 326-61 = 265 lines */
+/* App.css - 287 lines */
 .App {
   width: 100vw;
   height: 100vh;
@@ -15,8 +15,17 @@ body {
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700");
 
 .emojiIcon {  
-  height: 40px;  
-  width: 40px;  
+  height: 38px;  
+  width: 38px;
+}
+.fileIcon {  
+  height: 23px;  
+  width: 23px;
+}
+.leaveIcon {  
+  height: 20px;  
+  width: 20px;
+  fill: #cfcfcf;
 }
 .heartIcon p {
   display:flex;
@@ -39,6 +48,7 @@ body {
   font-weight: bold;
   color: red;
   align-items: center;
+  margin-top: 2rem;
 }
 
 .grid-container {
@@ -174,14 +184,30 @@ body {
 .convo-popup .convo-header .convo-size p {
   display: flex;
   position: absolute;
-  top: 0px;
-  right: 0px;
-  background: #000000;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
   color: #cfcfcf;
   font-weight: 500;
   font-size: 12px;
   justify-content: flex-end;
+}
+.convo-popup .convo-header .convo-leave button {
+  display: flex;
+  position: absolute;
+  margin: 10px;
+  top: 0px;
+  right: 0px;  
+  border: none;
+  background: #000000;
+  color: gray;
+  cursor: pointer;
+  justify-content: flex-end;
   border-top-right-radius: 10px;
+}
+.convo-popup .convo-header .convo-leave button:hover {
+  fill: #770952;
 }
 .convo-popup .convo-header2 p {
   display: block;
@@ -320,6 +346,8 @@ body {
 }
 .convo-popup .convo-footer button:hover {
   color: #770952;
+  fill: #770952;
+  outline: #770952;
 }
 .hide {
   opacity: 0 !important;
