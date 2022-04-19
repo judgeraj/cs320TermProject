@@ -35,7 +35,13 @@ function Header() {
         className={({ isActive }) => (isActive ? "tab active-tab" : "tab")}
       >
         Convo
-      </NavLink>      
+      </NavLink>
+      <NavLink
+        to="/memes"
+        className={({ isActive }) => (isActive ? "tab active-tab" : "tab")}
+      >
+        Memes
+      </NavLink>               
     </nav>
   );
 }

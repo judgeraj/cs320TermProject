@@ -7,12 +7,15 @@ import { useEffect } from "react";
 import { useRef } from "react";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
+import { useSelector } from 'react-redux';
 import database from '../../../../firebase/firebase';
+import { selectUser } from '../../../../features/userSlice';
 
 function Convo({socket, username, convo}){
     const [currentScreen, setCurrentScreen] = useState("convo"); // current screen
     const [currentMessage, setCurrentMessage] = useState(""); // store typed message to be sent
-    const [messagesSent, setMessagesSent] = useState([]); // store all messages sent
+    const [messagesSent, setMessagesSent] = useState([]); // store all messages sent (server)
+    const [allMessages, setAllMessages] = useState([]); //  store all messages sent (Firebase)
     const [id, setId] = useState(0); // store an id number for each of that user's message
     const [users, setUsers] = useState([username]); // store users in the convo
     const [showEmojis, setShowEmojis] = useState(false); // state to show emoji picker
@@ -21,8 +24,11 @@ function Convo({socket, username, convo}){
     let replyMessage = useState(""); // display message to reply to
     let replyTo = useState(""); // display user to reply to
     let selectMessage = 0; // current selected message id
-    const reducer = (previous, current) => previous + ", " + current; // display all users
+    const reducer = (previous, current) => {
+        return previous + ", " + current; // display all users with commas inbetween
+    } 
     const inputFile = useRef(null); // assign reference to file input
+    const user = useSelector(selectUser) // user that's signed in
 
     const sendMessage = async () => {
         const timeNow = new Date(); // get current time
@@ -40,17 +46,24 @@ function Convo({socket, username, convo}){
                 time: time,
                 likes: 0,
             };
-            /// store into Firebase as well
-            database.collection("convos").doc(convo).collection("messages").add({
-                sender: username,
-                time: time,
-                message: currentMessage,
-                likes: 0
-            });            
+            // store into Firebase as well
+            database.collection("convos")
+                .doc(convo)
+                .collection("messages")
+                .add({
+                    sender: username,
+                    time: time,
+                    message: currentMessage,
+                    likes: 0 });
+            database.collection("messages")
+                .doc(convo)
+                .collection("messages")
+                .onSnapshot((snapshot) => 
+                    setAllMessages(snapshot.docs.map((doc) => console.log(doc.data()))));     
             await socket.emit("sendMessage", messageInfo);  // send message info
             setMessagesSent((list) => [ 
                 ...list, messageInfo // add it to the list of messages sent
-            ]);
+            ]);        
             setCurrentMessage(""); // when done sending message, input box is set to nothing
             replyMessage = ""; // message and user being replied to are set to nothing
             replyTo = "";
@@ -60,7 +73,7 @@ function Convo({socket, username, convo}){
     const reply = (message, sender, id) => { // add replying text to the input box
         replyMessage = message;
         replyTo = sender;
-        selectMessage = id;       
+        selectMessage = id;
         setCurrentMessage(` 💬 REPLYING TO @${replyTo}: `);
     }
 
@@ -72,10 +85,10 @@ function Convo({socket, username, convo}){
     }
 
     const addEmoji = (event) => { // add emojis to input box
-        let sym = event.unified.split("-");  // NOT MY CODE
-        let codesArray = [];  // NOT MY CODE
-        sym.forEach((el) => codesArray.push("0x" + el));  // NOT MY CODE
-        let emoji = String.fromCodePoint(...codesArray);  // NOT MY CODE
+        let sym = event.unified.split("-");
+        let codesArray = [];
+        sym.forEach((el) => codesArray.push("0x" + el));
+        let emoji = String.fromCodePoint(...codesArray);
         setCurrentMessage(currentMessage + emoji);  
     };
 
@@ -84,7 +97,8 @@ function Convo({socket, username, convo}){
     };
 
     const leaveConvo = (username) => {
-        users = users.filter(x => x != username);
+        setUsers(users.filter(x => x !== username));
+        setCurrentScreen("convoList");
     }
 
     useEffect(() => { // listen for changes in the socket from other users
@@ -97,7 +111,24 @@ function Convo({socket, username, convo}){
             setUsers(users); // update list of users in the convo
             setMessagesSent(messages); // update messages sent in the convo
         });
+        socket.on("updateUsers", (users) => { // update list of users when someone leaves
+            setUsers(users);
+        });
+        socket.on("disconnect", (username) => { // if a username leaves the server, leave each convo
+            //leaveConvo(username);
+        });
     }, [socket]);
+
+    // get updated list of messages 
+    useEffect(() => {
+        if (convo){
+            database.collection("messages")
+            .doc(convo)
+            .collection("messages")
+            .onSnapshot((snapshot) => 
+                setAllMessages(snapshot.docs.map((doc) => doc.data())));  
+        }  
+    }, [convo]);
 
     return (
         <div className="App">
@@ -136,10 +167,11 @@ function Convo({socket, username, convo}){
                         </div>                           
                     </div>   
                     <div className="convo-header2">
-                        <p>Users: {users.reduce(reducer)}</p>
+                        <p>Users: {users.length !== 0 ? users.reduce(reducer) : ""}</p>
                     </div>                      
                     <div className="convo-body">
                         <ScrollToBottom className="message-container">
+                            {/* {allMessages.map((messages) => {                             */}
                             {messagesSent.map((messages) => {
                                 return (
                                     <div className="message"id={
@@ -159,7 +191,7 @@ function Convo({socket, username, convo}){
                                                         // setReplyMessage(messages.message),
                                                         // setReplyTo(messages.sender),
                                                         // reply );
-                                                        reply(messages.message, messages.sender, messages.id);
+                                                        reply(messages.message, messages.sender, 0);
                                                         }}
                                                         >{messages.message}
                                                     </p>
@@ -273,10 +305,10 @@ function formatTime(minutes, hour){
     if (hour === 0)  {
         hour = 12;
     }       
-    return hour + ":" + minutes
+    return hour + ":" + minutes;
 }
 
-// store the message to Firebase
+// store the message to Firebase (realtime db)
 // function storeMessage(username, message, time){
 //     db.ref("messages/" + time).set({
 //         username,

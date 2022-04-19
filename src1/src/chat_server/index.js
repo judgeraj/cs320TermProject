@@ -53,10 +53,15 @@ function startServer() {
 
         // socket.on("updateLikes", (message) => { // when a like has been added to a message,
         //     console.log(message.message)
-        // });      
+        // }); 
+        
+        socket.on("removeUser", (users, convo) => {
+            socket.to(convo).emit("updateUsers", users); // let convo know that user has left a convo
+        });
 
         socket.on("disconnect", () => { // when a user disconnects,
             allUsers = allUsers.filter(x => x != socket.id); // remove the username once they leave
+            //socket.emit("disconnect", user); // let all users know that user disconnecting needs to be removed
             console.log(`User with ID: ${socket.id} disconnected!`);
         });
     });

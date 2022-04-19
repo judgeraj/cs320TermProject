@@ -5,12 +5,16 @@ import Convo from "./Convo";
 import ConvoLogin from "./ConvoLogin";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useSelector } from 'react-redux';
+import database from '../../../../firebase/firebase';
+import { selectUser } from '../../../../features/userSlice';
 
 function ConvoList({socket, username}){
     const [currentScreen, setCurrentScreen] = useState("chooseConvo"); // current screen shown
     const [convo, setConvo] = useState(" "); // convo the user is currently in
     const [convoList, setConvoList] = useState(["general", "music"]); // list of convos that exist
     const [valid, setValid] = useState(true); // true when convo name input is valid
+    const user = useSelector(selectUser) // user that's signed in
 
     const joinConvo = () => { // joining an existing convo
         const user = { // store the user's convo and username
@@ -32,6 +36,10 @@ function ConvoList({socket, username}){
         } else {
             setValid(false); // else, convo name is invalid
         }
+        // store into Firebase as well
+        database.collection("convos").doc(convo).collection("users").add({
+            username: username,
+        }); 
     }
 
     // !! Bug: requires double clicking to join convo !!

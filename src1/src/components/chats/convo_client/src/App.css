@@ -15,7 +15,7 @@ body {
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700");
 
 .emojiIcon {  
-  height: 38px;  
+  height: 38px;
   width: 38px;
 }
 .fileIcon {  
@@ -166,6 +166,23 @@ body {
   color: #ffffff;
   cursor: pointer;
 }
+.convo-popup .convo-header .back-convos button:hover:after {
+  fill: #770952;
+  content: "Back to Convos";
+  font-size: 12px;
+  width: 100px;
+  background-color: gray;
+  color: white;
+  text-align: center;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -50px;
+  opacity: 90%;
+  padding: 5px 0;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 1;  
+}
 .convo-popup .convo-header {
   height: 45px;
   background: #000000;
@@ -206,8 +223,21 @@ body {
   justify-content: flex-end;
   border-top-right-radius: 10px;
 }
-.convo-popup .convo-header .convo-leave button:hover {
+.convo-popup .convo-header .convo-leave button:hover:after {
   fill: #770952;
+  content: "Leave Convo";
+  width: 100px;
+  background-color: gray;
+  color: white;
+  text-align: center;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -50px;
+  opacity: 90%;
+  padding: 5px 0;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 1;  
 }
 .convo-popup .convo-header2 p {
   display: block;

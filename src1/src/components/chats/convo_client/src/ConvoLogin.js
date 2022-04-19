@@ -5,6 +5,8 @@ import io from 'socket.io-client';
 import ConvoList from "./ConvoList";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../../../features/userSlice';
 
 const socket = io.connect("http://localhost:3001");
 
