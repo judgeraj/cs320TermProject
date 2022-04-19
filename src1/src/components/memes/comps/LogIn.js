@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "./Auth";
 import firebaseConfig from "../firebase/config.js";
+import './memes.css';
 
 const LogIn = () => {
   const handleSubmit = (e) => {
@@ -22,7 +23,7 @@ const LogIn = () => {
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
         <label for="email">Email</label>
-        <input type="email" name="email" placeholder="Email" />
+        <input type="email" name="email" data-testid="emailID" placeholder="Email" />
         <label for="password">Password</label>
         <input type="password" name="password" placeholder="Password" />
         <button type="submit">Submit</button>

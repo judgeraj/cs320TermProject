@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from 'framer-motion/dist/framer-motion';
+import './memes.css';
 
 const Modal = ({ selectedImg, setSelectedImg }) => {
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import useStorage from '../hooks/useStorage';
+import './memes.css';
 
 const ProgressBar = ({ file, setFile }) => {
     const { url, progress } = useStorage(file);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import ProgressBar from './ProgressBar';
+import './memes.css';
 
 const UploadForm = () => {
     //file is an useState hook to save the file
@@ -27,7 +28,7 @@ const UploadForm = () => {
         <form>
             <input type="file" onChange={changeHandler} />
             <div className="output">
-                { error && <div className="error">{ error }</div>}
+                { error && <div role="alert" className="error">{ error }</div>}
                 { file && <div>{ file.name }</div> }
                 { file && <ProgressBar file={file} setFile={setFile} /> }
             </div>

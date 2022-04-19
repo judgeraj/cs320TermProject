@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  data-testid="mmove"
+  onMouseMove={[Function]}
+>
+  <h1>
+    Are you online?
+  </h1>
+  <button
+    style={
+      Object {
+        "backgroundColor": "green",
+        "visibility": "hidden",
+      }
+    }
+  >
+    You are online
+  </button>
+     
+  <button
+    style={
+      Object {
+        "backgroundColor": "green",
+        "visibility": "hidden",
+      }
+    }
+  >
+    You are online
+  </button>
+     
+  <button
+    style={
+      Object {
+        "backgroundColor": "green",
+        "visibility": "hidden",
+      }
+    }
+  >
+    You are online
+  </button>
+</div>
+`;
+
+exports[`matches snapshot 2 1`] = `
+<div
+  data-testid="mmove"
+  onMouseMove={[Function]}
+>
+  <h1>
+    Are you online?
+  </h1>
+  <button
+    style={
+      Object {
+        "backgroundColor": "green",
+        "visibility": "hidden",
+      }
+    }
+  >
+    You are online
+  </button>
+     
+  <button
+    style={
+      Object {
+        "backgroundColor": "green",
+        "visibility": "hidden",
+      }
+    }
+  >
+    You are online
+  </button>
+     
+  <button
+    style={
+      Object {
+        "backgroundColor": "green",
+        "visibility": "hidden",
+      }
+    }
+  >
+    You are online
+  </button>
+</div>
+`;

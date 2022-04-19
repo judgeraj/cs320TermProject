@@ -7,6 +7,8 @@ import UploadForm from './UploadForm';
 import ImageGrid from './ImageGrid';
 import Modal from './Modal';
 import MouseMove from './MouseMove';
+import WriteText from "./CommentText";
+import './memes.css';
 
 
 const Main = () => {

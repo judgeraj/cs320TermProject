@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { Navigate } from "react-router-dom";
 import firebaseConfig from "../firebase/config";
+import './memes.css';
 
 const SignUp = () => {
   const [currentUser, setCurrentUser] = useState(null);    

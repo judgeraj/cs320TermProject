@@ -1,0 +1,179 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap");
+
+:root {
+  --primary: #b8111f;
+  --secondary: #4e4e4e;
+  --error: #ff4a4a;
+}
+
+/* base styles & title */
+body {
+  font-family: "Noto Serif";
+  color: var(--secondary);
+}
+.App {
+  max-width: 960px;
+  margin: 0 auto;
+}
+.title h1 {
+  color: var(--primary);
+  font-size: 2.7rem;
+  letter-spacing: 2px;
+  font-weight: normal;
+}
+.title h2,
+.title p {
+  text-align: center;
+}
+.title h2 {
+  margin-top: 60px;
+  font-size: 2.6rem;
+}
+
+/* upload form styles */
+
+/* progress bar styles */
+.progress-bar {
+  height: 5px;
+  background: var(--primary);
+  margin-top: 20px;
+}
+
+/* image grid styles */
+.img-grid {
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(1, minmax(300px, 300px));
+  grid-gap: 40px;
+}
+
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+
+div.polaroid {
+  width: 200px;
+  height: 200px;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 25px;
+}
+
+div.container2 {
+  width: 300px;
+  height: 100px;
+  text-align: left;
+  padding: 10px 20px;
+}
+
+div.container {
+  text-align: center;
+  padding: 10px 20px;
+}
+
+.topleft {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  font-size: 18px;
+}
+
+.sub-grid {
+  display: grid;
+  grid-template-rows: 2fr 1fr;
+}
+
+#item1 {
+  grid-row: 1;
+}
+
+#item2 {
+  grid-row: 2;
+}
+
+.img-wrap {
+  overflow: hidden;
+  height: 0;
+  padding: 25% 0;
+  position: relative;
+  opacity: 0.8;
+}
+
+.img-wrap img {
+  min-width: 100%;
+  min-height: 100%;
+  max-width: 150%;
+  position: absolute;
+  vertical-align: top;
+  top: 0;
+  left: 0;
+}
+
+.img-wrap3 {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  height: 0;
+  padding: 20% 0;
+  position: relative;
+  opacity: 0.8;
+}
+
+.img-wrap3 img {
+  min-width: 200px;
+  min-height: 200px;
+  max-height: 200px;
+  max-width: 200px;
+  position: absolute;
+  vertical-align: top;
+  top: 0;
+  left: 0;
+}
+
+.img-wrap2 {
+  min-width: 100%;
+  min-height: 20%;
+  max-width: 100%;
+  position: absolute;
+  vertical-align: bottom;
+  left: 0;
+}
+
+/* modal styles */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.backdrop img {
+  display: block;
+  max-width: 60%;
+  max-height: 80%;
+  margin: 60px auto;
+  box-shadow: 3px 5px 7px rgba(0, 0, 0, 0.5);
+  border: 3px solid white;
+}
+
+.rate {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.pizza {
+  cursor: pointer;
+  transition: color 200ms;
+  vertical-align: bottom;
+}
