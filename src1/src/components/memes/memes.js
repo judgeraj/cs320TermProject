@@ -7,7 +7,7 @@ import MouseMove from './comps/MouseMove';
 import Button from './comps/button/button';
 import WriteText from './comps/WriteText';
 
-function memes() {
+function Memes() {
 
   const [selectedImg, setSelectedImg] = useState(null);
 
@@ -27,4 +27,4 @@ function memes() {
   );
 }
 
-export default memes;
+export default Memes;
