@@ -42,8 +42,11 @@ function AnimeSidebar() {
 												))}
 										</div>
 								</div>
-								<div className="animePost">
-										<AnimePost /> {/**calls the anime function for posting in the sidebar */}</div>
+								<form className="animePost">
+									{/**calls the anime function for posting in the sidebar */}
+										<AnimePost/>
+
+								</form>
 						</div>
 				</div>
 		)

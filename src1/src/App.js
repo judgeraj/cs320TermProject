@@ -13,7 +13,7 @@ import AnimeSidebar from "./components/anime/AnimeSidebar";
 import Discussion from "./components/discussionboard/Discussion";
 import Movies from "./components/movies/Movies";
 import ConvoLogin from "./components/chats/convo_client/src/ConvoLogin";
-import Memes from "./components/memes/Memes";
+import Memes from "./components/memes/memes";
 
 import "./styles/App.css";
 
@@ -53,7 +53,7 @@ function App() {
             <Route path="/animereview" element={<AnimeSidebar />} />
             <Route path="/movies" element={<Movies />} />
             <Route path="/convo" element={<ConvoLogin />} />
-	    <Route path="/memes" element={<Memes />} />
+	          {/* <Route path="/memes" element={<Memes />} /> */}
           </Routes>
         </>
       ) : (

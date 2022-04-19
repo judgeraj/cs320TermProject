@@ -5,7 +5,7 @@ import UserMessage from './Message';
 import './DiscussionBoard.css';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../features/userSlice';
-import { selectTopicId, selectTopicName, setTopic } from '../../features/appSlice';
+import { selectTopicId, selectTopicName } from '../../features/appSlice';
 import firebase from 'firebase/compat/app'
 
 //the following is importing icons from material-ui
@@ -13,7 +13,19 @@ import { AddCircle, CameraAlt,Photo,
      Mic, EmojiEmotions, Menu} from '@material-ui/icons';
 import database from '../../firebase/firebase';
 
-
+function sendMssg(topicId, user, input, setInput){
+    const mssg = e => { 
+        e.preventDefault();
+    
+        database.collection("topics").doc(topicId).collection("messages").add({
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            message:input,
+            user: user,
+        });
+        setInput("");
+    }
+    return mssg
+}
 function Discussion() {
     /** handles the animation of the sidebar */
     const [topicbar, setTopicbar] = useState(); 
@@ -28,26 +40,15 @@ function Discussion() {
     useEffect(() => {
         if(topicId){
             database.collection("topics")
-            .doc(topicId)
-            .collection("messages")
-            .orderBy("timestamp", "desc")
-            .onSnapshot((snapshot) => 
-                setMessage(snapshot.docs.map((doc) => doc.data()))
-            );
+                .doc(topicId)
+                .collection("messages")
+                .orderBy("timestamp", "desc")
+                .onSnapshot((snapshot) => 
+                    setMessage(snapshot.docs.map((doc) => doc.data()))
+                );
         }
     }, [topicId]);
 
-    const sendMssg = e => { 
-        e.preventDefault();
-    
-        database.collection("topics").doc(topicId).collection("messages").add({
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            message:input,
-            user: user,
-        });
-        setTopic("");
-    }
-    
     return (
         <div className='messageHeaderBar'> {/** imports the discussion header for the discussion board */}
             <div className='menuHeader'>
@@ -66,7 +67,8 @@ function Discussion() {
                     <UserMessage 
                         user={message.user}
                         timestamp={message.timestamp}
-                        message={message.message}/>
+                        message={message.message}
+                        currentUser={user}/>
                 ))}
             </div>
 
@@ -78,15 +80,18 @@ function Discussion() {
                     <Mic />
                 </div>
                 <form method="POST" action="addMessage">
-                    <input value={input}
-                        disabled={!topicId}
-                        onChange={(e) => setInput(e.target.value)}
-                        placeholder={`add message in ${topicName}`}/> {/** creates the type bar */}
+                    <input 
+                        value = {input}
+                        disabled = {!topicId}
+                        onChange = {
+                            (e) => setInput(e.target.value)
+                        }
+                        placeholder = {`add message in ${topicName}`}/> {/** creates the type bar */}
                     <button 
                         className='sendButton'
                         disabled={!topicId} 
                         type="submit"
-                        onClick={sendMssg}>
+                        onClick={sendMssg(topicId, user, input, setInput)}>
                     </button>
                 </form>
                 <EmojiEmotions />

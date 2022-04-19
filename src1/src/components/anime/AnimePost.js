@@ -7,7 +7,7 @@ function AnimePost() {
           <h4>
             {/** creates fixed Anime post */}
                 <img className='animePhoto' 
-                src='https://cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SQSBAJOSTJD4BKWKHQUC45VYT4.jpg'
+                src='https://i.pinimg.com/736x/a3/5e/b2/a35eb2fe2fae51682d87a36786fe5dcf.jpg'
                 height={100} 
                 width={100}
                 alt=""/>

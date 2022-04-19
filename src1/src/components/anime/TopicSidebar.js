@@ -32,7 +32,6 @@ function createTopic () { /** create topics then add to the database */
             });
         }
     };
-    console.log("create topic")
     return addTopic;
 }
 function TopicSidebar() { //sidebar for discussion category

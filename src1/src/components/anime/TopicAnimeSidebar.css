@@ -56,12 +56,13 @@
 }
 .animePost{
     flex: .50;
+    flex-direction: column;
 }
 .animeListBody{
     display: flex;
     margin: 50px;
     color: white;
-    justify-content: space-between;
+    overflow-y: auto;
 }
 .searchedResult{
    display: flex;
