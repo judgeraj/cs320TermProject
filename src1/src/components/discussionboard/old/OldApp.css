@@ -1,0 +1,31 @@
+.app{
+    display: flex;
+    flex-direction: column;
+}
+.appTab{
+    display: flex;
+}
+.thistab{
+    background: white;
+    padding: 10px;
+    display: none;
+}
+.thistab.active{
+    display: block;
+}
+.tab {
+    width: 50%;
+    cursor: pointer;
+    border-bottom: 1px solid black;
+    position: relative;
+    outline: none;
+    padding: 10px;
+}
+.active-tab  {
+    background: white;
+    border-bottom: 1px solid transparent;
+}
+.button {
+    border: none;
+}
+/** 23 lines*/

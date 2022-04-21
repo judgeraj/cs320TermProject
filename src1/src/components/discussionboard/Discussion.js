@@ -6,23 +6,23 @@ import './DiscussionBoard.css';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../features/userSlice';
 import { selectTopicId, selectTopicName } from '../../features/appSlice';
-import firebase from 'firebase/compat/app'
+import firebase from 'firebase/compat/app';
 
 //the following is importing icons from material-ui
 import { AddCircle, CameraAlt,Photo,
      Mic, EmojiEmotions, Menu} from '@material-ui/icons';
 import database from '../../firebase/firebase';
 
-function sendMssg(topicId, user, input, setInput){
+function sendMssg(topicId, user, newInput, setNewInput){
     const mssg = e => { 
         e.preventDefault();
     
         database.collection("topics").doc(topicId).collection("messages").add({
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            message:input,
+            message:newInput,
             user: user,
         });
-        setInput("");
+        setNewInput("");
     }
     return mssg
 }
@@ -34,17 +34,17 @@ function Discussion() {
     const user = useSelector(selectUser)
     const topicId = useSelector(selectTopicId)
     const topicName = useSelector(selectTopicName)
-    const [input, setInput] = useState("")
-    const [message, setMessage] = useState([])
+    const [newInput, setNewInput] = useState("")
+    const [newMessage, setNewMessage] = useState([])
     
     useEffect(() => {
         if(topicId){
             database.collection("topics")
                 .doc(topicId)
                 .collection("messages")
-                .orderBy("timestamp", "desc")
+                .orderBy("timestamp", "asc")
                 .onSnapshot((snapshot) => 
-                    setMessage(snapshot.docs.map((doc) => doc.data()))
+                    setNewMessage(snapshot.docs.map((doc) => doc.data()))
                 );
         }
     }, [topicId]);
@@ -63,7 +63,7 @@ function Discussion() {
             </nav>
 
             <div className="messageConvo"> {/** imports the messages for users */}
-                {message.map( (message) => (
+                {newMessage.map( (message) => (
                     <UserMessage 
                         user={message.user}
                         timestamp={message.timestamp}
@@ -81,17 +81,17 @@ function Discussion() {
                 </div>
                 <form method="POST" action="addMessage">
                     <input 
-                        value = {input}
+                        value = {newInput}
                         disabled = {!topicId}
                         onChange = {
-                            (e) => setInput(e.target.value)
+                            (e) => setNewInput(e.target.value)
                         }
                         placeholder = {`add message in ${topicName}`}/> {/** creates the type bar */}
                     <button 
                         className='sendButton'
                         disabled={!topicId} 
                         type="submit"
-                        onClick={sendMssg(topicId, user, input, setInput)}>
+                        onClick={sendMssg(topicId, user, newInput, setNewInput)}>
                     </button>
                 </form>
                 <EmojiEmotions />
@@ -101,9 +101,9 @@ function Discussion() {
 }
 export default Discussion;
 
-// 40 lines
+// 79 lines
 
 //discussionboard contains 
-//    106 (DiscussionBoard css)
-//  + 79  (all js file in this directory)
-//  = 185 lines total in dicussionboard directory
+//    136 (DiscussionBoard css)
+//  + 128  (all js file in this directory)
+//  = 264 lines total in dicussionboard directory

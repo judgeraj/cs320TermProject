@@ -38,41 +38,49 @@
 }
 .animeListBar{
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
     flex: 1;
 }
 .animeList{
-    flex: 0.50;
-    padding: 20px;
     display: flex;
-    flex-direction: column;
-    background-color: #3A3B3C;
+    flex: 0.35;
+    padding: 20px;
+    background-color:#2D2D2E;
+    border-right: 3px solid black;
+    overflow: auto;
 }
-.animeList > h3 {
+.animeList > h4 {
    color: whitesmoke;
    background-color: #40464b;
-   padding: 20px;
+   padding: 10px;
    border-radius: 10px;
 }
 .animePost{
-    flex: .50;
-    flex-direction: column;
+    display: flex;
+    flex: 0.50;
+    overflow: auto;
 }
 .animeListBody{
     display: flex;
-    margin: 50px;
-    color: white;
+    margin: 20px;
     overflow-y: auto;
 }
 .searchedResult{
    display: flex;
+   flex: 0.50;
    flex-direction: column;
    align-items: center;
+   background-color: transparent;
+   color: white;
+   border: none;
 }
 .searchedResult > h4{
-    padding: 20px;
-    font-size: large;
+    padding: 10px;
+    font-size: medium;
     text-align: center;
+}
+.searchedResult:hover{
+    background-color: #40464b;
 }
 .userProfileBar{
     display: flex;
@@ -150,8 +158,11 @@
 }
 
 /* below is the css for AnimePost.js */
-.animePhotoBar{
-    flex: 1;
+.animeReviewHeader{
+    display: flex;
+    flex: 0.25;
+    color: white;
+    flex-direction: column;
 }
 .animePhoto {
     display: flex;
@@ -159,5 +170,48 @@
     margin-top: 30px;
     border: 2px solid white;
 }
-/* 124 lines 
+.animeReviewPost{
+    display: flex;
+    flex-direction: column;
+    color: white;
+    align-items: center;
+}
+.animeReviewPost > h3{
+    padding: 10px;
+    font-size: medium;
+    text-align: center;
+}
+.addRating{
+    display: flex;
+    font-size: small;
+    align-items: center;
+    padding: 0;
+    background-color: transparent;
+    color: white;
+    border: none;
+}
+.rated, .reviewed, .noRating, .noReview, .noReviewRating{
+    display: none;
+}
+.addRating >  .MuiSvgIcon-root:hover{
+    color:black;
+}
+.rateANDreview {
+    text-align: center;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 15px
+}
+.rateScore{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+}
+.reviewMessage{
+    font-size: small;
+    color: whitesmoke ;
+}
+/* 125 lines 
     not including closing brackets, new lines, and comments*/
