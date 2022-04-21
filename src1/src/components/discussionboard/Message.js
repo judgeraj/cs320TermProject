@@ -5,7 +5,6 @@ import { Avatar } from '@material-ui/core'; /** avatar icon import from material
 
 function Message({timestamp, message, user, currentUser}) { 
   /** this function creates the messages for the user. It includes the user name, the message, and the timestamp */
-  
   return (
     <section className={user.displayName === currentUser.displayName ? 'curUser' : 'oldUser'}>
        
@@ -32,4 +31,4 @@ function Message({timestamp, message, user, currentUser}) {
   );
 }
 export default Message
-// 2ß4 lines
+// 24 lines

@@ -64,7 +64,10 @@ function TopicSidebar() { //sidebar for discussion category
 
                 <div className="topicList">
                     {topics.map(({id, topic}) => (
-                        <TopicList key={id} id={id} topicName={topic.topicName}/>
+                        <TopicList 
+                            key={id} 
+                            id={id} 
+                            topicName={topic.topicName}/>
                     ))}
                 </div>
             </div>
@@ -76,9 +79,9 @@ function TopicSidebar() { //sidebar for discussion category
   );
 }
 export default TopicSidebar
-// 58 lines
+// 61 lines
 
 //  TopicAnimeSidebar directory contains 
-//    124     (topicAnime css) 
-//  + 128    (all js file in this directory) 
-//  = 256 lines total lines in topicAnimeSidebar directory
+//    125     (topicAnime css) 
+//  + 134    (all js file in this directory) 
+//  = 259 lines total lines in topicAnimeSidebar directory

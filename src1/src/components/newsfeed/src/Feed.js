@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './App.css';
+import './Feed.css';
 
 // var tech;
 // var business;
@@ -27,7 +27,7 @@ function businessButton() {
   }
 }
 
-class App extends Component {
+class Feed extends Component {
   constructor(args) {
     super(args);
     this.state = {
@@ -54,6 +54,7 @@ class App extends Component {
     //     arts.push(data.articles)
     //     console.log(arts)
     //   }); 
+    // date = Ti
     fetch('https://newsapi.org/v2/everything?domains=wsj.com&apiKey=876fb32423264a94984a112b0dfea143')
       .then((response) => {
         return response.json()
@@ -63,6 +64,7 @@ class App extends Component {
           wallstreetArticles: data.articles
         });
     });
+
     fetch('https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=876fb32423264a94984a112b0dfea143')
       .then((response) => {
         return response.json()
@@ -72,6 +74,7 @@ class App extends Component {
           businessArticles: data.articles
         });
     });
+
     fetch('https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=876fb32423264a94984a112b0dfea143')
       .then((response) => {
         return response.json()
@@ -81,7 +84,8 @@ class App extends Component {
           techArticles: data.articles
         });
     });
-    fetch('https://newsapi.org/v2/everything?q=tesla&from=2022-01-22&sortBy=publishedAt&apiKey=876fb32423264a94984a112b0dfea143') //'https://newsapi.org/v2/everything?q=tesla&from=2022-01-22&sortBy=publishedAt&apiKey=876fb32423264a94984a112b0dfea143'
+
+    fetch('https://newsapi.org/v2/everything?q=tesla&from=2022-04-22&sortBy=publishedAt&apiKey=876fb32423264a94984a112b0dfea143') //'https://newsapi.org/v2/everything?q=tesla&from=2022-01-22&sortBy=publishedAt&apiKey=876fb32423264a94984a112b0dfea143'
       .then((response) => {
         return response.json()
       })
@@ -91,7 +95,8 @@ class App extends Component {
            teslaArticles: data.articles
         });
     });
-    fetch('https://newsapi.org/v2/everything?q=apple&from=2022-02-21&to=2022-02-21&sortBy=popularity&apiKey=876fb32423264a94984a112b0dfea143')
+    
+    fetch('https://newsapi.org/v2/everything?q=apple&from=2022-04-11&to=2022-04-11&sortBy=popularity&apiKey=876fb32423264a94984a112b0dfea143')
       .then((response) => {
         return response.json()
       })
@@ -108,63 +113,41 @@ class App extends Component {
     var allArticles = []
     var titles = []
 
-    // this.state.techArticles.forEach(element => {
-    //   titles.push(element.title)
-    // });
+    this.state.businessArticles.forEach(element => {
+      allArticles.push(element)
+      console.log(element);  
+    });
 
-    // console.log(titles)
-    // for (let i = 0; i < allAPI.length; i++) {
-    //   for (let j = 0; j < allAPI[0].length; j++) {
-    //     const element = allAPI[i][j];
-    //     console.log(element)
-    //     allArticles.push(element)
-    //   }
-    // }
-    if(this.state.business) {
-      this.state.businessArticles.forEach(element => {
-        allArticles.push(element)
-        console.log(element);  
-      });
-    } 
-    // console.log(this.state.teslaArticles)
-    if(this.state.tesla) {
-      this.state.teslaArticles.forEach(element => {
-        allArticles.push(element)
-        console.log(element);  
-      });
-    }
-    if(!this.state.tech) {
-      this.state.techArticles.forEach(element => {
-        allArticles.push(element)
-        console.log(element);  
-      });
-    }
-    if(!this.state.apple) {
-      this.state.appleArticles.forEach(element => {
-        allArticles.push(element)
-        console.log(element);  
-      });
-    }
-    if(!this.state.wall) {
-      this.state.wallstreetArticles.forEach(element => {
-        allArticles.push(element)
-        console.log(element);  
-      });
-    }
+    this.state.teslaArticles.forEach(element => {
+      allArticles.push(element)
+      console.log(element);  
+    });
+
+    this.state.techArticles.forEach(element => {
+      allArticles.push(element)
+      console.log(element);  
+    });
+
+    this.state.appleArticles.forEach(element => {
+      allArticles.push(element)
+      console.log(element);  
+    });
+
+    this.state.wallstreetArticles.forEach(element => {
+      allArticles.push(element)
+      console.log(element);  
+    });
 
     console.log(allArticles)
-    // var art = allArticles[0]
-    // console.log(arts[0])
-    // const allArticles = [this.state.techArticles, this.state.businessArticles, this];
     console.log(this.state.business)
       return (
-        <div className="App">
-          <button onClick={teslaButton} className='tButton'>tesla</button>
+        <div className="Feed">
+          {/* <button onClick={teslaButton} className='tButton'>tesla</button>
           <button onClick={businessButton} className='tButton'>business</button>
-          <h1 className='title'>KARO NEWS</h1>
+          <h1 className='title'>KARO NEWS</h1> */}
             {allArticles.map((article, iterator) => {
               return (
-                <div id='singleArticle'> 
+                <div className='singleArticle'> 
                   <a href={article.url} className='imageLink'>
                     <img src={article.urlToImage} className='image'></img>
                   </a>
@@ -182,4 +165,4 @@ class App extends Component {
       );
     }
 }
-export default App;
+export default Feed;

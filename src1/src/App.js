@@ -14,6 +14,8 @@ import Discussion from "./components/discussionboard/Discussion";
 import Movies from "./components/movies/Movies";
 import ConvoLogin from "./components/chats/convo_client/src/ConvoLogin";
 import Memes from "./components/memes/memes";
+import News from "./components/newsfeed/src/Feed";
+import Profile from "./components/profile/Profile";
 
 import "./styles/App.css";
 
@@ -51,9 +53,12 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/discussionboard" element={<Discussion />} />
             <Route path="/animereview" element={<AnimeSidebar />} />
-            <Route path="/movies" element={<Movies />} />      
+            <Route path="/movies" element={<Movies />} />
             <Route path="/convo" element={<ConvoLogin />} />
-	          <Route path="/memes" element={<Memes />} />
+            <Route path="/memes" element={<Memes />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/memes" element={<Memes />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </>
       ) : (

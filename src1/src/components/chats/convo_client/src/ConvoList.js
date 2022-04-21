@@ -12,11 +12,15 @@ import { selectUser } from '../../../../features/userSlice';
 function ConvoList({socket, username}){
     const [currentScreen, setCurrentScreen] = useState("chooseConvo"); // current screen shown
     const [convo, setConvo] = useState(" "); // convo the user is currently in
-    const [convoList, setConvoList] = useState(["general", "music"]); // list of convos that exist
-    const [valid, setValid] = useState(true); // true when convo name input is valid
+    const [convoList, setConvoList] = useState([]); // list of convos that exist
+    const [valid, setValid] = useState(true);
     const user = useSelector(selectUser) // user that's signed in
 
-    const joinConvo = () => { // joining an existing convo
+    /* when joining an existing convo,
+       the user's convo and username are stored
+       in the server and then the current screen
+       is switched to convo screen */
+    const joinConvo = () => { 
         const user = { // store the user's convo and username
             convo: convo,
             username: username,
@@ -25,8 +29,10 @@ function ConvoList({socket, username}){
         setCurrentScreen("convo"); // show the convo screen
     }
 
+    /* for joining a new convo, it must be checked that
+       the convo name is valid. then the user can join. */
     const joinNewConvo = () => { // joining a new convo
-        if ((convo.length > 0) && (convo.length < 16) && (convo !== " ")) { // convo name must be between 1 and 15 characters long
+        if (convoValid(convo)){
             const user = { // store the user's convo and username
                 convo: convo,
                 username: username,
@@ -36,23 +42,27 @@ function ConvoList({socket, username}){
         } else {
             setValid(false); // else, convo name is invalid
         }
-        // store into Firebase as well
-        database.collection("convos").doc(convo).collection("users").add({
-            username: username,
-        }); 
+        // // store into Firebase as well
+        // database.collection("convos").doc(convo).collection("users").add({
+        //     username: username,
+        // }); 
     }
 
     // !! Bug: requires double clicking to join convo !!
-    const attemptJoin = (convo) => { // runs when a convo button is clicked
+    /* attempt to join a convo when an existing convo's
+       button is clicked */
+    const attemptJoin = (convo) => {
         setConvo(convo);
         joinConvo();
     }
 
-    useEffect(() => { // !! Bug: updated convos appear only once when another user joins a convo !!
-        socket.on("getConvos", (convos) => { // get updated list of convos
-            setConvoList(convos);
-        });
-    }, [socket]);
+    /* get an updated list of convos whenever a new
+       convo is added */
+    // useEffect(() => { // !! Bug: updated convos appear only once when another user joins a convo !!
+    //     socket.on("getConvos", (convos) => {
+    //         setConvoList(convos);
+    //     });
+    // }, [socket]);
 
     return (
         <div className="App">
@@ -102,6 +112,14 @@ function ConvoList({socket, username}){
             )}
         </div>
     );
+}
+
+/* check that the convo name is between 1 and 15 characters long */
+function convoValid(convo){
+    if ((convo.length > 0) && (convo.length < 16) && (convo !== " ")) { 
+        return true;
+    }
+    return false; // else, convo name is invalid
 }
 
 export default ConvoList;
