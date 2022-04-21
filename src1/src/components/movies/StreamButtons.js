@@ -17,14 +17,14 @@ const StreamButtons= () => {
             <button class="buttonIcons">
                 <img
                     className="hulu"
-                    src="https://download.logo.wine/logo/Hulu/Hulu-Logo.wine.png" 
+                    src="https://www.justwatch.com/images/icon/116305230/s100/icon.webp" 
                     alt ="hulu logo"
                     />  
             </button>
             <button  onclick = "changeColor()" class="buttonIcons"> 
                 <img
                     className="disney"
-                    src="http://assets.stickpng.com/images/6128ffaee3a15c00041a8e41.png" 
+                    src="https://www.justwatch.com/images/icon/147638351/s100/icon.webp" 
                     alt ="disney logo"
                     />
             </button>

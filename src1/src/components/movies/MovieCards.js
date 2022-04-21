@@ -9,6 +9,13 @@ import "./SwipeButtons.css"
 import IconButton from "@material-ui/core/IconButton";
 import styled from 'styled-components'
 import { Button } from 'react-native'
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../features/userSlice';
+
+
+
+
+
 
 const APIURL =
   "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=7ecd0b11bc4cd387a22b43cb37086584";
@@ -59,7 +66,7 @@ const MovieCards = () => {
     //       unsubscribe();    // clean up detaches listener
     //     };
     // }, []);// no dependencies in [] so runs once when component loads and never again
-
+    const user = useSelector(selectUser)
     const [posters, setPosters] = useState([]);
     useEffect(() => {
       fetch(APIURL).then(res => res.json())
@@ -72,16 +79,58 @@ const MovieCards = () => {
     const characters = posters
     const [lastDirection, setLastDirection] = useState()
 
+   
     const swiped = (direction, nameToDelete) => {
         console.log('removing: ' + nameToDelete)
         console.log('you swiped ' + direction)
         setLastDirection(direction)
+    
     }
     
-    const outOfFrame = (title) => {
+    const outOfFrame = (title, direction, id, imgURL, overview) => {
         console.log(title + ' left the screen!')
+        addLikes(title, direction, id, imgURL, overview)
+        // local array storing titles
     }
-            
+  
+    
+    const addLikes = (title, direction, id, imgURL, overview ) => {
+            // database.collection(String(user.displayName)).add({
+            //     title: title,
+            //     bool: true
+            // });
+
+            // check if doc already exists
+            const usersRef = database.collection(user.displayName).doc(String(id))
+            usersRef.get()
+            .then((docSnapshot) => {
+                if (docSnapshot.exists) {
+                usersRef.onSnapshot((doc) => {
+                    // do stuff with the data
+                });
+                } else {
+                    if (String(direction) == 'right') {
+                        usersRef.set({
+                            title: title,
+                            bool: true,
+                            overview: overview
+                        });
+                    } else { 
+                        if (String(direction) == 'left') {
+                            usersRef.set({
+                                title: title,
+                                bool: false,
+                                overview: overview
+
+                            });
+                        }
+                    }
+                    console.log(direction)
+                    console.log('likes added')
+                }
+            });
+    };
+           
     return (  
         <div>
             {/* <h1 className="pageTitle">Catalog</h1> */}
@@ -91,7 +140,7 @@ const MovieCards = () => {
                             key={movie.title} 
                             preventSwipe={["up", "down"]}
                             onSwipe={(dir) => swiped(dir, movie.title)} 
-                            onCardLeftScreen={() => outOfFrame(movie.title)}>
+                            onCardLeftScreen={(dir) => outOfFrame(movie.title, dir, movie.id, movie.backdrop_path, movie.overview)}>
                         <div 
                             // style={{ backgroundImage: `url(${movie.url})` }}
                             style={{ backgroundImage: `url(${"https://image.tmdb.org/t/p/w600_and_h900_bestv2" 
@@ -105,10 +154,9 @@ const MovieCards = () => {
                             <div className="overview">
                                 <h2>Info:</h2>
                                 <p>{movie.overview}</p>
-                                <h3>Cast:</h3>
+                                <h3>Genre:</h3>
                                 <p>{movie.genre}</p>
                             </div>
-                            
                         </div>
                     </MovieCard>
                 ))}

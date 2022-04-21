@@ -26,7 +26,7 @@ function Movies() {
   return (
     // <div>{movies.length > 0 && movies.map((movie) => <Movie />)}
     <div className="Movies">
-      <Header />
+      {/* <Header /> */}
       <StreamButtons />
       <MovieCards />
       <SwipeButtons />
