@@ -1,10 +1,10 @@
-.App {
+/* .Feed {
   background-color:darkgray;
   margin: auto;
   width: 50%;
-}
+} */
 
-.title {
+/* .title {
   color: #770952;
   border: solid;
   border-width: thick;
@@ -12,21 +12,21 @@
   text-align: center;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-style: italic;
-}
+} */
 
 .articleText {
   text-align: center;
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-div h2 {
+.div h2 {
   color:#770952;
   text-align: center;
   font-size: large;
   text-indent: 30px;
 }
 
-div p {
+.div p {
   text-align: left;
   font-size: 12pt;
   margin-left: auto;
@@ -54,7 +54,7 @@ div p {
   font-style: italic;
 }
 
-div {
+.singleArticle {
   border-color: black;
   border-style: solid;
   border-width: thick;
@@ -73,4 +73,4 @@ div {
 
 .App-link {
   color: #61dafb;
-} 
+}  
