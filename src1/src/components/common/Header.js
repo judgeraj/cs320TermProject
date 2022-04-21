@@ -41,7 +41,13 @@ function Header() {
         className={({ isActive }) => (isActive ? "tab active-tab" : "tab")}
       >
         Memes
-      </NavLink>               
+      </NavLink>      
+      <NavLink
+        to="/news"
+        className={({ isActive }) => (isActive ? "tab active-tab" : "tab")}
+      >
+        News
+      </NavLink>           
     </nav>
   );
 }
