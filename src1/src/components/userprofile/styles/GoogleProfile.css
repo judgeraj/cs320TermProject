@@ -1,0 +1,27 @@
+h1 {
+  color: rgb(69, 59, 73);
+  text-align: center;
+}
+
+img {
+  display: block;
+}
+
+.img-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+p {
+  text-align: center;
+}
+
+.info {
+  border: 2px solid rgb(159, 155, 155);
+  border-radius: 5pt;
+  color: rgb(69, 59, 73);
+  margin: auto;
+  width: 60%;
+  padding: 10px;
+  background-color: rgb(235, 235, 235);
+}
