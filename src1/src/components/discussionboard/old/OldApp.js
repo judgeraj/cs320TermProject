@@ -10,24 +10,24 @@ import './App.css';
 
 export function UserLoggin(){
     const hook = useDispatch();
-    useEffect(() => { /** athenticate the logging in or logging out*/
+    useEffect(() => { // athenticate the logging in or logging out
         authenticate.onAuthStateChanged((newUser) => {
-            if(!newUser) { /** logout if the it is authenticated */
+            if(!newUser) { // logout if the it is authenticated 
                 hook(logout())
                 return;
             } 
-            hook(login({ /** if logging in data*/
+            hook(login({ // if logging in data*/
                 photo: newUser.photoURL,
                 displayName: newUser.displayName
             }))
         }) 
-    },[hook]) /** dependency */
+    },[hook]) // dependency 
     return;
 };
-function App() { /** create the entire webpage */
+function App() { // create the entire webpage 
     const userId = useSelector(selectUser);
     UserLoggin();
-    const [tab, setTab] = useState(true); /** boolean state for chaning tabs */
+    const [tab, setTab] = useState(true); // boolean state for chaning tabs 
     const togTab = (boolean) => {
       setTab(boolean);
     }
@@ -50,7 +50,7 @@ function App() { /** create the entire webpage */
               </div>
 
             </>):
-            (<LogginIn/>) /** login page for the user */
+            (<LogginIn/>) // login page for the user 
             } 
         </div>
     );
@@ -58,8 +58,8 @@ function App() { /** create the entire webpage */
 export default App;
 // 44  (app.js)
 // 23  (app.css)
-// 259 (TopicAnimeSidebar directory)
+// 394 (TopicAnimeSidebar directory)
 // 264 (DiscussionBoard directory)
 // 21  (loginUser.css)
 // 74   test.test.js
-// = 685 total (without including closing brackets, closing parenthesis, comments, and new lines  )
+// = 820 total (without including closing brackets, closing parenthesis, comments, and new lines  )

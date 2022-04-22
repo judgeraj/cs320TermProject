@@ -23,7 +23,7 @@ function AvatarUser(){
             </div>)
 }
 
-function createTopic () { /** create topics then add to the database */
+function createTopic () { // create topics then add to the database 
     const addTopic = () => {
         const topicName = prompt("Enter new topic");
         if(topicName) {
@@ -38,7 +38,7 @@ function TopicSidebar() { //sidebar for discussion category
     const [topics, setTopics] = useState([]);
 
     useEffect(() => {
-        database.collection('topics').onSnapshot(snapshot => /** grabs the database info  */
+        database.collection('topics').onSnapshot(snapshot => // grabs the database info  
             setTopics(snapshot.docs.map(thisData => ({
                     topic: thisData.data(),    
                     id: thisData.id,
@@ -82,6 +82,6 @@ export default TopicSidebar
 // 61 lines
 
 //  TopicAnimeSidebar directory contains 
-//    125     (topicAnime css) 
-//  + 134    (all js file in this directory) 
-//  = 259 lines total lines in topicAnimeSidebar directory
+//    170     (topicAnime css) 
+//  + 224    (all js file in this directory) 
+//  = 394 lines total lines in topicAnimeSidebar directory

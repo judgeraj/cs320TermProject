@@ -4,15 +4,15 @@ import '../discussionboard/DiscussionBoard.css'
 import AnimePost from './AnimePost';
 import database from '../../firebase/firebase';
 
-import AddIcon from '@material-ui/icons/Add'; /** avatar icon import from material-ui */
+import AddIcon from '@material-ui/icons/Add'; // avatar icon import from material-ui 
 import { SearchRounded } from '@material-ui/icons';
 
 function AnimeSidebar() {
-		const [animeSearch, setAnimeSearch] = useState("") /** handles the anime search state */
-		const [animeList, setAnimeList] = useState([]) /** handles the anime list */
+		const [animeSearch, setAnimeSearch] = useState("") // handles the anime search state 
+		const [animeList, setAnimeList] = useState([]) // handles the anime list 
 
 		const [rateAnime, setRateAnime] = useState([])
-		const rateThisAni = (ani) =>{
+		const rateThisAni = (ani,e) =>{
 			if(ani){
 				database.collection('anime').add({
 					animeTitle: ani.title,
@@ -22,18 +22,24 @@ function AnimeSidebar() {
 					userImg: ""
 				});
 			}
+			e.preventDefault()
 		}
 
 		useEffect(() => {
-			database.collection('anime').onSnapshot(snapshot => /** grabs the database info  */
-				setRateAnime(snapshot.docs.map((doc) => doc.data())));
+			database.collection('anime').onSnapshot(snapshot => // grabs the database info 
+
+				//REFACTORED CODE: indstead of storing the data in the array, I stored the ID for each documents.
+				//This will be used for finding the right data fields in firebase
+				
+				//setRateAnime(snapshot.docs.map((doc) => doc.data()))); <------- Refactored
+				setRateAnime(snapshot.docs.map((doc) => doc.id))) 
 		}, []);
 
 		const searchForAnime = (e) => {
-			e.preventDefault(); /** prevents the page for refreshing */
+			e.preventDefault(); // prevents the page for refreshing 
 			animeFetch(animeSearch);
 		}	
-		const animeFetch = async (animeName) => { /** fetch query from the jikan api site */
+		const animeFetch = async (animeName) => { // fetch query from the jikan api site 
 				const find = await fetch( `https://api.jikan.moe/v3/search/anime?q=${animeName}&order_by=title&limit=4` ).then(res => res.json());
 				setAnimeList(find.results);
 		}
@@ -53,8 +59,9 @@ function AnimeSidebar() {
 								<div className='animeList'> {/** this should return a list of the anime search */}
 										<h4>Select Anime and Create Post</h4>
 										<div className="animeListBody" >
+												{/**display all search result and as buttons for creating the post*/}
 												{animeList.map((animeInfo) => (
-														<button className='searchedResult' onClick={() => rateThisAni(animeInfo)}>
+														<button className='searchedResult' onClick={(e) => rateThisAni(animeInfo,e)}>
 																<img src={animeInfo.image_url} 
 																	alt=""
 																	width={150}
@@ -67,7 +74,7 @@ function AnimeSidebar() {
 								<form className="animePost">
 									{/**calls the anime function for posting in the sidebar */}
 										{rateAnime.map((ani) => (
-											<AnimePost rateAni={ani}/>
+											<AnimePost animeDocID={ani}/>
 										))}
 								</form>
 						</div>
@@ -75,4 +82,4 @@ function AnimeSidebar() {
 		)
 }
 export default AnimeSidebar;
-// 43 lines
+//60 lines
