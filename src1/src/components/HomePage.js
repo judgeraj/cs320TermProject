@@ -1,6 +1,7 @@
 import React from "react";
 
 function HomePage() {
+  
   return (
     <>
       <h3>Homepage... what should go here?</h3>

@@ -72,9 +72,6 @@
     transform: translateY(0%);
 }
 
-.compare {
-    cursor: pointer;
-}
-.compare:hover {
-    color: gray;
+.compare { 
+    
 }

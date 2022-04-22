@@ -53,7 +53,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/discussionboard" element={<Discussion />} />
             <Route path="/animereview" element={<AnimeSidebar />} />
-            <Route path="/movies" element={<Movies />} />
+            <Route path="/match" element={<Movies />} />
             <Route path="/convo" element={<ConvoLogin />} />
             <Route path="/memes" element={<Memes />} />
             <Route path="/news" element={<News />} />

@@ -25,10 +25,10 @@ function Header() {
         Anime Review
       </NavLink>
       <NavLink
-        to="/movies"
+        to="/match"
         className={({ isActive }) => (isActive ? "tab active-tab" : "tab")}
       >
-        Movies
+        Match
       </NavLink>
       <NavLink
         to="/convo"

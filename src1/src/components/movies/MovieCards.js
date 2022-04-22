@@ -70,7 +70,6 @@ function compare (user) {
     // };
     matchArray.length = 0;
     const matches = () => {
-        
         database.collection(user.displayName).onSnapshot( snapshot => {
           snapshot.forEach((doc) => {
             database.collection('Robert Panerio').onSnapshot((y) => {
@@ -124,6 +123,7 @@ const MovieCards = () => {
         console.log(data);
         setPosters(data.results);
       });
+      addUser()
     }, [])
 
     const characters = posters
@@ -142,7 +142,21 @@ const MovieCards = () => {
     }
     // const popper = false
     const [bpop, setBpop] = useState(false);
-    
+    const addUser = () => {
+        const userName = database.collection('users').doc(user.displayName)
+        userName.get()
+        .then((docSnapshot) => {
+            if (docSnapshot.exists) {
+            userName.onSnapshot((doc) => {
+                // do stuff with the data
+            });
+            } else {
+                userName.set({
+                    photo: user.photo,
+                });
+            }
+        });
+    }
     const addLikes = (title, direction, id, imgURL, overview ) => {
             // database.collection(String(user.displayName)).add({
             //     title: title,
@@ -183,9 +197,10 @@ const MovieCards = () => {
     return (  
         <div>
             {/* <h1 className="pageTitle">Catalog</h1> */}
-           
+            <button type="button" onClick={() =>{addUser();  }} className="compare" > Add User </button>
             <button type="button" onClick={() =>{compare(user) }} className="compare" > compare </button>
             <button type="button" onClick={() =>{setBpop(true);  }} className="compare" > view matches </button>
+            
             <div className="movieCards__cardContainer">
                 {posters.map((movie, index) => (
                     <MovieCard className="swipe" 
