@@ -15,7 +15,7 @@ import Movies from "./components/movies/Movies";
 import ConvoLogin from "./components/chats/convo_client/src/ConvoLogin";
 import Memes from "./components/memes/memes";
 import News from "./components/newsfeed/src/Feed";
-import Profile from "./components/profile/Profile";
+import UserProfile from "./components/userprofile/UserProfile";
 
 import "./styles/App.css";
 
@@ -58,7 +58,7 @@ function App() {
             <Route path="/memes" element={<Memes />} />
             <Route path="/news" element={<News />} />
             <Route path="/memes" element={<Memes />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/userprofile" element={<UserProfile />} />
           </Routes>
         </>
       ) : (
