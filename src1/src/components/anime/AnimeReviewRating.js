@@ -26,11 +26,11 @@ function AnimeSidebar() {
 		}
 
 		useEffect(() => {
-			database.collection('anime').onSnapshot(snapshot => // grabs the database info 
+			database.collection('anime').orderBy('animeTitle', 'desc').onSnapshot(snapshot => // grabs the database info 
 
 				//REFACTORED CODE: indstead of storing the data in the array, I stored the ID for each documents.
 				//This will be used for finding the right data fields in firebase
-				
+
 				//setRateAnime(snapshot.docs.map((doc) => doc.data()))); <------- Refactored
 				setRateAnime(snapshot.docs.map((doc) => doc.id))) 
 		}, []);
@@ -40,7 +40,7 @@ function AnimeSidebar() {
 			animeFetch(animeSearch);
 		}	
 		const animeFetch = async (animeName) => { // fetch query from the jikan api site 
-				const find = await fetch( `https://api.jikan.moe/v3/search/anime?q=${animeName}&order_by=title&limit=4` ).then(res => res.json());
+				const find = await fetch( `https://api.jikan.moe/v3/search/anime?q=${animeName}&order_by=title&limit=3` ).then(res => res.json());
 				setAnimeList(find.results);
 		}
 		return (

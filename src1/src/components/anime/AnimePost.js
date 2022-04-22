@@ -9,7 +9,7 @@ import { selectUser } from '../../features/userSlice';
 function AnimePost(animeDocID) {
   const user = useSelector(selectUser)
   const animeID = animeDocID.animeDocID
-
+  
   //const animeImg = rateAni.rateAni.animeImg
   //const animeTitle = rateAni.rateAni.animeTitle
   const [rating, setRating] = useState(0)
@@ -19,6 +19,7 @@ function AnimePost(animeDocID) {
   const [animeTitle, setAnimeTitle] = useState("")
   
     const addRating = (e) => { //adds rating to the created post by prompting the user 
+      e.preventDefault() 
       const rate = prompt("add rating from 1-10")
       if(rate !== null){
         if(rate.length > 2 || isNaN(rate) === true){ //user input must be a valid number
@@ -31,11 +32,11 @@ function AnimePost(animeDocID) {
         else{
           //REFACTORED CODE: instead of iterating the entire documents in the firebase collection, I am using the document ID to find the right fields
 
-          // database.collection('anime').onSnapshot( snapshot => // iterate throught the documents of the collection in the database 
+          // database.collection('anime').onSnapshot( snapshot => 
           //    snapshot.forEach ((doc)=>{
           //      const title = doc.data().animeTitle 
-          //       if(title === animeTitle ){        // finding the right anime in the database
-          //         database.collection('anime').doc(doc.id).update({ //update the fields of the collecting adding the rating given by the user
+          //       if(title === animeTitle ){        
+          //         database.collection('anime').doc(doc.id).update({ 
           //           rating: rate,
           //           userImg: user.photo
           //         })
@@ -47,28 +48,27 @@ function AnimePost(animeDocID) {
           })
         }
       }
-      e.preventDefault() 
     }
 
-    const addReview = (e) => {
+    const addReview = (e) => { //adds review to the created post by prompting the user
       const rev = prompt("add review")
       if(rev !== null){
         if(rev.length === 0 && rev.length > 256){ //checks if the user given a review or if the given review is more than 256 characters
           addReview(e)
         } 
         else{
-        //REFACTORED CODE: instead of iterating the entire documents in the firebase collection, I am using the document ID to find the right fields
+          //REFACTORED CODE: instead of iterating the entire documents in the firebase collection, I am using the document ID to find the right fields
 
-        //   database.collection('anime').onSnapshot( snapshot =>
-        //     snapshot.forEach ((doc)=>{
-        //       const title = doc.data().animeTitle 
-        //        if(title === animeTitle ){
-        //          database.collection('anime').doc(doc.id).update({
-        //            review: rev,
-        //            userImg: user.photo
-        //          })
-        //        }
-        //  }))
+          //   database.collection('anime').onSnapshot( snapshot =>
+          //     snapshot.forEach ((doc)=>{
+          //       const title = doc.data().animeTitle 
+          //        if(title === animeTitle ){
+          //          database.collection('anime').doc(doc.id).update({
+          //            review: rev,
+          //            userImg: user.photo
+          //          })
+          //        }
+          //  }))
 
           database.collection('anime').doc(animeID).update({
             review: rev,
@@ -150,3 +150,4 @@ function AnimePost(animeDocID) {
 }
 export default AnimePost
 //85 lines
+//99
