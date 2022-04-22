@@ -49,7 +49,7 @@ function Header() {
         News
       </NavLink>
       <NavLink
-        to="/profile"
+        to="/userprofile"
         className={({ isActive }) => (isActive ? "tab active-tab" : "tab")}
       >
         Profile

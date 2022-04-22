@@ -9,38 +9,38 @@ import LogginIn from "./firebase/loginUser";
 
 import Header from "./components/common/Header";
 import HomePage from "./components/HomePage";
-import AnimeSidebar from "./components/anime/AnimeSidebar";
+import AnimeSidebar from "./components/anime/AnimeReviewRating";
 import Discussion from "./components/discussionboard/Discussion";
 import Movies from "./components/movies/Movies";
 import ConvoLogin from "./components/chats/convo_client/src/ConvoLogin";
 import Memes from "./components/memes/memes";
 import News from "./components/newsfeed/src/Feed";
-import Profile from "./components/profile/Profile";
+import UserProfile from "./components/userprofile/UserProfile";
 
 import "./styles/App.css";
 
 function UserLoggin() {
   const hook = useDispatch();
   useEffect(() => {
-    /** athenticate the logging in or logging out*/
+    // athenticate the logging in or logging out
     authenticate.onAuthStateChanged((newUser) => {
       if (!newUser) {
-        /** logout if the it is authenticated */
+        // logout if the it is authenticated 
         hook(logout());
         return;
       }
       hook(
         login({
-          /** if logging in data*/
+          // if logging in data
           photo: newUser.photoURL,
           displayName: newUser.displayName,
         })
       );
     });
-  }, [hook]); /** dependency */
+  }, [hook]); // dependency 
 }
 function App() {
-  /** create the entire webpage */
+  // create the entire webpage 
   const userId = useSelector(selectUser);
   UserLoggin();
 
@@ -58,7 +58,7 @@ function App() {
             <Route path="/memes" element={<Memes />} />
             <Route path="/news" element={<News />} />
             <Route path="/memes" element={<Memes />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/userprofile" element={<UserProfile />} />
           </Routes>
         </>
       ) : (

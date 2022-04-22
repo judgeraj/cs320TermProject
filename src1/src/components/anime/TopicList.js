@@ -7,6 +7,7 @@ import { setTopic } from '../../features/appSlice';
 function TopicList({id, topicName}) {
     const dispatch = useDispatch();
     return (
+        //enables the changing of the display for each discussion topics
         <div className='topicList' onClick={() =>  dispatch(setTopic({
             topicId: id,
             topicName: topicName
