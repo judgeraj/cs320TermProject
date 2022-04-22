@@ -29,7 +29,7 @@ function Movies() {
       {/* <Header /> */}
       <StreamButtons />
       <MovieCards />
-      <SwipeButtons />
+      {/* <SwipeButtons /> */}
     </div>
     // </div>
   );

@@ -11,11 +11,9 @@ import styled from 'styled-components'
 import { Button } from 'react-native'
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../features/userSlice';
-
-
-
-
-
+import AddIcon from '@material-ui/icons/Add';
+import SwipeButtons from "./SwipeButtons";
+import Popup from './Popup.js'
 
 const APIURL =
   "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=7ecd0b11bc4cd387a22b43cb37086584";
@@ -41,6 +39,58 @@ const IMGPATH = "https://image.tmdb.org/t/p/w1280";
 // const db = Movies
 // const alreadyRemoved = []
 // let charactersState = db
+
+
+// const matchArray [matches, setMatches] = useState([])
+
+
+const matchArray = [""]
+const matchString = ""
+function compare (user) {
+    console.log("comparing!")
+    // const matches = () => {
+    //     console.log("comparing inside matches!")
+    //     console.log(user.displayName)
+    //     database.collection(user.displayName).get().then(function(querySnapshot) {
+    //         querySnapshot.forEach(function(doc) {
+    //             // doc.data() is never undefined for query doc snapshots
+    //             // console.log(doc.id, " => ", doc.data());
+    //             // const myDoc = database.collection(user.displayName).doc(doc.id).data().bool
+    //             const friendDoc = database.collection('Robert Panerio').doc(doc.id)
+        
+    //             if (doc.get('bool') == true ){
+
+    //                 console.log(doc.get('title') + "is true!")
+    //             } 
+    //             if (doc.get('bool') == false){
+    //                 console.log(doc.get('title') + "is false!")
+    //             } 
+    //         });
+    //     });
+    // };
+    matchArray.length = 0;
+    const matches = () => {
+        
+        database.collection(user.displayName).onSnapshot( snapshot => {
+          snapshot.forEach((doc) => {
+            database.collection('Robert Panerio').onSnapshot((y) => {
+                y.forEach( x=> {
+                    if(x.id === doc.id ){
+                        if(x.data().bool === true && doc.data().bool === true){
+                        console.log(x.data().title)
+                        console.log(doc.data().title)
+                        matchArray.push(doc.data().title)
+                        }
+                    }
+                })
+            })
+          })
+        })
+        matchArray.shift()
+    }
+    matches()
+    return matches
+}
 
 const MovieCards = () => {
     // This chunk first used hardcoded values then pulled from firebase
@@ -78,21 +128,20 @@ const MovieCards = () => {
 
     const characters = posters
     const [lastDirection, setLastDirection] = useState()
-
-   
+    // const [myLikes, setMyLikes]
     const swiped = (direction, nameToDelete) => {
         console.log('removing: ' + nameToDelete)
         console.log('you swiped ' + direction)
         setLastDirection(direction)
-    
     }
     
     const outOfFrame = (title, direction, id, imgURL, overview) => {
         console.log(title + ' left the screen!')
         addLikes(title, direction, id, imgURL, overview)
-        // local array storing titles
+        // add likes and dislikes into firebase
     }
-  
+    // const popper = false
+    const [bpop, setBpop] = useState(false);
     
     const addLikes = (title, direction, id, imgURL, overview ) => {
             // database.collection(String(user.displayName)).add({
@@ -121,12 +170,12 @@ const MovieCards = () => {
                                 title: title,
                                 bool: false,
                                 overview: overview
-
                             });
                         }
                     }
                     console.log(direction)
                     console.log('likes added')
+                    
                 }
             });
     };
@@ -134,6 +183,9 @@ const MovieCards = () => {
     return (  
         <div>
             {/* <h1 className="pageTitle">Catalog</h1> */}
+           
+            <button type="button" onClick={() =>{compare(user) }} className="compare" > compare </button>
+            <button type="button" onClick={() =>{setBpop(true);  }} className="compare" > view matches </button>
             <div className="movieCards__cardContainer">
                 {posters.map((movie, index) => (
                     <MovieCard className="swipe" 
@@ -152,24 +204,37 @@ const MovieCards = () => {
                                 {/* <span>{movie.vote_average}</span> */}
                             </div>
                             <div className="overview">
-                                <h2>Info:</h2>
+                                <h1>{movie.title}</h1>
+                                <h2>Synopsis:</h2>
+                                
                                 <p>{movie.overview}</p>
-                                <h3>Genre:</h3>
+                               
                                 <p>{movie.genre}</p>
                             </div>
                         </div>
                     </MovieCard>
                 ))}
             </div> 
+            <Popup trigger = {bpop} setTrigger = {setBpop}> 
+                <h1>Here are your matches!</h1>
+                
+                <ol>
+                {matchArray.map((match) => (
+                    <li>{match}</li>
+                ))}
+                </ol>
+            </Popup>
             <div className="swipeButtons">
-                <IconButton 
+                
+                <SwipeButtons/>
+                {/* <IconButton 
                     className="swipeButtons__left">
                     <CloseIcon fontSize="large"/>
                 </IconButton>
                 <IconButton 
                     className="swipeButtons__right">
                     <FavoriteIcon fontSize="large"/>
-                </IconButton>   
+                </IconButton>    */}
                 {/* <Button onPress={() => swipe('left')} title='Swipe left!' />
                 <Button onPress={() => swipe('right')} title='Swipe right!' /> */}
             </div>
