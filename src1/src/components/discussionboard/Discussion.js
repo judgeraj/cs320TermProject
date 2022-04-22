@@ -13,7 +13,7 @@ import { AddCircle, CameraAlt,Photo,
      Mic, EmojiEmotions, Menu} from '@material-ui/icons';
 import database from '../../firebase/firebase';
 
-function sendMssg(topicId, user, newInput, setNewInput){
+function sendMssg(topicId, user, newInput, setNewInput){ //a function that adds the messages to the firebase database
     const mssg = e => { 
         e.preventDefault();
     
@@ -27,7 +27,7 @@ function sendMssg(topicId, user, newInput, setNewInput){
     return mssg
 }
 function Discussion() {
-    /** handles the animation of the sidebar */
+    // handles the animation of the sidebar 
     const [topicbar, setTopicbar] = useState(); 
     const showBar = () => setTopicbar(!topicbar); 
 
@@ -37,7 +37,7 @@ function Discussion() {
     const [newInput, setNewInput] = useState("")
     const [newMessage, setNewMessage] = useState([])
     
-    useEffect(() => {
+    useEffect(() => { //retrieving the messages from the firebase and assign the returned data to an array
         if(topicId){
             database.collection("topics")
                 .doc(topicId)
@@ -79,7 +79,7 @@ function Discussion() {
                     <Photo />
                     <Mic />
                 </div>
-                <form method="POST" action="addMessage">
+                <form method="POST" action="addMessage"> {/**enables user to input messages for the discussion board */}
                     <input 
                         value = {newInput}
                         disabled = {!topicId}
@@ -101,7 +101,7 @@ function Discussion() {
 }
 export default Discussion;
 
-// 79 lines
+// 80 lines
 
 //discussionboard contains 
 //    136 (DiscussionBoard css)

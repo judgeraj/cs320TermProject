@@ -1,4 +1,4 @@
-/* below is the css for TopicSidebar.js and AnimeSidebar.js*/
+/* below is the css for TopicSidebar.js and AnimeSidebar.js */
 .Sidebar, .animeHeader {
     display: flex;
     flex-direction: column ;
@@ -213,5 +213,5 @@
     font-size: small;
     color: whitesmoke ;
 }
-/* 125 lines 
+/* 170 lines 
     not including closing brackets, new lines, and comments*/
