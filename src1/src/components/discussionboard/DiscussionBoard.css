@@ -173,5 +173,16 @@
     margin-right: 5px;
     justify-content: flex-end;
 }
+.avatarMain{
+    display: flex;
+    flex-direction: column;
+}
+.avatarButtons{
+    display: flex;
+    justify-content: space-between;
+}
+.avatarButtons > .MuiSvgIcon-root:hover{
+    color: lightgrey;
+}
 /* 136 lines 
     not including closing bracket, new lines, and comments */

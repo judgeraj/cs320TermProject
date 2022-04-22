@@ -42,9 +42,11 @@ function Discussion() {
             database.collection("topics")
                 .doc(topicId)
                 .collection("messages")
-                .orderBy("timestamp", "asc")
+                .orderBy("timestamp", "desc")
                 .onSnapshot((snapshot) => 
+                    //REFACTORED CODE: assign ID to the array instead of the data field
                     setNewMessage(snapshot.docs.map((doc) => doc.data()))
+                    //setNewMessage(snapshot.docs.map((doc) => doc.id))
                 );
         }
     }, [topicId]);
@@ -65,10 +67,13 @@ function Discussion() {
             <div className="messageConvo"> {/** imports the messages for users */}
                 {newMessage.map( (message) => (
                     <UserMessage 
+                        //REFACTORED CODE: pass the ID instead of the each field; To make updating of firebase easier inside UserMessage 
                         user={message.user}
                         timestamp={message.timestamp}
                         message={message.message}
-                        currentUser={user}/>
+                        // topicId={topicId}
+                        // messageDocId={message}
+                        currentUser={user}/> 
                 ))}
             </div>
 
@@ -81,8 +86,8 @@ function Discussion() {
                 </div>
                 <form method="POST" action="addMessage"> {/**enables user to input messages for the discussion board */}
                     <input 
-                        value = {newInput}
                         disabled = {!topicId}
+                        value = {newInput}
                         onChange = {
                             (e) => setNewInput(e.target.value)
                         }
@@ -100,7 +105,6 @@ function Discussion() {
     );
 }
 export default Discussion;
-
 // 80 lines
 
 //discussionboard contains 
