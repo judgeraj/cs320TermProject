@@ -68,6 +68,7 @@ function compare (user) {
     //         });
     //     });
     // };
+
     matchArray.length = 0;
     const matches = () => {
         database.collection(user.displayName).onSnapshot( snapshot => {
@@ -123,7 +124,7 @@ const MovieCards = () => {
         console.log(data);
         setPosters(data.results);
       });
-      addUser()
+    //   addUser()
     }, [])
 
     const characters = posters
@@ -172,14 +173,14 @@ const MovieCards = () => {
                     // do stuff with the data
                 });
                 } else {
-                    if (String(direction) == 'right') {
+                    if (String(direction) === 'right') {
                         usersRef.set({
                             title: title,
                             bool: true,
                             overview: overview
                         });
                     } else { 
-                        if (String(direction) == 'left') {
+                        if (String(direction) === 'left') {
                             usersRef.set({
                                 title: title,
                                 bool: false,
