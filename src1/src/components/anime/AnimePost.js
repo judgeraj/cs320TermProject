@@ -17,7 +17,8 @@ function AnimePost(animeDocID) {
   const [userPhoto, setUserPhoto] = useState("")
   const [animeImg, setAnimeImg] = useState("")
   const [animeTitle, setAnimeTitle] = useState("")
-  
+  const db = database.collection('anime')
+
     const addRating = (e) => { //adds rating to the created post by prompting the user 
       e.preventDefault() 
       const rate = prompt("add rating from 1-10")
@@ -70,7 +71,7 @@ function AnimePost(animeDocID) {
           //        }
           //  }))
 
-          database.collection('anime').doc(animeID).update({
+          db.doc(animeID).update({
             review: rev,
             userImg: user.photo
           })
@@ -80,10 +81,11 @@ function AnimePost(animeDocID) {
     }
 
     useEffect(() => {
-      database.collection('anime').onSnapshot( snapshot => {
+      db.onSnapshot( snapshot => {
         snapshot.forEach((doc) =>{
 
           //REFACTORED CODE: finding the right field using the document ID instead of the anime title
+          
           // const title = doc.data().animeTitle
           // if(title === animeTitle){
           //   setRating(doc.data().rating)

@@ -180,6 +180,7 @@
 .avatarButtons{
     display: flex;
     justify-content: space-between;
+    padding-top: 5px;
 }
 .avatarButtons > .MuiSvgIcon-root:hover{
     color: lightgrey;

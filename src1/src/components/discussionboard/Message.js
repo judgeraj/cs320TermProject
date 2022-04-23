@@ -8,16 +8,31 @@ import database from '../../firebase/firebase';
 function Message({topicId, timestamp, message, user, currentUser}) { // 
   // this function creates the messages for the user. It includes the user name, the message, and the timestamp 
 
+  const userName = user.displayName
+  const currentUserName = currentUser.displayName
+  const db = database.collection('topics').doc(topicId).collection('messages')
 
   const editMsg = () => {
+    console.log("edit")
+    const editMsg = prompt("Edit Message")
+    if(editMsg != null){
+      db.onSnapshot( snapshot => {
+        snapshot.docs.map( doc => {
+          if(doc.data().timestamp.seconds === timestamp.seconds && userName === currentUserName){
+            db.doc(doc.id).update({
+              message: editMsg
+            })
+          }
+        })
+      })
+    }
   }
   const deleteMsg = () => {
     console.log("delete")
-    database.collection('topics').doc(topicId).collection('messages').onSnapshot( snapshot =>{
+    db.onSnapshot( snapshot =>{
       snapshot.docs.map( doc => {
-        if(doc.data().timestamp.seconds === timestamp.seconds){
-          
-          database.collection('topics').doc(topicId).collection('messages').doc(doc.id).delete()
+        if(doc.data().timestamp.seconds === timestamp.seconds && userName === currentUserName){
+          db.doc(doc.id).delete()
         }
       })
     })
@@ -52,34 +67,37 @@ function Message({topicId, timestamp, message, user, currentUser}) { //
   // userName
   // userPhoto 
   return (
-    <section className={user.displayName === currentUser.displayName ? 'curUser' : 'oldUser'}>
+    <section className={userName === currentUserName ? 'curUser' : 'oldUser'}>
        
-       <div className={user.displayName === currentUser.displayName ?  'currentUserMessage' : 'notCurrent' }> {/** display the message at the right side if the current user inputted it */}
+       <div className={userName === currentUserName ?  'currentUserMessage' : 'notCurrent' }> {/** display the message at the right side if the current user inputted it */}
+          
           <div className="curMessage"> {/** info about the message */}
-              <h4>{user.displayName.substring(0,user.displayName.indexOf(' '))}</h4>
+              <h4>{userName.substring(0,userName.indexOf(' '))}</h4>
               <div className='messageTimestampRight'>{new Date(timestamp?.toDate()).toUTCString()}</div>
               <p>{message}</p>
           </div>
-          {/* <Avatar className='avatar' src={user.photo}/> */}
+       
           <div className='avatarMain'> <Avatar className='avatar' src={user.photo}/>
+
             <div className='avatarButtons'>
-              <Edit style={{ fontSize: 15 }}/>
-              <Delete style={{ fontSize: 15 }} onClick={() => deleteMsg()}/>
-            </div>
+              <Edit style={{ fontSize: 15 }} onClick={() => editMsg()}/>
+              <Delete style={{ fontSize: 15 }} onClick={() => deleteMsg()}/></div>
+
           </div>
         </div>
 
-        <div className={user.displayName !== currentUser.displayName ?  'oldUserMessage' : 'notCurrent' }> {/** display the messgae at the left side if the it is not from the current user */}
-          {/* <Avatar className='avatar' src={user.photo}/> */}
+        <div className={userName !== currentUserName ?  'oldUserMessage' : 'notCurrent' }> {/** display the messgae at the left side if the it is not from the current user */}
+          
           <div className='avatarMain'> <Avatar className='avatar' src={user.photo}/>
+          
             <div className='avatarButtons'>
-              <Edit style={{ fontSize: 15 }}/>
-              <Delete style={{ fontSize: 15 }} onClick={() => deleteMsg()}/>
-            </div> 
+              <Edit style={{ fontSize: 15 }} onClick={() => editMsg()}/>
+              <Delete style={{ fontSize: 15 }} onClick={() => deleteMsg()}/></div> 
+              
           </div>
 
           <div className="oldMessage"> {/** info about the message */}
-              <h4>{user.displayName.substring(0,user.displayName.indexOf(' '))}</h4>
+              <h4>{userName.substring(0,userName.indexOf(' '))}</h4>
               <div className='messageTimestampLeft'>{new Date(timestamp?.toDate()).toUTCString()}</div>{/** {new Date(timestamp?.toDate()).toUTCString()} */}
               <p>{message}</p>
           </div>

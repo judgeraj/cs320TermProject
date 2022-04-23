@@ -39,10 +39,8 @@ function Discussion() {
     
     useEffect(() => { //retrieving the messages from the firebase and assign the returned data to an array
         if(topicId){
-            database.collection("topics")
-                .doc(topicId)
-                .collection("messages")
-                .orderBy("timestamp", "desc")
+            database.collection("topics").doc(topicId)
+                .collection("messages").orderBy("timestamp", "desc")
                 .onSnapshot((snapshot) => 
                     setNewMessage(snapshot.docs.map((doc) => doc.data()))
 
@@ -51,7 +49,6 @@ function Discussion() {
                 );
         }
     }, [topicId]);
-    console.log(newMessage)
     return (
         <div className='messageHeaderBar'> {/** imports the discussion header for the discussion board */}
             <div className='menuHeader'>
