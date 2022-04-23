@@ -46,51 +46,61 @@ const IMGPATH = "https://image.tmdb.org/t/p/w1280";
 
 const matchArray = [""]
 const matchString = ""
-function compare (user) {
-    console.log("comparing!")
-    // const matches = () => {
-    //     console.log("comparing inside matches!")
-    //     console.log(user.displayName)
-    //     database.collection(user.displayName).get().then(function(querySnapshot) {
-    //         querySnapshot.forEach(function(doc) {
-    //             // doc.data() is never undefined for query doc snapshots
-    //             // console.log(doc.id, " => ", doc.data());
-    //             // const myDoc = database.collection(user.displayName).doc(doc.id).data().bool
-    //             const friendDoc = database.collection('Robert Panerio').doc(doc.id)
+// export function Compare (user) {
+//     console.log("comparing!")
+//     // const matches = () => {
+//     //     console.log("comparing inside matches!")
+//     //     console.log(user.displayName)
+//     //     database.collection(user.displayName).get().then(function(querySnapshot) {
+//     //         querySnapshot.forEach(function(doc) {
+//     //             // doc.data() is never undefined for query doc snapshots
+//     //             // console.log(doc.id, " => ", doc.data());
+//     //             // const myDoc = database.collection(user.displayName).doc(doc.id).data().bool
+//     //             const friendDoc = database.collection('Robert Panerio').doc(doc.id)
         
-    //             if (doc.get('bool') == true ){
+//     //             if (doc.get('bool') == true ){
 
-    //                 console.log(doc.get('title') + "is true!")
-    //             } 
-    //             if (doc.get('bool') == false){
-    //                 console.log(doc.get('title') + "is false!")
-    //             } 
-    //         });
-    //     });
-    // };
-
-    matchArray.length = 0;
-    const matches = () => {
-        database.collection(user.displayName).onSnapshot( snapshot => {
-          snapshot.forEach((doc) => {
-            database.collection('Robert Panerio').onSnapshot((y) => {
-                y.forEach( x=> {
-                    if(x.id === doc.id ){
-                        if(x.data().bool === true && doc.data().bool === true){
-                        console.log(x.data().title)
-                        console.log(doc.data().title)
-                        matchArray.push(doc.data().title)
-                        }
-                    }
-                })
-            })
-          })
-        })
-        matchArray.shift()
-    }
-    matches()
-    return matches
-}
+//     //                 console.log(doc.get('title') + "is true!")
+//     //             } 
+//     //             if (doc.get('bool') == false){
+//     //                 console.log(doc.get('title') + "is false!")
+//     //             } 
+//     //         });
+//     //     });
+//     // };
+    
+//     matchArray.length = 0;
+//     const matches = () => {
+        
+//         database.collection(user.displayName).onSnapshot( snapshot => {
+//             snapshot.forEach((doc) => {
+//               if (doc.id === 'friend') {
+//                 setChosen(doc.data().name)
+//               }
+              
+//             })
+//           })
+//         console.log("chosen one " + chosen)
+//         database.collection(user.displayName).onSnapshot( snapshot => {
+//           snapshot.forEach((doc) => {
+//             database.collection(chosen).onSnapshot((y) => {
+//                 y.forEach( x=> {
+//                     if(x.id === doc.id ){
+//                         if(x.data().bool === true && doc.data().bool === true){
+//                         console.log(x.data().title)
+//                         console.log(doc.data().title)
+//                         matchArray.push(doc.data().title)
+//                         }
+//                     }
+//                 })
+//             })
+//           })
+//         })
+//         matchArray.shift()
+//     }
+//     matches()
+//     return matches
+// }
 
 const MovieCards = () => {
     // This chunk first used hardcoded values then pulled from firebase
@@ -143,6 +153,44 @@ const MovieCards = () => {
     }
     // const popper = false
     const [bpop, setBpop] = useState(false);
+    const [chosen, setChosen] = useState("")
+    useEffect(() => {
+        database.collection("Chosen One").onSnapshot( snapshot => {
+            snapshot.forEach((doc) => {
+              if (doc.id === 'friend') {
+                setChosen(doc.data().name)
+                console.log('testing ' + doc.data().name)
+              }
+              
+            })
+          })
+    });
+
+    const matches = () => {  
+        matchArray.length = 0;
+       
+        console.log("chosen one " + chosen)
+        if (chosen.length != 0) {
+            database.collection(user.displayName).onSnapshot( snapshot => {
+                snapshot.forEach((doc) => {
+                  database.collection(chosen).onSnapshot((y) => {
+                      y.forEach( x=> {
+                          if(x.id === doc.id ){
+                              if(x.data().bool === true && doc.data().bool === true){
+                              console.log(x.data().title)
+                              console.log(doc.data().title)
+                              matchArray.push(doc.data().title)
+                              }
+                          }
+                      })
+                  })
+                })
+              })
+        }
+        
+        matchArray.shift()
+    }
+
     const addUser = () => {
         const userName = database.collection('users').doc(user.displayName)
         userName.get()
@@ -198,8 +246,8 @@ const MovieCards = () => {
     return (  
         <div>
             {/* <h1 className="pageTitle">Catalog</h1> */}
-            <button type="button" onClick={() =>{addUser();  }} className="compare" > Add User </button>
-            <button type="button" onClick={() =>{compare(user) }} className="compare" > compare </button>
+            {/* <button type="button" onClick={() =>{addUser();  }} className="compare" > Add User </button> */}
+            <button type="button" onClick={() =>{matches(user) }} className="compare" > compare </button>
             <button type="button" onClick={() =>{setBpop(true);  }} className="compare" > view matches </button>
             
             <div className="movieCards__cardContainer">
@@ -222,9 +270,7 @@ const MovieCards = () => {
                             <div className="overview">
                                 <h1>{movie.title}</h1>
                                 <h2>Synopsis:</h2>
-                                
                                 <p>{movie.overview}</p>
-                               
                                 <p>{movie.genre}</p>
                             </div>
                         </div>

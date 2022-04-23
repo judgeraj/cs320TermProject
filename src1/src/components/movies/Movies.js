@@ -5,7 +5,7 @@ import SwipeButtons from "./SwipeButtons";
 import StreamButtons from "./StreamButtons";
 import "./Movies.css";
 import Movie from "./Movie";
-
+import FriendSidebar from './FriendSidebar'
 const APIURL =
   "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=7ecd0b11bc4cd387a22b43cb37086584";
 const SEARCH_API =
@@ -27,10 +27,16 @@ function Movies() {
     // <div>{movies.length > 0 && movies.map((movie) => <Movie />)}
     <div className="Movies">
       {/* <Header /> */}
+      <div className="activeSidebar">
+        <FriendSidebar/>
+      </div>
       <StreamButtons />
       <MovieCards />
+      
+
       {/* <SwipeButtons /> */}
     </div>
+    
     // </div>
   );
 }

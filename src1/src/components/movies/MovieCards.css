@@ -68,10 +68,15 @@
     max-height: 100%;
 }
 
+.overview > p { 
+    text-align: left;
+}
+
 .card:hover .overview {
     transform: translateY(0%);
 }
 
 .compare { 
-    
+    background-color: black;
+    color: pink;
 }

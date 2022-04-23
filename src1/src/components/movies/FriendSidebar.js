@@ -2,8 +2,8 @@ import database, { authenticate } from '../../firebase/firebase';
 import { selectUser } from '../../features/userSlice';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import TopicList from './TopicList';
-import './TopicAnimeSidebar.css'
+import FriendList from './FriendList';
+import './FriendList.css';
 
 //the following are importing icons from material-ui
 import { Avatar, Button } from '@material-ui/core';
@@ -19,6 +19,7 @@ function AvatarUser(){
                     <div className="userInfo">
                         <h3>{userId.displayName.substring(0,userId.displayName.indexOf(' '))}</h3> {/** only grabs the first name of the user */}
                     </div> 
+                <EditIcon className='editUser' />
             </div>)
 }
 
@@ -37,18 +38,19 @@ function TopicSidebar() { //sidebar for discussion category
     const [topics, setTopics] = useState([]);
 
     useEffect(() => {
-        database.collection('topics').onSnapshot(snapshot => // grabs the database info  
+        database.collection('users').onSnapshot(snapshot => // grabs the database info  
             setTopics(snapshot.docs.map(thisData => ({
                     topic: thisData.data(),    
                     id: thisData.id,
                 }))
             ));
     }, []);
+
+
     return (
         <div className="Sidebar">
             <div className="sidebarTitleBar"> {/** main title header in the sidebar */}
-                <h3>Karo's Discussion Board</h3>
-                <ExpandIcon />
+                <h3>Matcher Maker</h3>
             </div>
 
             <div className='sidebarTopicsBar'> {/** topic section in the sidebar */}
@@ -56,17 +58,16 @@ function TopicSidebar() { //sidebar for discussion category
 
                 <div className='topicsTitle'> {/** creates the header of the topic list */}
                     <div className='topicsTitleBar'>
-                        <h4>Topics</h4>
-                    </div>
-                    <AddIcon onClick={createTopic()} className="addTopics"/> {/** the list of topics for discussion */}
+                        <h4>Friends</h4>
+                    </div> {/* the list of topics for discussion */}
                 </div>
 
                 <div className="topicList">
-                    {topics.map(({id, topic}) => (
-                        <TopicList 
-                            key={id} 
-                            id={id} 
-                            topicName={topic.topicName}/>
+                    {topics.map(({id: photo, topic: displayName}) => (
+                        <FriendList 
+                            key={photo} 
+                            id={displayName.photo} 
+                            topicName={photo}/>
                     ))}
                 </div>
             </div>

@@ -27,7 +27,16 @@
 .Movies-link {
   color: #61dafb;
 }
-
+.activeSidebar {
+  background-color: black;
+  width: 250px;
+  justify-content: center;
+  position: fixed;
+  right: 0;
+  transition: 850ms;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
