@@ -1,11 +1,11 @@
-// index.js - 45 lines
+// index.js - 49 lines
 // Server
 const express = require("express");
 const app = express();
 const http = require("http");
 const cors = require("cors");
 const { Server } = require("socket.io");
-const { use } = require("express/lib/application");
+const { use } = require("express");
 app.use(cors());
 const server = http.createServer(app); // set up a server
 const io = new Server(server, { 
@@ -13,6 +13,7 @@ const io = new Server(server, {
         origin: "http://localhost:3000",
         methods: ["GET", "POST", "PUT", "DELETE"],
     },
+    maxHttpBufferSize: 10e7
 });
 const convos = []; // store list of convos
 let allUsers = []; // to hold all users and their corresponding socket id
@@ -23,7 +24,8 @@ const convoUsers = { // store current users in each convo
 const messages = { // store all messages sent in each convo
     general: [],
     music: [],
-};
+}; 
+let fullConvos = []; // store all convos that are full
 
 /* function to start up the server. once a user is connected
    to the server, its added to an array containing all users.
@@ -59,9 +61,19 @@ function startServer() {
             socket.to(message.convo).emit("receiveMessage", message); // send to a particular convo
         });
 
-        // socket.on("updateLikes", (message) => { // when a like has been added to a message,
-        //     console.log(message.message)
-        // }); 
+        socket.on("availability", (convo, open) => { // when availability is changed,
+            socket.to(convo).emit("changeAvailability", convo, open); // let particular convo know if its open or not
+            if (open){ // if convo is now open
+                fullConvos = fullConvos.filter(x => x != convo); // remove from list of convos that are full
+            } else {
+                fullConvos.push(convo); // add to the list of convos that cannot be joined
+            }
+            console.log(fullConvos);
+        });
+
+        socket.on("updateLikes", (convo, id) => { // when a like has been added to a message,
+            //console.log(messages[convo])
+        }); 
         
         socket.on("removeUser", (users, convo) => {
             socket.to(convo).emit("updateUsers", users); // let convo know that user has left a convo

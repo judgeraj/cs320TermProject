@@ -1,4 +1,4 @@
-// App.js - 44 lines
+// ConvoLogin.js - 48 lines
 import "./App.css";
 import React from "react";
 import io from 'socket.io-client';
@@ -10,11 +10,13 @@ import { selectUser } from '../../../../features/userSlice';
 
 const socket = io.connect("http://localhost:3001");
 
+
 function ConvoLogin() {
   const [username, setUsername] = useState(""); // represent the user logging in
   const [currentScreen, setCurrentScreen] = useState("login"); // represent what screen to show
   const [convos, setConvos] = useState(["general", "music"]);
   const [valid, setValid] = useState(true); // true when username input is valid
+  const [fullConvos, setFullConvos] = useState([]);
 
   /* login the user if the username is valid */
   const loginUser = () => {
@@ -27,20 +29,20 @@ function ConvoLogin() {
 
   /* get an updated list of convos whenever a new
       convo is added */
-  // useEffect(() => { // !! Bug: updated convos appear only once when another user joins a convo !!
-  //   socket.on("getConvos", (convos) => {
-  //       setConvos(convos);
-  //   });
-  // });
+  useEffect(() => { // !! Bug: updated convos appear only once when another user joins a convo !!
+    socket.on("getConvos", (convos) => {
+        setConvos(convos);
+    });
+  });
 
   return (
     <div className="App">
       {currentScreen === "login" ? (
         <div className="loginContainer"> 
           <h3>Login</h3>
-          {/* <p></p>
+          <p></p>
           <button>Sign in with Google</button>
-          <p></p> */}
+          <p></p>
           <input
             type="text"
             placeholder="Guest Username..."
@@ -62,7 +64,7 @@ function ConvoLogin() {
         <ConvoList
           socket={socket}
           username={username}
-          //convos={convos}
+          fullConvos={fullConvos}
         />
       )}
     </div>

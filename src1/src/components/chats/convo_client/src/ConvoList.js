@@ -1,4 +1,4 @@
-// ConvoList.js - 72 lines
+// ConvoList.js - 84 lines
 import "./App.css";
 import React from "react";
 import Convo from "./Convo";
@@ -9,12 +9,14 @@ import { useSelector } from 'react-redux';
 import database from '../../../../firebase/firebase';
 import { selectUser } from '../../../../features/userSlice';
 
-function ConvoList({socket, username}){
+function ConvoList({socket, username, fullConvos}){
     const [currentScreen, setCurrentScreen] = useState("chooseConvo"); // current screen shown
     const [convo, setConvo] = useState(" "); // convo the user is currently in
     const [convoList, setConvoList] = useState([]); // list of convos that exist
-    const [valid, setValid] = useState(true);
+    const [valid, setValid] = useState(true); // if convo name is valid or not
+    const [full, setFull] = useState(false); // if convo user wants to join is full or not
     const user = useSelector(selectUser) // user that's signed in
+    //let fullConvos = ["general"]; // list of convos that people can't join anymore
 
     /* when joining an existing convo,
        the user's convo and username are stored
@@ -32,20 +34,25 @@ function ConvoList({socket, username}){
     /* for joining a new convo, it must be checked that
        the convo name is valid. then the user can join. */
     const joinNewConvo = () => { // joining a new convo
-        if (convoValid(convo)){
-            const user = { // store the user's convo and username
-                convo: convo,
-                username: username,
-            };
-            socket.emit("joinConvo", user); // tell server to let the user join the convo
-            setCurrentScreen("convo"); // show the convo screen
+        // !! BUG: users who have never joined that chat can still log into closed convos !!
+        if (!fullConvos.includes(convo)){ // if convo is not full
+            if (convoValid(convo)){
+                const user = { // store the user's convo and username
+                    convo: convo,
+                    username: username,
+                };
+                socket.emit("joinConvo", user); // tell server to let the user join the convo
+                setCurrentScreen("convo"); // show the convo screen
+            } else {
+                setValid(false); // else, convo name is invalid
+            }
         } else {
-            setValid(false); // else, convo name is invalid
+            setFull(true); // convo is full
         }
         // // store into Firebase as well
-        // database.collection("convos").doc(convo).collection("users").add({
-        //     username: username,
-        // }); 
+        database.collection("convos").doc(convo).collection("users").add({
+            username: username,
+        }); 
     }
 
     // !! Bug: requires double clicking to join convo !!
@@ -58,11 +65,14 @@ function ConvoList({socket, username}){
 
     /* get an updated list of convos whenever a new
        convo is added */
-    // useEffect(() => { // !! Bug: updated convos appear only once when another user joins a convo !!
-    //     socket.on("getConvos", (convos) => {
-    //         setConvoList(convos);
-    //     });
-    // }, [socket]);
+    useEffect(() => { // !! Bug: updated convos appear only once when another user joins a convo !!
+        socket.on("getConvos", (convos) => {
+            setConvoList(convos);
+        });
+        socket.on("fullList", (convos) => {
+            setFull(convos);
+        });
+    }, [socket]);
 
     return (
         <div className="App">
@@ -71,7 +81,7 @@ function ConvoList({socket, username}){
                     <button className="back-login"
                         onClick={() => {
                             setCurrentScreen("login")}}
-                        >&#8592;                            
+                        >&#8592;                   
                     </button>
                     <h3>Choose a Convo</h3>
                     {convoList.map((convos) => {
@@ -100,6 +110,11 @@ function ConvoList({socket, username}){
                             <p>Convo must be between 1 and 15 characters.</p>
                         )}
                     </div>
+                    <div className="error">
+                        {full && (
+                            <p>Convo is closed!</p>
+                        )}
+                    </div>                    
                 </div>
             ) : currentScreen === "convo" ? (
                 <Convo

@@ -1,4 +1,4 @@
-/* App.css - 287 lines */
+/* App.css - 332 lines */
 .App {
   width: 100vw;
   height: 100vh;
@@ -22,10 +22,15 @@ body {
   height: 23px;  
   width: 23px;
 }
-.leaveIcon {  
+.openIcon {  
   height: 20px;  
   width: 20px;
-  fill: #cfcfcf;
+  fill: green;
+}
+.fullIcon {  
+  height: 20px;  
+  width: 20px;
+  fill: red;
 }
 .heartIcon p {
   display:flex;
@@ -49,6 +54,10 @@ body {
   color: red;
   align-items: center;
   margin-top: 2rem;
+}
+.info p {
+  position: relative;
+  font-size: 0.8rem;
 }
 
 .grid-container {
@@ -210,7 +219,7 @@ body {
   font-size: 12px;
   justify-content: flex-end;
 }
-.convo-popup .convo-header .convo-leave button {
+.convo-popup .convo-header .convo-open button {
   display: flex;
   position: absolute;
   margin: 10px;
@@ -223,9 +232,9 @@ body {
   justify-content: flex-end;
   border-top-right-radius: 10px;
 }
-.convo-popup .convo-header .convo-leave button:hover:after {
+.convo-popup .convo-header .convo-open button:hover:after {
   fill: #770952;
-  content: "Leave Convo";
+  content: "Open/Close Convo";
   width: 100px;
   background-color: gray;
   color: white;
@@ -302,6 +311,11 @@ body {
   justify-content: flex-end;
   margin-right: 5px;
 }
+#loggedIn .message-meta .message-id {
+  justify-content: flex-start;
+  margin-right: 5px;
+  color: gray;
+}
 #loggedIn .message-reply {
   justify-content: flex-end;
   margin-right: 5px;
@@ -323,6 +337,11 @@ body {
 #other .message-meta {
   justify-content: flex-start;
   margin-left: 5px;
+}
+#other .message-meta .message-id {
+  justify-content: flex-start;
+  margin-left: 5px;
+  color: gray;
 }
 
 .message-meta #sender {
