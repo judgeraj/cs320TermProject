@@ -9,7 +9,7 @@ import { selectUser } from '../../features/userSlice';
 function AnimePost(animeDocID) {
   const user = useSelector(selectUser)
   const animeID = animeDocID.animeDocID
-  
+
   //const animeImg = rateAni.rateAni.animeImg
   //const animeTitle = rateAni.rateAni.animeTitle
   const [rating, setRating] = useState(0)

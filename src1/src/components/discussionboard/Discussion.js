@@ -44,13 +44,14 @@ function Discussion() {
                 .collection("messages")
                 .orderBy("timestamp", "desc")
                 .onSnapshot((snapshot) => 
-                    //REFACTORED CODE: assign ID to the array instead of the data field
                     setNewMessage(snapshot.docs.map((doc) => doc.data()))
+
+                    //DEAD CODE: attempted to pass the ID instead of the data
                     //setNewMessage(snapshot.docs.map((doc) => doc.id))
                 );
         }
     }, [topicId]);
-
+    console.log(newMessage)
     return (
         <div className='messageHeaderBar'> {/** imports the discussion header for the discussion board */}
             <div className='menuHeader'>
@@ -67,12 +68,13 @@ function Discussion() {
             <div className="messageConvo"> {/** imports the messages for users */}
                 {newMessage.map( (message) => (
                     <UserMessage 
-                        //REFACTORED CODE: pass the ID instead of the each field; To make updating of firebase easier inside UserMessage 
+                        //DEAD CODE: attempted to refactor by passing ID instead of the data
+                        // messageDocId={message}
+
+                        topicId={topicId}
                         user={message.user}
                         timestamp={message.timestamp}
                         message={message.message}
-                        // topicId={topicId}
-                        // messageDocId={message}
                         currentUser={user}/> 
                 ))}
             </div>
