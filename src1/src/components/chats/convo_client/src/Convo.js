@@ -1,4 +1,4 @@
-// Convo.js - 275 lines
+// Convo.js - 342 lines
 import React from "react";
 import ConvoList from "./ConvoList";
 import ScrollToBottom from "react-scroll-to-bottom";
@@ -12,37 +12,48 @@ import database from '../../../../firebase/firebase';
 import { selectUser } from '../../../../features/userSlice';
 import Image from "./Image";
 
-function Convo({socket, username, convo}){
+/* messages and fullList correspond to attempts of getting data from Firebase
+   database once the user chooses a convo from the convoList screen. */
+function Convo({socket, username, convo, convos, messages, fullList}){
     const [currentScreen, setCurrentScreen] = useState("convo"); // current screen
     const [currentMessage, setCurrentMessage] = useState(""); // store typed message to be sent
     const [messagesSent, setMessagesSent] = useState([]); // store all messages sent (server)
-    const [allMessages, setAllMessages] = useState([]); //  store all messages sent (Firebase)
-    const [id, setId] = useState(0); // store an id number for each of that user's message
+    const [allMessages, setAllMessages] = useState(messages); //  store all messages sent (Firebase)
+    const [id, setId] = useState(0); // store an id number for each of this user's messages
     const [users, setUsers] = useState([username]); // store users in the convo
+    const user = useSelector(selectUser) // user that's signed in (Google)
     const [showEmojis, setShowEmojis] = useState(false); // state to show emoji picker
-    const [showDelete, setShowDelete] = useState(false); // state for delete message popup
-    const [showLeave, setShowLeave] = useState(false); // state for leaving the convo
-    const [showLikes, setShowLikes] = useState(false);
+    const [showDelete, setShowDelete] = useState(false); // deleting a message confirmation
+    const [showLeave, setShowLeave] = useState(false); // leaving convo confirmation
+    const [showLikes, setShowLikes] = useState(false); // to show a like has been added
     const [replyingMessage, setReplyMessage] = useState(""); // attempt to change reply message state
     const [replyingTo, setReplyTo] = useState(""); // attempt to change user replied to state
-    let replyMessage = useState(""); // display message to reply to
-    let replyTo = useState(""); // display user to reply to
+    let replyMessage = useState(""); // reply-to message
+    let replyTo = useState(""); // reply-to user
     let selectMessage = 0; // current selected message id
     const uploadFile = useRef(null); // assign reference to file input
-    const user = useSelector(selectUser) // user that's signed in
-    const [inputFile, setInputFile] = useState(); // set the input file that will be sent
+    const [inputFile, setInputFile] = useState(); // input file to be sent
     const [showUpload, setShowUpload] = useState(false); // show button to upload a pic
-    const [typing, setTyping] = useState(false); // set when to show a user is typing
-    const [update, setUpdate] = useState(""); // set when an update is being added
+    const [typing, setTyping] = useState(false); // when to show a user is typing
     const [fullConvos, setFullConvos] = useState([]); // holds list of convos that cannot be joined
+    const [message, setMessage] = useState(""); // to store retrieving just text of a message
+    const [update, setUpdate] = useState(""); // when an update is being added
+    const [convoList, setConvoList] = useState(convos); // list of convos that exist
 
+    /* reducer used with reduce function to display all users with commas in between */
     const reducer = (previous, current) => {
-        return previous + ", " + current; // display all users with commas inbetween
+        return previous + ", " + current; 
     } 
 
-    /* sends a message within a specific convo. adds the
-       message and all its info to an array and sends the
-       message to all other users on the server.  */
+      /* get an updated list of convos whenever a new convo is added */
+    useEffect(() => { // !! Bug: updated convos appear only once when another user joins a convo !!
+        socket.on("getConvos", (convos) => {
+            setConvoList(convos); // add it to the list of messages sent 
+        });
+    });
+
+    /* sends message within a specific convo. adds the message and all its info to
+       an array and sends the message to all other users in the convo. */
     const sendMessage = async () => {
         const timeNow = new Date(); // get current time
         let hour = timeNow.getHours();
@@ -53,6 +64,7 @@ function Convo({socket, username, convo}){
             const messageFile = {
                 id: id,
                 type: "file",
+                message: "",
                 body: inputFile,
                 mimeType: inputFile.type, // extension of the file
                 fileName: inputFile.name,
@@ -61,54 +73,55 @@ function Convo({socket, username, convo}){
                 time: time,
                 likes: 0
             }
-            await socket.emit("sendMessage", messageFile);  // send message info
+            await socket.emit("sendMessage", messageFile); // send message info
             setInputFile(); // make input file variable empty again
             setMessagesSent((list) => [ 
                 ...list, messageFile // add it to the list of messages sent
             ]); 
             setCurrentMessage(""); // when done sending message, input box is set to nothing 
             replyMessage = ""; // message and user being replied to are set to nothing
-            replyTo = "";            
-            setShowUpload(false);           
+            replyTo = "";
+            setShowUpload(false); // don't show upload button anymore     
         }
         if (currentMessage !== "") { // if input box is not blank,
             setId(id+1);
             const messageInfo = { // get the message info
                 id: id,
                 type: "text",
+                message: currentMessage,
+                body: "",
+                mimeType: "",
+                fileName: "",
                 convo: convo,
                 sender: username,
-                message: currentMessage,
                 time: time,
                 likes: 0
             };
-            // // store into Firebase as well
-            // database.collection("convos")
-            //     .doc(convo)
-            //     .collection("messages")
-            //     .add({
-            //         sender: username,
-            //         time: time,
-            //         message: currentMessage,
-            //         likes: 0 });
-            // database.collection("messages")
+            // store into Firebase as well
+            database.collection("convos")
+                .doc(convo)
+                .collection("messages")
+                .add(messageInfo);
+            database.collection("convos").doc(convo).collection("users").add({
+                username: username,
+            }); 
+            // database.collection("convos") // print docs
             //     .doc(convo)
             //     .collection("messages")
             //     .onSnapshot((snapshot) => 
             //         setAllMessages(snapshot.docs.map((doc) => console.log(doc.data()))));     
-            await socket.emit("sendMessage", messageInfo);  // send message info
+            await socket.emit("sendMessage", messageInfo); // send message info
             setMessagesSent((list) => [ 
-                ...list, messageInfo // add it to the list of messages sent
+                ...list, messageInfo
             ]);        
-            setCurrentMessage(""); // when done sending message, input box is set to nothing
-            replyMessage = ""; // message and user being replied to are set to nothing
+            setCurrentMessage("");
+            replyMessage = "";
             replyTo = "";
             setShowUpload(false);
         }
     };
 
-    /* adds text to the input box that indicates the user is
-       intending to reply to another user */
+    /* adds text to the input box that indicates the user is intending to reply to another user */
     const reply = (message, sender, id) => {
         replyMessage = message;
         replyTo = sender;
@@ -141,22 +154,21 @@ function Convo({socket, username, convo}){
         setInputFile(event.target.files[0]); // holds file
     };
 
+    /* previous attempt to open file explorer and display file name */
     const openFile = () => {
         uploadFile.current.click();
         setCurrentMessage(uploadFile.name);
     }
 
-    /* uses filter to update the users list to include
-       all users but the one that is leaving. then sets
-       the current screen is the list of convos screen. */
+    /* uses filter to update the users list to include all users but
+       the one that is leaving. then sets the current screen is the list of convos screen. */
     const leaveConvo = (username) => {
         setUsers(users.filter(x => x !== username));
         setCurrentScreen("convoList");
     }    
 
-    /* listen for changes in the socket from other users.
-       update the states of messages and users in the convo
-       when a change happens. */
+    /* listen for changes in the socket from other users. update the states of
+       messages and users in the convo. */
     useEffect(() => {
         socket.on("receiveMessage", (message) => { // whenever a new message is received
             setMessagesSent((list) => [
@@ -165,8 +177,10 @@ function Convo({socket, username, convo}){
         });
         socket.on("changeAvailability", (convo, open) => { // whenever a new message is received
             if (open){ // if convo is now open
-                setFullConvos(fullConvos.filter(x => x != convo)); // remove from list of convos that are full
-            } else {
+                setFullConvos( // remove from list of convos that are full
+                    fullConvos.filter(x => x != convo)
+                );
+            } else { // convo is now closed
                 setFullConvos((list) => [
                     ...list, convo // add to the list of convos that cannot be joined
                 ]);
@@ -184,16 +198,30 @@ function Convo({socket, username, convo}){
         });
     }, [socket]);
 
-    // /* get updated list of messages from Firebase */
+    /* get updated list of messages from Firebase */
     // useEffect(() => {
-    //     if (convo){
-    //         database.collection("messages")
-    //         .doc(convo)
-    //         .collection("messages")
-    //         .onSnapshot((snapshot) => 
-    //             setAllMessages(snapshot.docs.map((doc) => doc.data())));  
-    //     }  
+    //     database.collection("convos")
+    //     .doc(convo)
+    //     .collection("messages")
+    //     .onSnapshot((snapshot) => 
+    //         snapshot.docs.map(
+    //             (doc) => {
+    //                 setAllMessages((list) => [ 
+    //                     ...list, doc.data() // add it to the list of messages sent
+    //                 ]);
+    //             })
+    //     ); 
+    //         // snapshot.docs.map( doc =>{ // get just the text
+    //         //     setMessage(doc.data().message)}
+    //         //));
     // }, [convo]);
+
+    /* test getting just text part of a message */
+    const renderText = (text) => {
+        return (
+            <p>{text}</p>
+        );
+    }
 
     /* render the messages being sent in the convo. how the
        message is displayed depends on the message type.
@@ -203,7 +231,7 @@ function Convo({socket, username, convo}){
         if (messages.type === "file"){ // if the message is a file
             const blob = new Blob([messages.body], {type: messages.type});
             return (
-                <div className="message"id={
+                <div className="message"id={ // style depending on if its this user or another
                     username === messages.sender ? "loggedIn" : "other"
                     }>
                     <div>
@@ -218,7 +246,7 @@ function Convo({socket, username, convo}){
                         </div>
                         <div className="grid-container">
                             <div className="message-content">
-                                <p onClick={() => {
+                                <p onClick={() => { // if message clicked, add reply message text
                                     // return (
                                     // setReplyMessage(messages.message),
                                     // setReplyTo(messages.sender),
@@ -226,12 +254,12 @@ function Convo({socket, username, convo}){
                                     reply("", messages.sender, messages.id);
                                     }}>
                                     <Image 
-                                        fileName={messages.fileName} 
+                                        fileName={messages.fileName} // displays image here
                                         blob={blob} />
                                 </p>
                             </div>
                             <div className="heartIcon">
-                                <p onClick={() =>
+                                <p onClick={() => // add like when heart next to message is clicked
                                     addLike(messages.id)
                                 }
                                     >&#9825;
@@ -240,8 +268,12 @@ function Convo({socket, username, convo}){
                         </div>
                         <div className="message-meta">
                             <p>{messages.time}</p>
-                            <p id="sender">{messages.sender}</p>
-                            <p id="message-likes">&#9825; {messages.likes}</p>
+                            <p id="sender">
+                                {messages.sender}
+                            </p>
+                            <p id="message-likes">
+                                &#9825; {messages.likes}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -265,13 +297,13 @@ function Convo({socket, username, convo}){
                         </div>
                         <div className="grid-container">
                             <div className="message-content">
-                                <p onClick={() => {
+                                <p onClick={() => { 
                                     // return (
                                     // setReplyMessage(messages.message),
                                     // setReplyTo(messages.sender),
                                     // reply );
                                     reply(messages.message, messages.sender, messages.id);
-                                    }}
+                                    }} // show message text
                                     >{messages.message}
                                 </p>
                             </div>
@@ -285,8 +317,12 @@ function Convo({socket, username, convo}){
                         </div>
                         <div className="message-meta">
                             <p>{messages.time}</p>
-                            <p id="sender">{messages.sender}</p>
-                            <p id="message-likes">&#9825; {messages.likes}</p>
+                            <p id="sender">
+                                {messages.sender}
+                            </p>
+                            <p id="message-likes">
+                                &#9825; {messages.likes}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -294,19 +330,24 @@ function Convo({socket, username, convo}){
         }
     }
 
-    /* let other users know convo is open */
+    /* let other users know convo is open. delete convo from Firebase collection
+       of full convos. */
     const open = async () => {
-        await socket.emit("availability", convo, true);  
+        await socket.emit("availability", convo, true);
+        database.collection("fullConvos")
+            .delete(convo);
     }
 
-    /* let other users know convo is closed */
+    /* let other users know convo is closed. add convo to Firebase collection of
+       full convos. */
     const close = async () => {
-        await socket.emit("availability", convo, false);  
+        await socket.emit("availability", convo, false);
+        database.collection("fullConvos")
+            .add(convo);
     }
 
     /* change style of upper right hand button
-       depending on whether the convo is available
-       to join or not */
+       depending on whether the convo is available to join or not */
     const available = () => {
         if (!fullConvos.includes(convo)){ // if convo was open
             return (
@@ -315,9 +356,9 @@ function Convo({socket, username, convo}){
                         setFullConvos((list) => [ 
                             ...list, convo // add convo to the list of full convos
                         ]);
-                        close()
+                        close() // let other users know
                     }}>
-                    <svg 
+                    <svg // image of open convo
                         id="Layer_1" 
                         height="512" 
                         viewBox="0 0 24 24" 
@@ -335,27 +376,28 @@ function Convo({socket, username, convo}){
                 <button className="button"
                     onClick={() => { // clicking on button now makes it open
                         setFullConvos(fullConvos.filter(x => x != convo));
-                        open()
+                        open() // let other users know
                     }}>
-                    <svg 
+                    <svg // image of closed convo
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         width="512"
                         height="512"
                         className="fullIcon"
                     >
-                        <g id="_01_align_center" data-name="01 align center">
+                        <g id="_01_align_center"
+                           data-name="01 align center">
                             <polygon points="15.293 7.293 12 10.586 8.707 7.293 7.293 8.707 10.586 12 7.293 15.293 8.707 16.707 12 13.414 15.293 16.707 16.707 15.293 13.414 12 16.707 8.707 15.293 7.293"/>
                             <path d="M12,0A12,12,0,1,0,24,12,12.013,12.013,0,0,0,12,0Zm0,22A10,10,0,1,1,22,12,10.011,10.011,0,0,1,12,22Z"/>
                         </g>
                     </svg>
-                </button>   
+                </button>
             );          
         }
     }
 
     /* return the current screen needed. either
-       the popup container, or login screen */
+       the popup convo container, or login screen */
     return (
         <div className="App">
             {currentScreen === "convo" ? (
@@ -367,7 +409,7 @@ function Convo({socket, username, convo}){
                                 setCurrentScreen("convoList")}
                                 >&#8592;
                             </button>
-                        </div>                
+                        </div>      
                         <p>{convo}</p>
                         <div className="convo-size">
                             <p data-test='usersNum'># of users: {users.length}</p>
@@ -381,8 +423,9 @@ function Convo({socket, username, convo}){
                     </div>                      
                     <div className="convo-body">
                         <ScrollToBottom className="message-container">
-                            {messagesSent.map(renderMessages)} 
-                            {typing && ( 
+                            {messagesSent.map(renderMessages)}
+                            {/* {allMessages.map(renderMessages)}  */}
+                            {typing && ( // display if someone's typing
                                 <div className="info">
                                     <p> Typing... </p>
                                 </div>
@@ -394,33 +437,37 @@ function Convo({socket, username, convo}){
                             type="text"
                             value={currentMessage}
                             placeholder="Type Message..."
-                            onChange={(event) => {
+                            onChange={(event) => { // change current message as input changes
                                 setCurrentMessage(event.target.value);
-                                setShowLikes(false);
-                                // if (currentMessage === ""){
+                                setShowLikes(false); // stop showing likes added message
+                                // if (currentMessage === ""){ // stop showing typing message when input empty
                                 //     setTyping(false);
                                 // } else {
                                 //     setTyping(true);
                                 // }
                             }}
-                            onKeyPress={(event) => {
+                            onKeyPress={(event) => { // send message when enter button pressed
                                 event.key === "Enter" && sendMessage()
                             }}
                         /> 
-                        <button className="button" onClick={() => setShowUpload(!showUpload)}>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg" 
-                                className="fileIcon"
-                                id="Outline"
-                                viewBox="0 0 24 24"
-                                width="512"
-                                height="512"  
-                            >
-                                <path fill="gray" d="M19,0H5A5.006,5.006,0,0,0,0,5V19a5.006,5.006,0,0,0,5,5H19a5.006,5.006,0,0,0,5-5V5A5.006,5.006,0,0,0,19,0ZM5,2H19a3,3,0,0,1,3,3V19a2.951,2.951,0,0,1-.3,1.285l-9.163-9.163a5,5,0,0,0-7.072,0L2,14.586V5A3,3,0,0,1,5,2ZM5,22a3,3,0,0,1-3-3V17.414l4.878-4.878a3,3,0,0,1,4.244,0L20.285,21.7A2.951,2.951,0,0,1,19,22Z"/>
-                                <path fill="gray" d="M16,10.5A3.5,3.5,0,1,0,12.5,7,3.5,3.5,0,0,0,16,10.5Zm0-5A1.5,1.5,0,1,1,14.5,7,1.5,1.5,0,0,1,16,5.5Z"/>
-                            </svg> 
+                        <button className="button" // show upload button when file icon clicked
+                            onClick={() => setShowUpload(!showUpload)}>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg" 
+                                    className="fileIcon"
+                                    id="Outline"
+                                    viewBox="0 0 24 24"
+                                    width="512"
+                                    height="512"  
+                                >
+                                    <path fill="gray" 
+                                          d="M19,0H5A5.006,5.006,0,0,0,0,5V19a5.006,5.006,0,0,0,5,5H19a5.006,5.006,0,0,0,5-5V5A5.006,5.006,0,0,0,19,0ZM5,2H19a3,3,0,0,1,3,3V19a2.951,2.951,0,0,1-.3,1.285l-9.163-9.163a5,5,0,0,0-7.072,0L2,14.586V5A3,3,0,0,1,5,2ZM5,22a3,3,0,0,1-3-3V17.414l4.878-4.878a3,3,0,0,1,4.244,0L20.285,21.7A2.951,2.951,0,0,1,19,22Z"/>
+                                    <path fill="gray"
+                                          d="M16,10.5A3.5,3.5,0,1,0,12.5,7,3.5,3.5,0,0,0,16,10.5Zm0-5A1.5,1.5,0,1,1,14.5,7,1.5,1.5,0,0,1,16,5.5Z"/>
+                                </svg> 
                         </button>                    
-                        <button className="button" onClick={() => setShowEmojis(!showEmojis)}>  
+                        <button className="button" // show emoji picker when emoji button clicked
+                            onClick={() => setShowEmojis(!showEmojis)}>  
                             <svg  
                                 xmlns="http://www.w3.org/2000/svg"  
                                 className="emojiIcon"  
@@ -436,29 +483,31 @@ function Convo({socket, username, convo}){
                                 />  
                             </svg>
                         </button>                           
-                        <button onClick={sendMessage}>{"Send"}</button>
+                        <button onClick={sendMessage} 
+                            >Send
+                        </button>
                     </div>
-                    {showEmojis && (  
+                    {showEmojis && ( // show emoji picker
                         <div>  
                             <Picker onSelect={addEmoji} />  
                         </div>  
                     )}                
-                    {showDelete && (
+                    {showDelete && ( // show delete confirmation message
                         <div className="info">
                             <p>Are you sure you want to delete this message?</p>
                         </div>
                     )}
-                    {showLeave && (
+                    {showLeave && ( // show leaving convo confirmation message
                         <div className="info">
                             <p>Are you sure you want to leave this convo?</p>
                         </div>
                     )}  
-                    {showLikes && (
+                    {showLikes && ( // show likes added message
                         <div className="info">
                             <p>You added a like!</p>
                         </div>
                     )}                      
-                    {showUpload && (
+                    {showUpload && ( // show upload file button and messages
                         <div className="info">
                             <input 
                                 className="button"
@@ -469,12 +518,13 @@ function Convo({socket, username, convo}){
                             />  
                             <p>Image size limit: 100 MB</p>
                         </div>
-                    )}                  
+                    )}
                 </div>
-            ):(
+            ):( // go back to the convo list screen
                 <ConvoList
                     socket={socket}
                     username={username}
+                    convos={convoList}
                     fullConvos={fullConvos}
                 />
             )}
@@ -483,10 +533,8 @@ function Convo({socket, username, convo}){
     );
 }
 
-/* formats minutes and hours passed in.
-   adds a 0 in front if the minutes are less
-   than two digits. indicates if the time is AM
-   or PM. returns the formatted time. */
+/* formats minutes and hours passed in. adds a 0 in front if the minutes are less
+   than two digits. indicates if the time is AM or PM. returns the formatted time. */
 function formatTime(minutes, hour){
     if (minutes < 10) {
         minutes = "0" + minutes;
