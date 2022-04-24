@@ -1,42 +1,41 @@
-/* below is the css for TopicSidebar.js and AnimeSidebar.js */
-.Sidebar, .animeHeader {
+/* css to make the bar displaying friends for matches*/
+.Friendbar {
     display: flex;
     flex-direction: column ;
     height: 91vh;
-    background-color: #3A3B3C;
+    background-color: rgb(190, 152, 243);
 }
-.Sidebar {
+.Friendbar {
     flex: 0.15;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
+    height: 80%;
+    position: fixed;
+    right: 0;
+    top: 40px;
 }
-.animeHeader{
-    flex: 1;
-    border-top-left-radius: 15px ;
-    border-bottom-left-radius: 15px ;
-}
-.sidebarTitleBar, .animeTitle {
+
+.friendBarTitle{
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 30px;
-    background-color: black;
+    background-color: rgb(101, 58, 161);
     color: white;
     border-bottom:3px solid white;
 }
-.sidebarTitleBar{
+
+.friendBarTitle{
     border-top-right-radius: 0px ;
     border-top-left-radius: 15px;
 }
-.animeTitle {
-    border-top-left-radius: 15px;
-}
-.sidebarTitleBar > h3, .animeTitle > h3{
+
+.friendBarTitle > h3, {
     font-size: x-large;
 }
-.sidebarTopicsBar {
+.friendSidebarBody {
     flex: 1;
 }
 .animeListBar{
@@ -46,26 +45,17 @@
 }
 
 
-.userProfileBar{
+.userProfileName{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #40464b;
+    background-color: rgb(190, 152, 243);
     padding: 10px;
     border-bottom: 3px solid white;
 }
-.userInfo{
-    flex: 1;
-    padding: 10px;
-    color: white;
-}
-.editUser {
-    color: white;
-    padding: 10px;
-    font-size: x-large;
-}
-.sidebarBottomBar{
-    background-color: black;
+
+.friendBottom{
+    background-color: rgb(101, 58, 161);
     display: flex;
     padding: 20px;
     align-items: center;
@@ -73,64 +63,69 @@
     color: white;
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 15px;
+    justify-content: space-evenly;
+    
+
 }
-.sidebarBottomBar > Button{
+.friendBottom > Button{
     color: white;
-    background-color: #3A3B3C;
+    background-color: rgb(190, 152, 243);
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    font-size: 10px;
+    padding: 5px;
+    justify-content: space-evenly;
+    
 }
-.sidebarBottomBar > Button:hover{
-    background-color: black;
+.friendBottom > Button:hover{
+    background-color: #eba1f4;
     color: white;
 }
-.addTopics {
-    cursor: pointer;
-}
-.addTopics:hover {
-    color: gray;
-}
-.topicsTitle {
+
+.friendTitle {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
     padding-left: 20px;
-    background-color: #2D2D2E;
+    background-color:rgb(168, 113, 246);
+    ;
     color: white;
 }
-.topicList, .animeList{
+.friendList {
     flex-direction: column;
     overflow-y: auto;
 }
-.topicsTitleBar{
+.friendsTitleBar{
     display: flex;
 }
 
-/* below is the css for TopicList.js */
-.topicList:hover > h4{
+/* below is the css for friendList.js */
+.friendList:hover > h4{
     color: white;
-    background-color: #40464b;
+    background-color: #eba1f4;
 }
-.topicList:hover > div{
+.friendList:hover > div{
     color: white;
-    background-color: #40464b;
+    background-color: #eba1f4;
 }
 
-.forumIcon {
+.friendIcon {
     font-size: 10px;
     padding: 10px;
 }
 
-.noReviewRating {
+.noView {
     display: none;
 }
 
-.rateANDreview {
+.view {
     color:white;
     display: flex;
     flex-direction: row;
     align-items: center;
     padding-left: 15px;
-    background-color: #3A3B3C;
+    background-color: rgb(190, 152, 243);
     cursor: pointer;
-    
 }

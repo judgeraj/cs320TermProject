@@ -8,16 +8,21 @@
     background-color: white;
     background-size: cover;
     background-position: center; 
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); 
+    box-shadow: 5px 5px 5px rgba(220, 159, 159, 0.809); 
+    border-style:solid;
+    border-color: pink;
     overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
 }
 .movieInfo > h3 { /* title on the card*/
     position: absolute;
-    bottom: 10px;
+    text-align: left;
+    bottom: 35px;
     margin: 0;
-    color: white;
-    text-shadow: 4px 4px 8px #000000;
+    color: black;
     font-size: xx-large;
+    
 }
 .movieInfo > span {
     position: absolute;
@@ -38,7 +43,8 @@
 .movieCards__cardContainer {
     display: flex;
     justify-content: center;
-    margin-top:2vh
+    margin-top:2vh;
+    flex-wrap: wrap;
 }
 .swipe {
     position: absolute;     /*stacks the cards on top of each other*/
@@ -66,6 +72,7 @@
     transition: transform 0.5s ease-in-out;
     text-align: left;
     max-height: 100%;
+    text-align: left;
 }
 
 .overview > p { 
@@ -76,7 +83,9 @@
     transform: translateY(0%);
 }
 
-.compare { 
-    background-color: black;
-    color: pink;
+.buttons {
+    position: relative;
+}
+.buttons >button { 
+    align-items: center;
 }

@@ -1,87 +1,121 @@
-import database, { authenticate } from '../../firebase/firebase';
+// import database, { authenticate } from '../../firebase/firebase';
+import database from './../../firebase/firebase';
 import { selectUser } from '../../features/userSlice';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import FriendList from './FriendList';
 import './FriendList.css';
-
+import Popup from './Popup.js'
 //the following are importing icons from material-ui
 import { Avatar, Button } from '@material-ui/core';
-import ExpandIcon from '@material-ui/icons/ExpandMore';
-import AddIcon from '@material-ui/icons/Add';           
-import SettingsIcon from '@material-ui/icons/Settings';
-import EditIcon from '@material-ui/icons/Edit';
+
+
+const matchArray = [""]
 
 function AvatarUser(){
     const userId = useSelector(selectUser)
-    return(<div className="userProfileBar"> {/** creates the user profile bar at the mid left */}
+    return(<div className="userProfileName"> {/** creates the user profile bar at the mid left */}
                 <Avatar src={userId.photo}/>
                     <div className="userInfo">
-                        <h3>{userId.displayName.substring(0,userId.displayName.indexOf(' '))}</h3> {/** only grabs the first name of the user */}
+                        <h3>{userId.displayName}</h3> {/** only grabs the first name of the user */}
                     </div> 
-                <EditIcon className='editUser' />
             </div>)
 }
 
-function createTopic () { // create topics then add to the database 
-    const addTopic = () => {
-        const topicName = prompt("Enter new topic");
-        if(topicName) {
-            database.collection('topics').add({
-                topicName: topicName,
-            });
-        }
-    };
-    return addTopic;
-}
 function TopicSidebar() { //sidebar for discussion category
-    const [topics, setTopics] = useState([]);
-
+    const [users, setUsers] = useState([]);
+    const [bpop, setBpop] = useState(false);
+    const [chosen, setChosen] = useState("")
+    const user = useSelector(selectUser)
     useEffect(() => {
         database.collection('users').onSnapshot(snapshot => // grabs the database info  
-            setTopics(snapshot.docs.map(thisData => ({
+            setUsers(snapshot.docs.map(thisData => ({
                     topic: thisData.data(),    
                     id: thisData.id,
                 }))
             ));
     }, []);
+    
+    useEffect(() => {
+        database.collection("Chosen One").onSnapshot( snapshot => {
+            snapshot.forEach((doc) => {
+              if (doc.id === 'friend') {
+                setChosen(doc.data().name)
+                console.log('testing ' + doc.data().name)
+              }
+              
+            })
+          })
+    });
+    const matches = () => {  
+        matchArray.length = 0;
+       
+        console.log("chosen one " + chosen)
+        if (chosen.length !== 0) {
+            database.collection(user.displayName).onSnapshot( snapshot => {
+                snapshot.forEach((doc) => {
+                  database.collection(chosen).onSnapshot((y) => {
+                      y.forEach( x=> {
+                          if(x.id === doc.id ){
+                              if(x.data().bool === true && doc.data().bool === true){
+                              console.log(x.data().title)
+                              console.log(doc.data().title)
+                              matchArray.push(doc.data().title)
+                              }
+                          }
+                      })
+                  })
+                })
+              })
+        }
+        matchArray.shift()
+    }
 
+    const triggerBop = () =>{
+        setBpop(true)
+    }
 
     return (
-        <div className="Sidebar">
-            <div className="sidebarTitleBar"> {/** main title header in the sidebar */}
+        <div className="Friendbar">
+            <div className="friendBarTitle"> {/** main title header in the sidebar */}
                 <h3>Matcher Maker</h3>
             </div>
 
-            <div className='sidebarTopicsBar'> {/** topic section in the sidebar */}
+            <div className='friendSidebarBody'> {/** topic section in the sidebar */}
                 {AvatarUser()}
 
-                <div className='topicsTitle'> {/** creates the header of the topic list */}
-                    <div className='topicsTitleBar'>
+                <div className='friendTitle'> {/** creates the header of the topic list */}
+                    <div className='friendsTitleBar'>
                         <h4>Friends</h4>
                     </div> {/* the list of topics for discussion */}
                 </div>
 
-                <div className="topicList">
-                    {topics.map(({id: photo, topic: displayName}) => (
+                <div className="friendList">
+                    {users.map(({id: photo, topic: displayName}) => (
                         <FriendList 
                             key={photo} 
                             id={displayName.photo} 
-                            topicName={photo}/>
+                            userName={photo}/>
                     ))}
                 </div>
             </div>
             
-            <div className="sidebarBottomBar">
-                <Button onClick={() => authenticate.signOut()}>Log Out</Button>
-                <SettingsIcon/></div>
+            <div className="friendBottom">
+                <Button onClick={() => {matches()}}>Compare with {chosen}</Button>
+                <Button onClick={() => {triggerBop() }}>View Matches</Button>
+                </div>
+                <Popup trigger = {bpop} setTrigger = {setBpop}> 
+                    <h1>You and {chosen} should watch:</h1>
+                    
+                    <ol>
+                    {matchArray.map((match) => (
+                        <li> 
+                            {match}<Avatar src={user.photo}/></li>
+                    ))}
+                    </ol>
+                 
+                </Popup>
         </div>
   );
 }
 export default TopicSidebar
-// 61 lines
-
-//  TopicAnimeSidebar directory contains 
-//    170     (topicAnime css) 
-//  + 224    (all js file in this directory) 
-//  = 394 lines total lines in topicAnimeSidebar directory
