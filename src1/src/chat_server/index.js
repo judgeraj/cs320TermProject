@@ -1,11 +1,11 @@
-// index.js - 45 lines
+// index.js - 60 lines
 // Server
 const express = require("express");
 const app = express();
 const http = require("http");
 const cors = require("cors");
 const { Server } = require("socket.io");
-const { use } = require("express/lib/application");
+const { use } = require("express");
 app.use(cors());
 const server = http.createServer(app); // set up a server
 const io = new Server(server, { 
@@ -13,8 +13,9 @@ const io = new Server(server, {
         origin: "http://localhost:3000",
         methods: ["GET", "POST", "PUT", "DELETE"],
     },
+    maxHttpBufferSize: 10e7
 });
-const convos = ["general", "music"]; // store list of convos
+const convos = []; // store list of convos
 let allUsers = []; // to hold all users and their corresponding socket id
 const convoUsers = { // store current users in each convo
     general: [],
@@ -23,12 +24,21 @@ const convoUsers = { // store current users in each convo
 const messages = { // store all messages sent in each convo
     general: [],
     music: [],
-};
+}; 
+let fullConvos = []; // store all convos that are full
 
+/* function to start up the server. once a user is connected
+   to the server, its added to an array containing all users.
+   the server then sends an updated list of all convos.
+   the server let's other users know when someone joins a convo
+   or sends a message, so that their corresponding arrays can be
+   updated to show the latest status. when a user completely
+   disconnects, they are filtered out of the list of users. */
 function startServer() {
     io.on("connection", (socket) => { // listen for an event to happen on a specific socket (specific user)
         console.log(`User with ID: ${socket.id} connected!`);
         allUsers.push(socket.id); // add to list of current users
+        //io.emit("getConvos", convos); // send list of convos that exist
         
         socket.on("joinConvo", (user) => {
             socket.join(user.convo); // join convo that the user requests
@@ -43,17 +53,27 @@ function startServer() {
             }
             io.to(user.convo).emit("joined", convoUsers[user.convo], messages[user.convo]); // let convo know that user has joined
             console.log(`User: ${user.username} (${socket.id}) joined convo: ${user.convo}`);
-            console.log(allUsers);
-        });  
+            //console.log(allUsers);
+        });
 
         socket.on("sendMessage", (message) => { // when a message is being sent,
             messages[message.convo].push(message); // add it to list of all messages
             socket.to(message.convo).emit("receiveMessage", message); // send to a particular convo
         });
 
-        // socket.on("updateLikes", (message) => { // when a like has been added to a message,
-        //     console.log(message.message)
-        // }); 
+        socket.on("availability", (convo, open) => { // when availability is changed,
+            socket.to(convo).emit("changeAvailability", convo, open); // let particular convo know if its open or not
+            if (open){ // if convo is now open
+                fullConvos = fullConvos.filter(x => x != convo); // remove from list of convos that are full
+            } else {
+                fullConvos.push(convo); // add to the list of convos that cannot be joined
+            }
+            console.log(fullConvos);
+        });
+
+        socket.on("updateLikes", (convo, id) => { // when a like has been added to a message,
+            //console.log(messages[convo])
+        }); 
         
         socket.on("removeUser", (users, convo) => {
             socket.to(convo).emit("updateUsers", users); // let convo know that user has left a convo

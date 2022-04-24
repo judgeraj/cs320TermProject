@@ -25,10 +25,10 @@ function Header() {
         Anime Review
       </NavLink>
       <NavLink
-        to="/movies"
+        to="/match"
         className={({ isActive }) => (isActive ? "tab active-tab" : "tab")}
       >
-        Movies
+        Match
       </NavLink>
       <NavLink
         to="/convo"
@@ -41,7 +41,19 @@ function Header() {
         className={({ isActive }) => (isActive ? "tab active-tab" : "tab")}
       >
         Memes
-      </NavLink>               
+      </NavLink>
+      <NavLink
+        to="/news"
+        className={({ isActive }) => (isActive ? "tab active-tab" : "tab")}
+      >
+        News
+      </NavLink>
+      <NavLink
+        to="/userprofile"
+        className={({ isActive }) => (isActive ? "tab active-tab" : "tab")}
+      >
+        Profile
+      </NavLink>
     </nav>
   );
 }

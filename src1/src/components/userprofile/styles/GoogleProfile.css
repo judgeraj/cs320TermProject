@@ -1,0 +1,21 @@
+.info-main {
+  color: rgb(90, 76, 95);
+}
+
+.info-main h2 {
+  color: rgb(0, 0, 0);
+  display: block;
+}
+
+.info-main p {
+  display: block;
+}
+
+.info-main img {
+  border: 2px solid white;
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  float: left;
+}

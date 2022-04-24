@@ -1,0 +1,136 @@
+/* below is the css for TopicSidebar.js and AnimeSidebar.js */
+.Sidebar, .animeHeader {
+    display: flex;
+    flex-direction: column ;
+    height: 91vh;
+    background-color: #3A3B3C;
+}
+.Sidebar {
+    flex: 0.15;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+.animeHeader{
+    flex: 1;
+    border-top-left-radius: 15px ;
+    border-bottom-left-radius: 15px ;
+}
+.sidebarTitleBar, .animeTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+    background-color: black;
+    color: white;
+    border-bottom:3px solid white;
+}
+.sidebarTitleBar{
+    border-top-right-radius: 0px ;
+    border-top-left-radius: 15px;
+}
+.animeTitle {
+    border-top-left-radius: 15px;
+}
+.sidebarTitleBar > h3, .animeTitle > h3{
+    font-size: x-large;
+}
+.sidebarTopicsBar {
+    flex: 1;
+}
+.animeListBar{
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+
+
+.userProfileBar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #40464b;
+    padding: 10px;
+    border-bottom: 3px solid white;
+}
+.userInfo{
+    flex: 1;
+    padding: 10px;
+    color: white;
+}
+.editUser {
+    color: white;
+    padding: 10px;
+    font-size: x-large;
+}
+.sidebarBottomBar{
+    background-color: black;
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 15px;
+}
+.sidebarBottomBar > Button{
+    color: white;
+    background-color: #3A3B3C;
+}
+.sidebarBottomBar > Button:hover{
+    background-color: black;
+    color: white;
+}
+.addTopics {
+    cursor: pointer;
+}
+.addTopics:hover {
+    color: gray;
+}
+.topicsTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    padding-left: 20px;
+    background-color: #2D2D2E;
+    color: white;
+}
+.topicList, .animeList{
+    flex-direction: column;
+    overflow-y: auto;
+}
+.topicsTitleBar{
+    display: flex;
+}
+
+/* below is the css for TopicList.js */
+.topicList:hover > h4{
+    color: white;
+    background-color: #40464b;
+}
+.topicList:hover > div{
+    color: white;
+    background-color: #40464b;
+}
+
+.forumIcon {
+    font-size: 10px;
+    padding: 10px;
+}
+
+.noReviewRating {
+    display: none;
+}
+
+.rateANDreview {
+    color:white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 15px;
+    background-color: #3A3B3C;
+    cursor: pointer;
+    
+}

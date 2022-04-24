@@ -19,11 +19,10 @@ function AvatarUser(){
                     <div className="userInfo">
                         <h3>{userId.displayName.substring(0,userId.displayName.indexOf(' '))}</h3> {/** only grabs the first name of the user */}
                     </div> 
-                <EditIcon className='editUser' />
             </div>)
 }
 
-function createTopic () { /** create topics then add to the database */
+function createTopic () { // create topics then add to the database 
     const addTopic = () => {
         const topicName = prompt("Enter new topic");
         if(topicName) {
@@ -38,7 +37,7 @@ function TopicSidebar() { //sidebar for discussion category
     const [topics, setTopics] = useState([]);
 
     useEffect(() => {
-        database.collection('topics').onSnapshot(snapshot => /** grabs the database info  */
+        database.collection('topics').onSnapshot(snapshot => // grabs the database info  
             setTopics(snapshot.docs.map(thisData => ({
                     topic: thisData.data(),    
                     id: thisData.id,
@@ -64,7 +63,10 @@ function TopicSidebar() { //sidebar for discussion category
 
                 <div className="topicList">
                     {topics.map(({id, topic}) => (
-                        <TopicList key={id} id={id} topicName={topic.topicName}/>
+                        <TopicList 
+                            key={id} 
+                            id={id} 
+                            topicName={topic.topicName}/>
                     ))}
                 </div>
             </div>
@@ -76,9 +78,9 @@ function TopicSidebar() { //sidebar for discussion category
   );
 }
 export default TopicSidebar
-// 58 lines
+// 61 lines
 
 //  TopicAnimeSidebar directory contains 
-//    124     (topicAnime css) 
-//  + 128    (all js file in this directory) 
-//  = 256 lines total lines in topicAnimeSidebar directory
+//    170     (topicAnime css) 
+//  + 224    (all js file in this directory) 
+//  = 394 lines total lines in topicAnimeSidebar directory

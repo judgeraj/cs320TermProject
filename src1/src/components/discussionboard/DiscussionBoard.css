@@ -8,6 +8,7 @@
 .messageConvo{
     flex: 0.50px;
     overflow-y: auto;
+    overflow-wrap: break-word;
 }
 .messageInput {
     display: flex;
@@ -172,6 +173,17 @@
     margin-right: 5px;
     justify-content: flex-end;
 }
-
-/* 106 lines 
+.avatarMain{
+    display: flex;
+    flex-direction: column;
+}
+.avatarButtons{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 5px;
+}
+.avatarButtons > .MuiSvgIcon-root:hover{
+    color: lightgrey;
+}
+/* 136 lines 
     not including closing bracket, new lines, and comments */
