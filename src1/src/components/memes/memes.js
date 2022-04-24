@@ -12,7 +12,7 @@ function Memes() {
   const [selectedImg, setSelectedImg] = useState(null);
 
   return (
-    <div className="App">
+    <div className="MemesApp">
       <Title/>
       <UploadForm />
       <br></br>

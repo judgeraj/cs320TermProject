@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import { projectStorage, projectFirestore, timestamp } from '../firebase/config';
+import database from './../../../firebase/firebase';
+import { projectStorage, timestamp } from './../../../firebase/firebase';
+
 
 //a function used for file upload
 const useStorage = (file) => {
@@ -10,7 +12,7 @@ const useStorage = (file) => {
     useEffect(() => {
         //references in the firebase storage
         const storageRef = projectStorage.ref(file.name);
-        const collectionRef = projectFirestore.collection('images');
+        const collectionRef = database.collection('images');
 
         //upload the file to firebase
         storageRef.put(file).on('state_changed', (snap) => {

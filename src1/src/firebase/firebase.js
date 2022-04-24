@@ -1,6 +1,8 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import 'firebase/compat/storage';
+
 
 
 //vivian's firebase
@@ -38,6 +40,10 @@ const firebaseConfig = {
   const database = firebaseApp.firestore();
   const authenticate = firebase.auth();
   const provider = new firebase.auth.GoogleAuthProvider();
+  const projectStorage = firebase.storage();
+  const timestamp = firebase.firestore.FieldValue.serverTimestamp;
 
-export { authenticate, provider };
 export default database;
+export { authenticate, provider, projectStorage, timestamp };
+
+
