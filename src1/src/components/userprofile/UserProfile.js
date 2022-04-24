@@ -6,13 +6,14 @@ import { selectUser } from "../../features/userSlice";
 
 import GoogleProfile from "./GoogleProfile";
 import Bio from "./Bio";
-//import Activity from "./Activity";
+import Activity from "./Activity";
 
 function UserProfile() {
   // const [googleInfo, setGoogleInfo] = useState({});
 
   const user = useSelector(selectUser);
 
+  // Don't use: instead use the user object stored in redux
   // useEffect(() => {
   //   const auth = getAuth();
   //   onAuthStateChanged(auth, (user) => {
@@ -26,7 +27,7 @@ function UserProfile() {
     <div>
       <GoogleProfile user={user} />
       <Bio user={user} />
-      {/* <Activity user={user} /> */}
+      <Activity user={user} />
     </div>
   );
 }

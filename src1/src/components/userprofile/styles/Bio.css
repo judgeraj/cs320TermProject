@@ -5,6 +5,7 @@
 .info-bio h3 {
   color: rgb(0, 0, 0);
   display: block;
+  margin-bottom: 5px;
 }
 
 .info-bio p {

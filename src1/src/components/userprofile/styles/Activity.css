@@ -1,21 +1,23 @@
-.info-about {
+.info-activity {
   color: rgb(90, 76, 95);
 }
 
-.info-about h3 {
+.info-activity h3 {
   color: rgb(0, 0, 0);
   display: block;
+  margin-bottom: 5px;
 }
 
-.info-about p {
+.info-activity h4 {
+  text-align: center;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.info-activity p {
   display: block;
 }
 
-.info-about img {
-  border: 2px solid white;
-  margin-right: 5px;
-  margin-left: 5px;
-  margin-top: 5px;
-  margin-bottom: 10px;
-  float: left;
+.movie-title {
+  padding-left: 15px;
 }

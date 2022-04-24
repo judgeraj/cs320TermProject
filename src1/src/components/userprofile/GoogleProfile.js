@@ -17,7 +17,7 @@ function GoogleProfile(props) {
         <h2>{props.user.displayName}</h2>
         {/* <p>{props.user.email}</p> */}
         <div className="edit">
-          <Edit onClick={() => editButtonHandler} />
+          <Edit onClick={editButtonHandler} />
         </div>
       </div>
     </div>
