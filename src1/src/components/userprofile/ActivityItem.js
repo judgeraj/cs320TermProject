@@ -1,6 +1,6 @@
 import React from "react";
 
-function ActivityItem() {
+function ActivityItem(props) {
   return <p>activity item</p>;
 }
 

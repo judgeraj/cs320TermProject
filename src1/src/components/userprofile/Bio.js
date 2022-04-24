@@ -6,6 +6,7 @@ import database from "../../firebase/firebase";
 
 import "./styles/Bio.css";
 import "./styles/UserProfile.css";
+import { getContrastRatio } from "@material-ui/core";
 
 function Bio(props) {
   // const [bioInfo, setBioInfo] = useState({
@@ -16,16 +17,11 @@ function Bio(props) {
   const [showEditBio, setShowEditBio] = useState(false);
 
   const getBio = () => {
-    database.collection("bios").onSnapshot((snapshot) => {
-      snapshot.forEach((doc) => {
-        if (doc.data().uid === props.uid) {
-          setBioInfo(doc.data());
-        }
-      });
-    });
+    console.log(`getBio: keys = ${Object.keys(bioInfo).length}`);
     if (Object.keys(bioInfo).length === 0) {
+      console.log("bio is empty");
       const newBioInfo = {
-        uid: props.uid,
+        name: props.user.displayName,
         about: "",
       };
       database.collection("bios").add(newBioInfo);
@@ -33,7 +29,24 @@ function Bio(props) {
     }
   };
 
-  getBio();
+  useEffect(() => {
+    let bioFound = false;
+    database.collection("bios").onSnapshot((snapshot) => {
+      snapshot.forEach((doc) => {
+        console.log(`doc.data().name = ${doc.data().name}`);
+        if (doc.data().name === props.user.displayName) {
+          bioFound = true;
+          setBioInfo(doc.data());
+          console.log(doc.data().name, props.user.displayName);
+        }
+      });
+    });
+    if (!bioFound) {
+      getBio();
+    }
+  }, []);
+
+  //getBio();
 
   function updateBioAbout(event) {
     setUpdatedBioInfo({ ...bioInfo, about: event.target.value });
@@ -42,6 +55,15 @@ function Bio(props) {
   function updateBio(saveUpdatedBio) {
     if (saveUpdatedBio) {
       setBioInfo(updatedBioInfo);
+      database.collection("bios").onSnapshot((snapshot) => {
+        snapshot.docs.map((doc) => {
+          if (doc.data().name === props.user.displayName) {
+            database.collection("bios").doc(doc.id).update({
+              about: updatedBioInfo.about,
+            });
+          }
+        });
+      });
     } else {
       setUpdatedBioInfo(bioInfo);
     }
