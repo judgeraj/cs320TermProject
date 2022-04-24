@@ -1,17 +1,17 @@
-.info-main {
+.info-about {
   color: rgb(90, 76, 95);
 }
 
-.info-main h2 {
+.info-about h3 {
   color: rgb(0, 0, 0);
   display: block;
 }
 
-.info-main p {
+.info-about p {
   display: block;
 }
 
-.info-main img {
+.info-about img {
   border: 2px solid white;
   margin-right: 5px;
   margin-left: 5px;
