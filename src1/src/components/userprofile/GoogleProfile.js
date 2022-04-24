@@ -1,19 +1,25 @@
 import React from "react";
+import { Edit } from "@material-ui/icons";
 
 import "./styles/GoogleProfile.css";
+import "./styles/UserProfile.css";
 
 function GoogleProfile(props) {
+  // edit their google profile or add background picture
+  const editButtonHandler = () => {
+    console.log("Clicked, edit the user's google profile");
+  };
+
   return (
     <div className="info">
-      <div className="main">
-        <h1>{props.userInfo.displayName}</h1>
-        <p>{props.userInfo.email}</p>
+      <div className="info-main">
+        <img src={props.user.photo} alt="Google User"></img>
+        <h2>{props.user.displayName}</h2>
+        {/* <p>{props.user.email}</p> */}
+        <div className="edit">
+          <Edit onClick={() => editButtonHandler} />
+        </div>
       </div>
-      <img
-        src={props.userInfo.photoURL}
-        alt="Google User"
-        className="img img-center"
-      ></img>
     </div>
   );
 }

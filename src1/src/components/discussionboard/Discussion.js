@@ -4,7 +4,7 @@ import React, { useEffect, useState} from 'react';
 import UserMessage from './Message';
 import './DiscussionBoard.css';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../features/userSlice';
+import { selectUser} from '../../features/userSlice';
 import { selectTopicId, selectTopicName } from '../../features/appSlice';
 import firebase from 'firebase/compat/app';
 
@@ -87,26 +87,24 @@ function Discussion() {
                     <input 
                         disabled = {!topicId}
                         value = {newInput}
-                        onChange = {
-                            (e) => setNewInput(e.target.value)
-                        }
+                        onChange = {(e) => setNewInput(e.target.value)}
                         placeholder = {`add message in ${topicName}`}/> {/** creates the type bar */}
                     <button 
                         className='sendButton'
                         disabled={!topicId} 
                         type="submit"
-                        onClick={sendMssg(topicId, user, newInput, setNewInput)}>
-                    </button>
+                        onClick={sendMssg(topicId, user, newInput, setNewInput)}/>
+
                 </form>
-                <EmojiEmotions />
+                <EmojiEmotions/>
             </div>
         </div>
     );
 }
 export default Discussion;
-// 80 lines
+// 82 lines
 
 //discussionboard contains 
-//    136 (DiscussionBoard css)
-//  + 128  (all js file in this directory)
-//  = 264 lines total in dicussionboard directory
+//    174 (DiscussionBoard css)
+//  + 145  (all js file in this directory)
+//  = 319 lines total in dicussionboard directory

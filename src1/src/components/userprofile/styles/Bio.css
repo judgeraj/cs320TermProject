@@ -1,0 +1,18 @@
+.info-bio {
+  color: rgb(90, 76, 95);
+}
+
+.info-bio h3 {
+  color: rgb(0, 0, 0);
+  display: block;
+}
+
+.info-bio p {
+  display: block;
+}
+
+textarea {
+  width: 98%;
+  padding: 1%;
+  resize: vertical;
+}

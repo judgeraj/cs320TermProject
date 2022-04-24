@@ -19,6 +19,7 @@ function AvatarUser(){
                     <div className="userInfo">
                         <h3>{userId.displayName.substring(0,userId.displayName.indexOf(' '))}</h3> {/** only grabs the first name of the user */}
                     </div> 
+                    <EditIcon className='editUser' />
             </div>)
 }
 
@@ -81,6 +82,6 @@ export default TopicSidebar
 // 61 lines
 
 //  TopicAnimeSidebar directory contains 
-//    170     (topicAnime css) 
-//  + 224    (all js file in this directory) 
-//  = 394 lines total lines in topicAnimeSidebar directory
+//    171     (topicAnime css) 
+//  + 246    (all js file in this directory) 
+//  = 417 lines total lines in topicAnimeSidebar directory

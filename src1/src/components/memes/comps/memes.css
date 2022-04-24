@@ -11,7 +11,7 @@ body {
   font-family: "Noto Serif";
   color: var(--secondary);
 }
-.App {
+.MemesApp {
   max-width: 960px;
   margin: 0 auto;
 }

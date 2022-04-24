@@ -44,6 +44,21 @@ function App() {
   const userId = useSelector(selectUser);
   UserLoggin();
   
+  // const user = useSelector(selectUser) //current user who log in 
+  // const userBio = () => {
+  //   database.collection('bios').onSnapshot(snapshot =>{
+  //     snapshot.docs.map( doc => {
+  //       //comparing the current user name to the names inside the database
+  //       if(doc.data().name !== user.displayName ){
+  //           //if not exist in database, add
+  //           database.collection('bios').add({
+  //             name:user.displayName
+  //           })
+  //       }
+  //     })
+  //   })
+  // }
+  // userBio()
   return (
     <div className="app">
       {userId ? (

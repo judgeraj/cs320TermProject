@@ -3,8 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 
-/* taking in the properties specified,
-   a file reader is used to reformat
+/* taking in the properties specified, a file reader is used to reformat
    the blob and return the image. */
 function Image(props){
     const [imageSrc, setImageSrc] = useState("");

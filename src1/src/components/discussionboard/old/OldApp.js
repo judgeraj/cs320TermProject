@@ -58,8 +58,8 @@ function App() { // create the entire webpage
 export default App;
 // 44  (app.js)
 // 23  (app.css)
-// 394 (TopicAnimeSidebar directory)
-// 264 (DiscussionBoard directory)
+// 417 (TopicAnimeSidebar directory)
+// 319 (DiscussionBoard directory)
 // 21  (loginUser.css)
 // 74   test.test.js
-// = 820 total (without including closing brackets, closing parenthesis, comments, and new lines  )
+// = 898 total (without including closing brackets, closing parenthesis, comments, and new lines  )

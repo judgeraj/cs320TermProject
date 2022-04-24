@@ -1,5 +1,5 @@
 import './DiscussionBoard.css';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { Avatar } from '@material-ui/core'; // avatar icon import from material-ui
 import {Edit, Delete} from '@material-ui/icons'
@@ -13,29 +13,34 @@ function Message({topicId, timestamp, message, user, currentUser}) { //
   const db = database.collection('topics').doc(topicId).collection('messages')
 
   const editMsg = () => {
-    console.log("edit")
-    const editMsg = prompt("Edit Message")
-    if(editMsg != null){
-      db.onSnapshot( snapshot => {
+    if(userName === currentUserName){
+      const editMsg = prompt("Edit Message")
+
+      if(editMsg !== null){
+        db.onSnapshot( snapshot => {
+          snapshot.docs.map( doc => {
+
+            if(doc.data().timestamp.seconds === timestamp.seconds){
+              db.doc(doc.id).update({
+                message: editMsg
+              })
+            }
+          })
+        })
+      }
+    }
+  }
+  const deleteMsg = () => {
+
+    if(userName === currentUserName){
+      db.onSnapshot( snapshot =>{
         snapshot.docs.map( doc => {
-          if(doc.data().timestamp.seconds === timestamp.seconds && userName === currentUserName){
-            db.doc(doc.id).update({
-              message: editMsg
-            })
+          if(doc.data().timestamp.seconds === timestamp.seconds){
+            db.doc(doc.id).delete()
           }
         })
       })
     }
-  }
-  const deleteMsg = () => {
-    console.log("delete")
-    db.onSnapshot( snapshot =>{
-      snapshot.docs.map( doc => {
-        if(doc.data().timestamp.seconds === timestamp.seconds && userName === currentUserName){
-          db.doc(doc.id).delete()
-        }
-      })
-    })
   }
 
   //DEAD CODE: Attempted to refactor using the ID passed in the function. Although it seems it is working, the function is acting like it stuck in a loop.
@@ -63,9 +68,6 @@ function Message({topicId, timestamp, message, user, currentUser}) { //
   //   database.collection('topics').doc(topicId)
   // })
 
-  // user.displayName
-  // userName
-  // userPhoto 
   return (
     <section className={userName === currentUserName ? 'curUser' : 'oldUser'}>
        
@@ -80,7 +82,7 @@ function Message({topicId, timestamp, message, user, currentUser}) { //
           <div className='avatarMain'> <Avatar className='avatar' src={user.photo}/>
 
             <div className='avatarButtons'>
-              <Edit style={{ fontSize: 15 }} onClick={() => editMsg()}/>
+              <Edit style={{ fontSize: 15 }} onClick={() => editMsg()} disable/>
               <Delete style={{ fontSize: 15 }} onClick={() => deleteMsg()}/></div>
 
           </div>
@@ -93,7 +95,7 @@ function Message({topicId, timestamp, message, user, currentUser}) { //
             <div className='avatarButtons'>
               <Edit style={{ fontSize: 15 }} onClick={() => editMsg()}/>
               <Delete style={{ fontSize: 15 }} onClick={() => deleteMsg()}/></div> 
-              
+
           </div>
 
           <div className="oldMessage"> {/** info about the message */}
@@ -108,4 +110,4 @@ function Message({topicId, timestamp, message, user, currentUser}) { //
   );
 }
 export default Message
-// 24 lines
+// 67 lines

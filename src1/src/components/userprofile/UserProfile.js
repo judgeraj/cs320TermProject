@@ -1,29 +1,32 @@
-import React, { useState } from "react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import React, { useState, useEffect } from "react";
+// import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+import { useSelector } from "react-redux";
+import { selectUser } from "../../features/userSlice";
 
 import GoogleProfile from "./GoogleProfile";
 import Bio from "./Bio";
-
-// need function to get bio from database
+//import Activity from "./Activity";
 
 function UserProfile() {
-  const [userInfo, setUserInfo] = useState(0);
-  
-  const auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setUserInfo(user);
-    }
-  });
+  // const [googleInfo, setGoogleInfo] = useState({});
 
-  console.log(userInfo);
-  // call database for bio thru function above
-  const userBio = {};
+  const user = useSelector(selectUser);
+
+  // useEffect(() => {
+  //   const auth = getAuth();
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       setGoogleInfo(user);
+  //     }
+  //   });
+  // }, [googleInfo]);
 
   return (
     <div>
-      <GoogleProfile userInfo={userInfo} />
-      <Bio userBio={userBio} /> {/*pass bio from func call above down to Bio*/}
+      <GoogleProfile user={user} />
+      <Bio user={user} />
+      {/* <Activity user={user} /> */}
     </div>
   );
 }
