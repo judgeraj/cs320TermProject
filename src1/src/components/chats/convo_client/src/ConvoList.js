@@ -101,10 +101,19 @@ function ConvoList({socket, username, convos, fullConvos}){
         <div className="App">
             {currentScreen === "chooseConvo" ? ( // show convo selection screen
                 <div className="convosContainer">
-                    <button className="back-login"
+                    <button className="back-arrow"
                         onClick={() => {
                             setCurrentScreen("login")}}
-                        >&#8592;                   
+                        >
+                        <svg 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            className="backArrow"
+                            id="Bold" 
+                            viewBox="0 0 24 24" 
+                            width="512" 
+                            height="512">
+                                <path d="M4.943,5.606,1.024,9.525a3.585,3.585,0,0,0,0,4.95l3.919,3.919a1.5,1.5,0,1,0,2.121-2.121L4.285,13.492l18.25-.023a1.5,1.5,0,0,0,1.5-1.5v0a1.5,1.5,0,0,0-1.5-1.5L4.3,10.492,7.064,7.727A1.5,1.5,0,0,0,4.943,5.606Z"/>
+                        </svg>             
                     </button>
                     <h3>Choose a Convo</h3>
                     {convoList.map(listConvos)}
@@ -150,7 +159,7 @@ function ConvoList({socket, username, convos, fullConvos}){
 
 /* check that the convo name is between 1 and 15 characters long */
 function convoValid(convo){
-    if ((convo.length > 0) && (convo.length < 16) && (convo !== "")) { 
+    if ((convo.length > 0) && (convo.length < 16)) { 
         return true;
     }
     return false; // else, convo name is invalid
