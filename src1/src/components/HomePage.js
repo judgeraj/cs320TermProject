@@ -17,12 +17,9 @@ function displayPost(){
 }
 
 function HomePage() {
-<<<<<<< Updated upstream
-  const user = useSelector(selectUser);
-=======
+
   // stores user info into firebase when they open the homepage
   const user = useSelector(selectUser)
->>>>>>> Stashed changes
   useEffect(() => {
     addUser();
   }, []);

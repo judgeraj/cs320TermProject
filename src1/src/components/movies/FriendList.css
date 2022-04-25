@@ -4,6 +4,7 @@
     flex-direction: column ;
     height: 91vh;
     background-color: rgb(190, 152, 243);
+    font-family: "Open Sans", sans-serif;
 }
 .Friendbar {
     flex: 0.15;
@@ -15,6 +16,7 @@
     position: fixed;
     right: 0;
     top: 40px;
+    font-family: "Open Sans", sans-serif;
 }
 
 .friendBarTitle{
@@ -25,11 +27,13 @@
     background-color: rgb(101, 58, 161);
     color: white;
     border-bottom:3px solid white;
+    font-family: "Open Sans", sans-serif;
 }
 
 .friendBarTitle{
     border-top-right-radius: 0px ;
     border-top-left-radius: 15px;
+    font-family: "Open Sans", sans-serif;
 }
 
 .friendBarTitle > h3 {
