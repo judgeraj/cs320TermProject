@@ -32,7 +32,7 @@
     border-top-left-radius: 15px;
 }
 
-.friendBarTitle > h3, {
+.friendBarTitle > h3 {
     font-size: x-large;
 }
 .friendSidebarBody {
@@ -63,7 +63,7 @@
     color: white;
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 15px;
-    justify-content: space-evenly;
+    justify-content: space-between;
     
 
 }

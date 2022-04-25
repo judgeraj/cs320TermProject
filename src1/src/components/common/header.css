@@ -2,7 +2,10 @@
   display: flex;
   justify-content: center;
   margin-bottom: 5px;
+  align-items: center;
+  border: 2px solid #f9f9f9;
 }
+
 .tab {
   color: black;
   text-decoration: none;
@@ -10,10 +13,17 @@
   cursor: pointer;
   position: relative;
   padding: 10px;
+  border-left: 1px solid #f9f9f9;
+  border-bottom: 1px solid #f9f9f9;
+  border-right: 1px solid #f9f9f9;
 }
 .active-tab {
   background: white;
   border-left: 1px solid black;
   border-bottom: 1px solid black;
   border-right: 1px solid black;
+}
+
+.tab:hover {
+  background-color: lightgray;
 }
