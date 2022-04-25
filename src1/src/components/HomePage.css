@@ -15,23 +15,23 @@
     display: flex;
     flex: 1;
     justify-content: space-between;
-    padding: 10px;
+    padding: 5px;
 }
 .leftSidebar{
     display: flex;
     flex: 0.25;
     flex-direction: column;
-    background-color: lightgreen;
+    background-color: #40464b;
 }
 .midBody{
     display: flex;
     flex: 0.50;
     flex-direction: column;
-    background-color: lightgray;
+    background-color: white;
 }
-.midBody > h3 {
-    background-color:  #3A3B3C;
-    border-bottom: 3px solid black;
+.midBody > h3, .rightSidebar > h3, .leftSidebar > h3 {
+    background-color:  #2D2D2E;
+    border-bottom: 3px solid white;
     color: white;
     padding: 10px;
 }
@@ -39,13 +39,13 @@
     display: flex;
     flex: 0.25;
     flex-direction: column;
-    background-color: bisque;
+    background-color: #40464b;
 }
 .postBar{
     display: flex;
     flex-direction: column;
     margin: 10px;
-    background-color: pink;
+    background-color: white;
     border: 1px solid black;
     padding: 10px;
     height: 20vh;

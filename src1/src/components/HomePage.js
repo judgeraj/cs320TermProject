@@ -7,11 +7,11 @@ import { AddCircle, CameraAlt,Photo,
   Mic, EmojiEmotions, Menu} from '@material-ui/icons';
 import { Avatar } from '@material-ui/core';
 
-function displayPost(){
+function displayPost(user){
   return(
     <div className="displayPost">
-      <Avatar/>
-      ajsdjashdjh
+      <Avatar src={user.photo}/>
+      {user.displayName}
     </div>
   )
 }
@@ -50,9 +50,9 @@ function HomePage() {
   }
   useEffect(() =>{
     database.collection('homepagePosts').onSnapshot( snapshot =>{
-      snapshot.docs.map( doc =>{
-        setPostInfo(doc.data())
-      })
+      setPostInfo(snapshot.docs.map( doc =>
+        doc.data())
+      )
     })
   })
   return (
@@ -60,15 +60,16 @@ function HomePage() {
       <h1>KARO's HOMEPAGE</h1>
       <div className="homepageBody">
 
-         <div className="leftSidebar">left side bar
+         <div className="leftSidebar">
+           <h3>Friend's List</h3>
          </div>
 
          <div className="midBody">
-              <h3>NEWS FEED</h3>
-              {displayPost()}
+              <h3>News Feed</h3>            
          </div>
 
-         <div className="rightSidebar">right side 
+         <div className="rightSidebar">
+           <h3>RIGHT SIDE</h3>
             <div className="postBar">
                 Create New Post
                 <div className="postSection">

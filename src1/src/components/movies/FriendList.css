@@ -47,8 +47,6 @@
     flex-direction: row;
     flex: 1;
 }
-
-
 .userProfileName{
     display: flex;
     justify-content: space-between;
