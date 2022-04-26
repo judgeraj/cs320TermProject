@@ -1,0 +1,17 @@
+.movie-table {
+  display: flex;
+  flex-direction: row;
+}
+
+.movie-col {
+  width: 50%;
+}
+
+.movie-title {
+  padding: 1px;
+}
+
+.emoji {
+  font-size: 18pt;
+  padding-bottom: 3px;
+}

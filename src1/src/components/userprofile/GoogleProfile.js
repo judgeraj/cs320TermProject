@@ -11,14 +11,12 @@ function GoogleProfile(props) {
   };
 
   return (
-    <div className="info">
-      <div className="info-main">
-        <img src={props.user.photo} alt="Google User"></img>
-        <h2>{props.user.displayName}</h2>
-        {/* <p>{props.user.email}</p> */}
-        <div className="edit">
-          <Edit onClick={editButtonHandler} />
-        </div>
+    <div className="info-main">
+      <img src={props.user.photo} alt="Google User"></img>
+      <h1>{props.user.displayName}</h1>
+      {/* <p>{props.user.email}</p> */}
+      <div className="edit">
+        <Edit onClick={editButtonHandler} />
       </div>
     </div>
   );

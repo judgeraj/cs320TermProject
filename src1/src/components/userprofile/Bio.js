@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Edit } from "@material-ui/icons";
+import { DialogContent, getContrastRatio } from "@material-ui/core";
 
 import EditBio from "./EditBio";
 import database from "../../firebase/firebase";
 
 import "./styles/Bio.css";
 import "./styles/UserProfile.css";
-import { DialogContent, getContrastRatio } from "@material-ui/core";
 
 function Bio(props) {
   // const [bioInfo, setBioInfo] = useState({
@@ -106,34 +106,32 @@ function Bio(props) {
   }
 
   return (
-    <div className="info">
-      <div className="info-bio">
-        <h3>About</h3>
-        <hr />
-        <p>{bioInfo.about}</p>
-        <div className="edit">
-          <Edit
-            onClick={() => {
-              setShowEditBio(true);
-            }}
-          />
-        </div>
-        <EditBio
-          trigger={showEditBio}
-          setTrigger={setShowEditBio}
-          clickHandler={updateBio}
-        >
-          <h3>Edit Bio</h3>
-          <form>
-            <textarea
-              type="text"
-              onChange={updateBioAbout}
-              value={updatedBioInfo.about}
-              rows="8"
-            ></textarea>
-          </form>
-        </EditBio>
+    <div className="info-bio">
+      <h3>About</h3>
+      <hr />
+      <p>{bioInfo.about}</p>
+      <div className="edit">
+        <Edit
+          onClick={() => {
+            setShowEditBio(true);
+          }}
+        />
       </div>
+      <EditBio
+        trigger={showEditBio}
+        setTrigger={setShowEditBio}
+        clickHandler={updateBio}
+      >
+        <h3>Edit Bio</h3>
+        <form>
+          <textarea
+            type="text"
+            onChange={updateBioAbout}
+            value={updatedBioInfo.about}
+            rows="8"
+          ></textarea>
+        </form>
+      </EditBio>
     </div>
   );
 }
