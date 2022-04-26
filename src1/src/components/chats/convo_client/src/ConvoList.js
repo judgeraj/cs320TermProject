@@ -1,15 +1,17 @@
-// ConvoList.js - 98 lines
+// ConvoList.js - 104 lines + 14 doc comments
 import "./App.css";
 import React from "react";
 import Convo from "./Convo";
 import ConvoLogin from "./ConvoLogin";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useSelector } from 'react-redux';
-import database from '../../../../firebase/firebase';
-import { selectUser } from '../../../../features/userSlice';
+import {useState} from "react";
+import {useEffect} from "react";
+import {useSelector} from "react-redux";
+import database from "../../../../firebase/firebase";
+import {selectUser} from "../../../../features/userSlice";
 
-/* fullConvos holds list of convos from server that are closed. */
+/* uses info provided by the login page to return the convo list screen.
+   this screen intends to show all convos that have been created and inform
+   the user if they are attempting to join a convo that is closed. */
 function ConvoList({socket, username, convos, fullConvos}){
     const [currentScreen, setCurrentScreen] = useState("chooseConvo"); // current screen shown
     const [convo, setConvo] = useState(""); // convo the user is currently in
@@ -17,12 +19,12 @@ function ConvoList({socket, username, convos, fullConvos}){
     const [valid, setValid] = useState(true); // when to show error message for invalid convo name
     const [full, setFull] = useState(false); // if convo user wants to join is full or not
     const user = useSelector(selectUser) // user that's signed in (Google)
-    let nowFull = []; // list of convos that people can't join anymore
-    const [fullList, setFullList] = useState([]); // list of convos that people can't join anymore (Firebase)
+    let nowFull = []; // list of convos people can't join anymore
+    const [fullList, setFullList] = useState([]); // list of convos people can't join anymore (Firebase)
     const [allMessages, setAllMessages] = useState([]); // all messages retrieved (Firebase)
 
     /* when joining an existing convo, the user's convo and username are stored
-       in the server and then the current screen is switched to convo screen */
+       to the server and then the current screen status is switched to convo */
     const joinConvo = () => { 
         const user = { // store in an object
             convo: convo,
@@ -32,12 +34,14 @@ function ConvoList({socket, username, convos, fullConvos}){
         setCurrentScreen("convo"); // show the convo screen
     }
 
-    /* for joining a new convo, it must be checked that
-       the convo name is valid before the user can join. */
+    /* when joining a (new) convo, it must be checked that the convo name
+       is valid before the user can create and join it. if so, the user
+       can join the convo via the server. there is also an attempt to
+       retrieve the messages from Firebase. */
     const joinNewConvo = () => {
-        // database.collection("fullConvos") // get list of full convos
+        // database.collection("fullConvos") // attempt to get list of full convos
         //     .onSnapshot(snapshot => setFullList(snapshot));
-        // !! BUG: users who have never joined that chat can still log into closed convos !!
+        // !! BUG: users who have never joined that convo can still log in if closed !!
         if (!fullConvos.includes(convo)){ // if convo is not full
             if (convoValid(convo)){ // and convo name is valid
                 const user = {
@@ -54,7 +58,7 @@ function ConvoList({socket, username, convos, fullConvos}){
                                 ...list, doc.data() // add it to the list of messages sent
                             ]);
                         }));
-                socket.emit("joinConvo", user); // tell server to let the user join the convo
+                socket.emit("joinConvo", user); // let the user join the convo
                 setCurrentScreen("convo"); // show the convo screen
             } else {
                 setValid(false); // convo name is invalid
@@ -64,15 +68,14 @@ function ConvoList({socket, username, convos, fullConvos}){
         }
     }
 
-    // !! Bug: requires double clicking to join convo.
-    // first click says that convo name is invalid !!
+    // !! Bug: requires double click to join. first click says convo name is invalid !!
     /* attempt to join a convo when an existing convo's button is clicked */
     const attemptJoin = (convo) => {
         setConvo(convo);
         joinConvo();
     }
 
-    /* list a button for each convo available to join */
+    /* returns a button for each convo that has been made */
     const listConvos = (convos) => {
         return (
             <button key={convos}
@@ -87,7 +90,7 @@ function ConvoList({socket, username, convos, fullConvos}){
 
     /* get an updated list of convos whenever a new convo is added,
        as well as an updated list of convos that are already full. */
-    // !! Bug: updated convos appear only once when another user joins a convo !!
+    // !! Bug: updated convos appear only once a user joins a convo !!
     useEffect(() => { 
         socket.on("getConvos", (convos) => {
             setConvoList(convos);
@@ -121,7 +124,7 @@ function ConvoList({socket, username, convos, fullConvos}){
                         type="text"
                         placeholder="New Convo..."
                         onChange={(event) => {
-                            setConvo(event.target.value); // change convo name as input changes
+                            setConvo(event.target.value) // change convo name as input changes
                         }}
                         onKeyPress={(event) => { // press enter to join
                             event.key === "Enter" && joinNewConvo()
@@ -139,7 +142,7 @@ function ConvoList({socket, username, convos, fullConvos}){
                         {full && ( // display error message if convo is closed
                             <p>Convo is closed!</p>
                         )}
-                    </div>                    
+                    </div>
                 </div>
             ) : currentScreen === "convo" ? ( // else, show convo screen
                 <Convo
@@ -157,9 +160,9 @@ function ConvoList({socket, username, convos, fullConvos}){
     );
 }
 
-/* check that the convo name is between 1 and 15 characters long */
+/* check if the convo name is between 1 and 15 characters long */
 function convoValid(convo){
-    if ((convo.length > 0) && (convo.length < 16)) { 
+    if ((convo.length >= 1) && (convo.length <= 15)) { 
         return true;
     }
     return false; // else, convo name is invalid
