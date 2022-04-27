@@ -76,6 +76,10 @@ def buttonClick(xCoord, yCoord):
             print("3 button clicked")
             return 3
 
+def ghostDisplay(xCord, yCord,screen, ghost):
+    screen.blit(ghost, (xCord, yCord))
+    return
+
 """
 :param listOfCandles, num 
 listOfCandles contains all Candle objects and num is the number of Candle objects
@@ -84,19 +88,20 @@ we are going to move off the display
 
 def kickOffScreen(listOfCandles, num, screen):
 
-    maxWidth = screen.get_width()
-    # print(maxWidth)
-    for i in range(0, num, 1):
-        x = listOfCandles[len(listOfCandles) - (i + 1)].x
-        print(maxWidth - x)
-        while(x < maxWidth):
-            listOfCandles[len(listOfCandles) - (i + 1)].x += 10
-            # pygame.time.Clock().tick()
-            listOfCandles[len(listOfCandles) - (i + 1)].draw()
-            x += 1
+    # maxWidth = screen.get_width()
+    # # print(maxWidth)
+    # for i in range(0, num, 1):
+    #     x = listOfCandles[len(listOfCandles) - (i + 1)].x
+    #     print(maxWidth - x)
+    #     while(x < maxWidth):
+    #         listOfCandles[len(listOfCandles) - (i + 1)].x += 10
+    #         # pygame.time.Clock().tick()
+    #         listOfCandles[len(listOfCandles) - (i + 1)].draw()
+    #         x += 1
 
         # print(x)
         # listOfCandles = listOfCandles[:-(i + 1)]
+    pygame.mixer.Channel(0).play(pygame.mixer.Sound('./gameAudio/blowing.wav'))
     return listOfCandles[:-num]
     # x, y = candle.image.get_size()
     # for i in range(0, 8, 1):
@@ -115,6 +120,10 @@ def play(screen, num):
     # for i in range(11, 20, 2):
     #     print(computerPicks(i))
     # exit(1)
+    pygame.mixer.init()
+
+    # pygame.mixer.Channel(1).play(pygame.mixer.Sound('./gameAudio/menuMusic.wav'))
+
     userTurn = True
     oneBtn = pygame.image.load('gameplaySprites/oneButton.png').convert_alpha()
     # one_btn = pygame.transform.scale(one_btn, (200, 50))
@@ -143,13 +152,21 @@ def play(screen, num):
     #     for y in range(0, 6, 1):
     #         candlesArray[x].append(pygame.image.load('tile00' + str(y) + '.png').convert_alpha())
     backgroundTheme = pygame.image.load("gameplaySprites/gameBG.png")
+    ghost = pygame.image.load("gameplaySprites/ghost.png")
     # backgroundTheme = pygame.transform.scale(screen, (screen.get_width(), screen.get_height()))
     clock = pygame.time.Clock()
-    fpsCap = 30
+    fpsCap = 60
+    counter = 0
+    candleWidth = 0
+
+    ghostX = screen.get_width()
 
     while run:
         # screen.fill((255,255,255))
+        # if ghostX == -1:
+
         screen.blit(backgroundTheme, (0,0))
+
 
         oneDisplayBtn.draw()
         twoDisplayBtn.draw()
@@ -160,40 +177,66 @@ def play(screen, num):
         else:
             run = False
         # looping through game events
-
+        btnNum = -1
         for event in pygame.event.get():
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                btnNum = buttonClick(mouseX, mouseY)
+                candleWidth = listOfCandles[len(listOfCandles) - 1].x
+
             # if quit event then we quit the run loop
             # print(event.type)
             if event.type == pygame.QUIT:
-                # switching run flag to quit game
+                # quitting game
                 pygame.quit()
 
             mouseX, mouseY = pygame.mouse.get_pos()
             # print(mouseX,mouseY)
-            if(userTurn):
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    btnNum = buttonClick(mouseX, mouseY)
-                    # print(btnNum)
-                    if btnNum == 1:
-                        numberOfCandles -= 1
-                        listOfCandles = kickOffScreen(listOfCandles, btnNum, screen)
-
-                    elif btnNum == 2:
-                        numberOfCandles -= 2
-                        listOfCandles = kickOffScreen(listOfCandles, btnNum, screen)
-                        # listOfCandles = listOfCandles[:-2]
-                    elif btnNum == 3:
-                        numberOfCandles -= 3
-                        listOfCandles = kickOffScreen(listOfCandles, btnNum, screen)
-                        # listOfCandles = listOfCandles[:-3]
-                    userTurn = False
-            else:
-                cPick = computerPicks(numberOfCandles)
-                numberOfCandles -= cPick
+            # else:
                 # time.sleep(1)
-                listOfCandles = kickOffScreen(listOfCandles, cPick, screen)
-                userTurn = True
 
+        if (userTurn):
+            if btnNum != -1:
+                # print(btnNum)
+
+                if btnNum == 1:
+                    # if ghostX < candleWidth:
+                    numberOfCandles -= 1
+                    listOfCandles = kickOffScreen(listOfCandles, btnNum, screen)
+                    # pygame.mixer.Channel(0).play(pygame.mixer.Sound('./gameAudio/blowing.mp3'))
+                    userTurn = False
+                elif btnNum == 2:
+                    # if ghostX < candleWidth:
+                    # ghostDisplay(listOfCandles[numberOfCandles - 1].x, listOfCandles[numberOfCandles - 1].y, screen, ghost)
+                    numberOfCandles -= 2
+                    listOfCandles = kickOffScreen(listOfCandles, btnNum, screen)
+                    # pygame.mixer.music.play()
+                    # pygame.mixer.Channel(0).play(pygame.mixer.Sound('./gameAudio/blowing.mp3'))
+                    # listOfCandles = listOfCandles[:-2]
+                    userTurn = False
+
+                elif btnNum == 3:
+                    # if ghostX < candleWidth:
+                    # ghostDisplay(listOfCandles[numberOfCandles - 1].x, listOfCandles[numberOfCandles - 1].y, screen, ghost)
+                    numberOfCandles -= 3
+                    listOfCandles = kickOffScreen(listOfCandles, btnNum, screen)
+                    # pygame.mixer.music.play()
+                    # listOfCandles = listOfCandles[:-3]
+                    userTurn = False
+
+        if userTurn == False:
+            ghostDisplay(ghostX, listOfCandles[len(listOfCandles) - 1].y, screen, ghost)
+            ghostX -= 5
+            if counter == (fpsCap) or ghostX < candleWidth:
+                if ghostX < candleWidth:
+                    cPick = computerPicks(numberOfCandles)
+                    counter = 0
+                    numberOfCandles -= cPick
+                    listOfCandles = kickOffScreen(listOfCandles, cPick, screen)
+                    # pygame.mixer.Channel(0).play(pygame.mixer.Sound('./gameAudio/blowing.mp3'))
+                    userTurn = True
+                    ghostX = screen.get_width()
+            counter += 1
             # print(numberOfCandles)
 
             # call gameplay function

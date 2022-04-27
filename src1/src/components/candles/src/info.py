@@ -39,35 +39,30 @@ def enter():
     # text = ''
     if test:
         return screen
-    # count = 0
     angle = 0
     counter = 0
     while run:
         # looping through game events
         # angle += 3
         if counter != 60:
-            screen.blit(pygame.transform.rotate(spinner_img, spinny.currentAngle),(150, 0))# (((screen_width) - int((spinner_img.get_width()/2))),((screen_height) - int((spinner_img.get_height()/2))))) #(screen.get_width()/2 - spinner_img.x/2, screen.get_height()/2 - spinner_img.y/2)
+            screen.blit(pygame.transform.rotate(spinner_img, spinny.currentAngle),(150, 0)) # (((screen_width) - int((spinner_img.get_width()/2))),((screen_height) - int((spinner_img.get_height()/2))))) #(screen.get_width()/2 - spinner_img.x/2, screen.get_height()/2 - spinner_img.y/2)
             angle %= 360
             spinny.draw(angle)
             # pygame.transform.rotate(spinny.image, spinny.currentAngle)
             counter += 1
-        # spinner_img =
-
+        number = random.choice(rand)
+        if number != "random":
+            # number = random.choice(rand)
+            if counter == 60:
+                displayCandleNumber(screen, number)
+                return play(screen, number)
 
         for event in pygame.event.get():
             # if quit event then we quit the run loop
-            # print(event.type)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit(0)
-            # print(rand)
-            number = random.choice(rand)
-            # print(number)
-            if number != "random":
-                # number = random.choice(rand)
-                if event.type == pygame.MOUSEBUTTONDOWN and counter == 60:
-                    displayCandleNumber(screen, number)
-                    return play(screen, number)
+
         pygame.display.flip()
         clock.tick(60)
 

@@ -85,7 +85,7 @@ class Feed extends Component {
         });
     });
 
-    fetch('https://newsapi.org/v2/everything?q=tesla&from=2022-03-25&sortBy=publishedAt&apiKey=900e77969f1e4b369b49695cdd1f4c5a') //'https://newsapi.org/v2/everything?q=tesla&from=2022-01-22&sortBy=publishedAt&apiKey=876fb32423264a94984a112b0dfea143'
+    fetch('https://newsapi.org/v2/everything?q=tesla&from=2022-04-25&sortBy=publishedAt&apiKey=900e77969f1e4b369b49695cdd1f4c5a') //'https://newsapi.org/v2/everything?q=tesla&from=2022-01-22&sortBy=publishedAt&apiKey=876fb32423264a94984a112b0dfea143'
       .then((response) => {
         return response.json()
       })
