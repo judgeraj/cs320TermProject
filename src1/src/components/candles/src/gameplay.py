@@ -5,6 +5,11 @@ from pygame.time import Clock
 
 import startGame
 
+"""
+Candle Object which holds all images for a candle, x and y position for a candle
+and which sprite image is currently displayed
+Draw method bilts the next image and increaments currentSprite var and resets to start of array
+"""
 class Candle:
     def __init__(self, screen, x, y, imageArray):
         self.images = []
@@ -31,11 +36,20 @@ class Candle:
         # print("here we print")
 
 
+
+"""
+    Need to implement the winning screen and reward screen
+"""
+
 def playerWin(turn):
     if turn:
         return "Player 1 Wins"
     return "Player 1 Lost"
 
+"""
+    The AI logic is quite simple it just checks to see if the number is even then we return 1
+    which means the AI will take 1 Candle, if odd then it returns total mod 4
+"""
 
 def computerPicks(numberOfCandles):
     return 1 if (numberOfCandles % 4 == 0) else (numberOfCandles % 4)
@@ -44,6 +58,9 @@ def computerPicks(numberOfCandles):
 # def getCandles(numberOfCandles):
 #     return False if (numberOfCandles < 10) or (numberOfCandles > 30) else True
 
+"""
+creating my array of sprites
+"""
 
 def appendArray(candlesArray):
     for x in range(0, 3, 1):
@@ -52,6 +69,9 @@ def appendArray(candlesArray):
         candlesArray.append(candleSprite)
     return candlesArray
 
+"""
+    creating a list of candle objects
+"""
 
 def listCreate(screen, listOfCandles, numberOfCandles, candlesArray):
     width = candlesArray[0].get_width()/3
@@ -87,6 +107,8 @@ we are going to move off the display
 """
 
 def kickOffScreen(listOfCandles, num, screen):
+    pygame.mixer.Channel(0).play(pygame.mixer.Sound('./gameAudio/blowing.wav'))
+    return listOfCandles[:-num]
 
     # maxWidth = screen.get_width()
     # # print(maxWidth)
@@ -101,8 +123,6 @@ def kickOffScreen(listOfCandles, num, screen):
 
         # print(x)
         # listOfCandles = listOfCandles[:-(i + 1)]
-    pygame.mixer.Channel(0).play(pygame.mixer.Sound('./gameAudio/blowing.wav'))
-    return listOfCandles[:-num]
     # x, y = candle.image.get_size()
     # for i in range(0, 8, 1):
     #     x -= 5

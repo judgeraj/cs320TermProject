@@ -6,7 +6,10 @@ app = Flask(__name__)
 
 @app.route('/')
 
-
+# 
+# starting flask server to run the game and have react website fetch
+# to play games
+# 
 def play_game():
     # play()
     startGame.play()
