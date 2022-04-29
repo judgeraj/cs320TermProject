@@ -6,6 +6,7 @@ import Modal from './comps/Modal';
 import MouseMove from './comps/MouseMove';
 import Button from './comps/button/button';
 import WriteText from './comps/WriteText';
+import CommentBox from './comps/CommentBox';
 
 function Memes() {
 
@@ -23,6 +24,8 @@ function Memes() {
         <WriteText />
       <br></br>
         <MouseMove />
+      <br></br>
+        <CommentBox />
     </div>
   );
 }
