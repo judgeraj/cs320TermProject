@@ -1,5 +1,6 @@
 .Movies {
   text-align: center;
+  font-family: "Open Sans", sans-serif;
 }
 
 .Movies-logo {
@@ -36,6 +37,7 @@
   transition: 850ms;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
+  font-family: "Open Sans", sans-serif;
 }
 @keyframes App-logo-spin {
   from {

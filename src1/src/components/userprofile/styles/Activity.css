@@ -1,21 +1,31 @@
-.info-about {
+.info-activity {
+  border: 1px solid rgb(159, 155, 155);
+  border-radius: 5pt;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 10px;
+  background-color: rgb(229, 229, 238);
+  overflow: auto;
+  max-width: 800px;
   color: rgb(90, 76, 95);
 }
 
-.info-about h3 {
+.info-activity h3 {
   color: rgb(0, 0, 0);
   display: block;
+  margin-bottom: 7px;
 }
 
-.info-about p {
+.info-activity h4 {
+  text-align: center;
   display: block;
+  margin-top: 5px;
+  margin-bottom: 7px;
 }
 
-.info-about img {
-  border: 2px solid white;
-  margin-right: 5px;
-  margin-left: 5px;
-  margin-top: 5px;
-  margin-bottom: 10px;
-  float: left;
+.info-activity p {
+  display: block;
 }

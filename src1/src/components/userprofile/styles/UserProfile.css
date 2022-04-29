@@ -1,4 +1,7 @@
-.info {
+/* This is causing tons of issues, move these
+   styles to each components page that needs them
+ */
+/* .info {
   border: 1px solid rgb(159, 155, 155);
   border-radius: 5pt;
   margin-left: auto;
@@ -7,11 +10,14 @@
   margin-bottom: 10px;
   width: 60%;
   padding: 10px;
-  background-color: rgb(235, 235, 235);
+  background-color: rgb(238, 238, 238);
   overflow: auto;
   max-width: 800px;
-}
+} */
 
+/* For some reason it works having these
+   button styles the same across all components?
+ */
 .edit {
   float: right;
   display: flex;
@@ -21,7 +27,7 @@
 }
 
 .edit > .MuiSvgIcon-root {
-  padding: px;
+  padding: 5px;
 }
 
 .edit > .MuiSvgIcon-root:hover {
@@ -60,4 +66,20 @@
   position: absolute;
   top: 20px;
   right: 15px;
+}
+
+.profile-table {
+  display: flex;
+}
+
+.profile-friends-col {
+  width: 22%;
+}
+
+.profile-main-col {
+  width: 56%;
+}
+
+.profile-suggestions-col {
+  width: 22%;
 }

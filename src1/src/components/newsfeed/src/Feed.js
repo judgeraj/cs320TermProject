@@ -55,7 +55,7 @@ class Feed extends Component {
     //     console.log(arts)
     //   }); 
     // date = Ti
-    fetch('https://newsapi.org/v2/everything?domains=wsj.com&apiKey=876fb32423264a94984a112b0dfea143')
+    fetch('https://newsapi.org/v2/everything?domains=wsj.com&apiKey=900e77969f1e4b369b49695cdd1f4c5a')
       .then((response) => {
         return response.json()
       })
@@ -65,7 +65,7 @@ class Feed extends Component {
         });
     });
 
-    fetch('https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=876fb32423264a94984a112b0dfea143')
+    fetch('https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=900e77969f1e4b369b49695cdd1f4c5a')
       .then((response) => {
         return response.json()
       })
@@ -75,7 +75,7 @@ class Feed extends Component {
         });
     });
 
-    fetch('https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=876fb32423264a94984a112b0dfea143')
+    fetch('https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=900e77969f1e4b369b49695cdd1f4c5a')
       .then((response) => {
         return response.json()
       })
@@ -85,7 +85,7 @@ class Feed extends Component {
         });
     });
 
-    fetch('https://newsapi.org/v2/everything?q=tesla&from=2022-04-22&sortBy=publishedAt&apiKey=876fb32423264a94984a112b0dfea143') //'https://newsapi.org/v2/everything?q=tesla&from=2022-01-22&sortBy=publishedAt&apiKey=876fb32423264a94984a112b0dfea143'
+    fetch('https://newsapi.org/v2/everything?q=tesla&from=2022-04-25&sortBy=publishedAt&apiKey=900e77969f1e4b369b49695cdd1f4c5a') //'https://newsapi.org/v2/everything?q=tesla&from=2022-01-22&sortBy=publishedAt&apiKey=876fb32423264a94984a112b0dfea143'
       .then((response) => {
         return response.json()
       })
@@ -96,7 +96,7 @@ class Feed extends Component {
         });
     });
     
-    fetch('https://newsapi.org/v2/everything?q=apple&from=2022-04-11&to=2022-04-11&sortBy=popularity&apiKey=876fb32423264a94984a112b0dfea143')
+    fetch('https://newsapi.org/v2/everything?q=apple&from=2022-04-11&to=2022-04-11&sortBy=popularity&apiKey=900e77969f1e4b369b49695cdd1f4c5a')
       .then((response) => {
         return response.json()
       })

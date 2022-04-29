@@ -26,11 +26,13 @@ def validClick(mouseX, mouseY):
         # call to setting menu
         return info.setting()
     if (mouseX > 223 and mouseX < 500) and (mouseY > 151 and mouseY < 230):
-        return False
+        return
 
 def play():
 
     pygame.init()
+    pygame.mixer.music.load('./gameAudio/menuMusic.wav')
+
     SCREEN_HEIGHT = 500
     SCREEN_WIDTH = 800
     WHITE = (255, 255, 255)
@@ -43,7 +45,7 @@ def play():
     screen.fill(PINK)
     run = True
     startGame = False
-
+    pygame.mixer.music.play(-1)
     while run:
         screen.blit(startButton, (0,0))
         # if startGame == True:
@@ -58,8 +60,8 @@ def play():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if validClick(mouseX, mouseY):
                     continue
-                elif validClick(mouseX, mouseY):
-                    exit(1)
+                else:
+                    return
             # if startGame == True:
             #     # user hit start game button need to switch page
             #     return info.enter()

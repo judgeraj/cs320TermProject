@@ -1,8 +1,8 @@
 /*display: flex removed in .app*/
 .app {
   flex-direction: column;
+  font-family: "Open Sans", sans-serif;
 }
 .button {
   border: none;
 }
-

@@ -1,0 +1,36 @@
+.friends-outer {
+  border: 1px solid rgb(159, 155, 155);
+  border-radius: 5pt;
+  margin-left: 25px;
+  margin-right: 10px;
+  margin-top: auto;
+  margin-bottom: auto;
+  /* width: 100%; */
+  padding: 10px;
+  background-color: rgb(211, 196, 222);
+  overflow: auto;
+  max-width: 300px;
+  color: rgb(90, 76, 95);
+}
+
+.friends-outer h3 {
+  color: rgb(0, 0, 0);
+  margin-top: 3px;
+  margin-bottom: 7px;
+  text-align: center;
+}
+
+.friend {
+  overflow: auto;
+  height: 40px;
+}
+
+.friend img {
+  border: 1px solid white;
+  width: 25px;
+  /* margin-right: 5px;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 10px; */
+  float: right;
+}

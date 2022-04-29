@@ -1,4 +1,4 @@
-/* App.css - 331 lines */
+/* App.css - 354 lines */
 .App {
   width: 100vw;
   height: 100vh;
@@ -14,26 +14,31 @@ body {
 }
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700");
 
-.emojiIcon {  
+.emojiIcon {
   height: 38px;
   width: 38px;
 }
-.fileIcon {  
-  height: 23px;  
+.fileIcon {
+  height: 23px;
   width: 23px;
 }
-.openIcon {  
-  height: 20px;  
+.openIcon {
+  height: 20px;
   width: 20px;
   fill: green;
 }
-.fullIcon {  
-  height: 20px;  
+.fullIcon {
+  height: 20px;
   width: 20px;
   fill: red;
 }
+.backArrow {
+  height: 20px;
+  width: 20px;
+  fill: white;
+}
 .heartIcon p {
-  display:flex;
+  display: flex;
   position: relative;
   height: auto;
   width: auto;
@@ -46,6 +51,7 @@ body {
 .heartIcon p:hover {
   color: #770952;
 }
+
 .error p {
   left: 0;
   right: 0;
@@ -55,6 +61,7 @@ body {
   align-items: center;
   margin-top: 2rem;
 }
+
 .info p {
   position: relative;
   font-size: 0.8rem;
@@ -66,11 +73,11 @@ body {
   grid-gap: 2px;
 }
 
-.button {  
-  background: transparent;  
-  outline: none;  
-  border: none;  
-}  
+.button {
+  background: transparent;
+  outline: none;
+  border: none;
+}
 
 .loginContainer {
   display: flex;
@@ -156,8 +163,27 @@ body {
 .convosContainer .back-login button:hover {
   background: #770952;
 }
+.convosContainer .back-arrow {
+  width: 80px;
+  height: 20px;
+  border: 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  flex: 15%;
+  height: 100%;
+  background: black;
+  outline: none;
+  font-size: 20px;
+}
+.convosContainer .back-arrow button:hover:after {
+  background: transparent;
+  color: #770952;
+  fill: #770952;
+  outline: #770952;
+}
 
-.convo-popup { 
+.convo-popup {
   width: 400px;
   height: 400px;
 }
@@ -190,7 +216,7 @@ body {
   padding: 5px 0;
   border-radius: 5px;
   position: absolute;
-  z-index: 1;  
+  z-index: 1;
 }
 .convo-popup .convo-header {
   height: 45px;
@@ -224,7 +250,7 @@ body {
   position: absolute;
   margin: 10px;
   top: 0px;
-  right: 0px;  
+  right: 0px;
   border: none;
   background: #000000;
   color: gray;
@@ -246,7 +272,7 @@ body {
   padding: 5px 0;
   border-radius: 5px;
   position: absolute;
-  z-index: 1;  
+  z-index: 1;
 }
 .convo-popup .convo-header2 p {
   display: block;

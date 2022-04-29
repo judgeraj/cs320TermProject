@@ -7,18 +7,16 @@ import "./styles/UserProfile.css";
 function GoogleProfile(props) {
   // edit their google profile or add background picture
   const editButtonHandler = () => {
-    //console.log("Click happened");
+    console.log("Clicked, edit the user's google profile");
   };
 
   return (
-    <div className="info">
-      <div className="info-main">
-        <img src={props.userInfo.photoURL} alt="Google User"></img>
-        <h2>{props.userInfo.displayName}</h2>
-        <p>{props.userInfo.email}</p>
-        <div className="edit">
-          <Edit onClick={editButtonHandler()} />
-        </div>
+    <div className="info-main">
+      <img src={props.user.photo} alt="Google User"></img>
+      <h1>{props.user.displayName}</h1>
+      {/* <p>{props.user.email}</p> */}
+      <div className="edit">
+        <Edit onClick={editButtonHandler} />
       </div>
     </div>
   );

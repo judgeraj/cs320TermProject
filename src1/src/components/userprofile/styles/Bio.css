@@ -1,18 +1,33 @@
 .info-bio {
+  border: 1px solid rgb(159, 155, 155);
+  border-radius: 5pt;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 10px;
+  background-color: rgb(222, 211, 222);
+  overflow: auto;
+  max-width: 800px;
   color: rgb(90, 76, 95);
 }
 
 .info-bio h3 {
   color: rgb(0, 0, 0);
   display: block;
+  /* margin-top: 3px; */
+  margin-bottom: 7px;
 }
 
 .info-bio p {
   display: block;
+  font-size: 11pt;
 }
 
 textarea {
   width: 98%;
   padding: 1%;
   resize: vertical;
+  /* font-size: 16pt; */
 }

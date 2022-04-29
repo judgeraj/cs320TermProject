@@ -47,9 +47,11 @@ function AnimeSidebar() {
 				<div className='animeHeader'> {/** creates the header of the anime sidebar */}
 						<div className="animeTitle">
 								<h3>Anime Review / Rating</h3>
-								<form className='animeSearch' onSubmit={e => searchForAnime(e)}> {/** anime search section */}
+								<form className='animeSearch' 
+									onSubmit={e => searchForAnime(e)}> {/** anime search section */}
 										<input placeholder='search for anime' 
-										required value={animeSearch} onChange={e => setAnimeSearch(e.target.value)} />
+										required value={animeSearch} 
+										onChange={e => setAnimeSearch(e.target.value)} />
 										<SearchRounded/>
 								</form>
 								<AddIcon className='addTopics'/> 
@@ -61,7 +63,8 @@ function AnimeSidebar() {
 										<div className="animeListBody" >
 												{/**display all search result and as buttons for creating the post*/}
 												{animeList.map((animeInfo) => (
-														<button className='searchedResult' onClick={(e) => rateThisAni(animeInfo,e)}>
+														<button className='searchedResult' 
+															onClick={(e) => rateThisAni(animeInfo,e)}>
 																<img src={animeInfo.image_url} 
 																	alt=""
 																	width={150}
@@ -74,7 +77,7 @@ function AnimeSidebar() {
 								<form className="animePost">
 									{/**calls the anime function for posting in the sidebar */}
 										{rateAnime.map((ani) => (
-											<AnimePost animeDocID={ani}/>
+											<AnimePost key={ani.ani} animeDocID={ani}/>
 										))}
 								</form>
 						</div>
@@ -82,4 +85,4 @@ function AnimeSidebar() {
 		)
 }
 export default AnimeSidebar;
-//60 lines
+//65 lines

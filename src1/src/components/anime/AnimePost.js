@@ -24,7 +24,6 @@ function AnimePost(animeDocID) {
       const rate = prompt("add rating from 1-10")
       if(rate !== null){
         if(rate.length > 2 || isNaN(rate) === true){ //user input must be a valid number
-          console.log("empty")
           addRating(e)
         }
         if(parseInt(rate)<1 || parseInt(rate)>10){ // input must be within the range of 1-10
@@ -85,7 +84,7 @@ function AnimePost(animeDocID) {
         snapshot.forEach((doc) =>{
 
           //REFACTORED CODE: finding the right field using the document ID instead of the anime title
-          
+
           // const title = doc.data().animeTitle
           // if(title === animeTitle){
           //   setRating(doc.data().rating)
@@ -117,19 +116,19 @@ function AnimePost(animeDocID) {
                 {/** hides the button if the user gave a rating already and 
                  * disable the button if the user is different from the one who created the post */}
                 <button disabled={userPhoto!==user.photo && review.length !== 0} 
-                  className={rating === 0 ? 'addRating' : 'rated'} 
-                  type="button" onClick={e => addRating(e)}>
-                    add rating
-                    <AddIcon/>
+                        className={rating === 0 ? 'addRating' : 'rated'} 
+                        type="button" onClick={e => addRating(e)}>
+                          add rating
+                          <AddIcon/>
                 </button>
 
                 {/** hides the button if the user gave a review already and 
                  *  disable the button if the user is different from the one who created the post */}
                 <button disabled={userPhoto!==user.photo && rating !== 0}
-                  className={review.length === 0 ? 'addRating' : 'reviewed'} 
-                  type="button" onClick={e => addReview(e)}>
-                    add review
-                    <AddIcon/>
+                        className={review.length === 0 ? 'addRating' : 'reviewed'} 
+                        type="button" onClick={e => addReview(e)}>
+                          add review
+                          <AddIcon/>
                 </button>
           </div>
 
@@ -151,5 +150,4 @@ function AnimePost(animeDocID) {
     )
 }
 export default AnimePost
-//85 lines
-//99
+//101

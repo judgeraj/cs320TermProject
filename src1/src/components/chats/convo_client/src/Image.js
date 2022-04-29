@@ -1,7 +1,7 @@
-// Image.js - 16 lines
+// Image.js - 16 lines + 2 doc comments
 import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import {useState} from "react";
+import {useEffect} from "react";
 
 /* taking in the properties specified, a file reader is used to reformat
    the blob and return the image. */

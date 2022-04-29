@@ -1,26 +1,32 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import MovieCard from "react-tinder-card";
 import database from './../../firebase/firebase';
 import "./MovieCards.css";
-import CloseIcon from "@material-ui/icons/Close";
-import StarRateIcon from "@material-ui/icons/StarRate";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import "./SwipeButtons.css"
 import IconButton from "@material-ui/core/IconButton";
 import styled from 'styled-components'
 import { Button } from 'react-native'
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../features/userSlice';
-import AddIcon from '@material-ui/icons/Add';
 import SwipeButtons from "./SwipeButtons";
 import Popup from './Popup.js'
 
-const APIURL =
-  "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=7ecd0b11bc4cd387a22b43cb37086584";
-const SEARCH_API =
-  "https://api.themoviedb.org/3/search/movie?&api_key=7ecd0b11bc4cd387a22b43cb37086584&query="
-const IMGPATH = "https://image.tmdb.org/t/p/w1280";
+// import IconButton from "@material-ui/core/IconButton";
+import AddIcon from '@material-ui/icons/Add';
+import CloseIcon from "@material-ui/icons/Close";
+import StarRateIcon from "@material-ui/icons/StarRate";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
+// const APIURL =
+//   "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=7ecd0b11bc4cd387a22b43cb37086584";
+
+const APIURL = "https://api.themoviedb.org/3/movie/popular?api_key=7ecd0b11bc4cd387a22b43cb37086584&language=en-US&page=1";
+
+const TOPRATED = "https://api.themoviedb.org/3/movie/top_rated?api_key=7ecd0b11bc4cd387a22b43cb37086584&language=en-US&page=1";
+// const SEARCH_API =
+//   "https://api.themoviedb.org/3/search/movie?&api_key=7ecd0b11bc4cd387a22b43cb37086584&query="
+const IMGPATH = "https://image.tmdb.org/t/p/w1280";
+const TV = "https://api.themoviedb.org/3/tv/top_rated?api_key=7ecd0b11bc4cd387a22b43cb37086584&language=en-US"
 // Deadish code, working on adding functionality to the buttons so they triggere swipes
 // function Movies() {
 //     const [posters, setPosters] = useState([])
@@ -43,9 +49,7 @@ const IMGPATH = "https://image.tmdb.org/t/p/w1280";
 
 // const matchArray [matches, setMatches] = useState([])
 
-
 const matchArray = [""]
-const matchString = ""
 // export function Compare (user) {
 //     console.log("comparing!")
 //     // const matches = () => {
@@ -128,15 +132,31 @@ const MovieCards = () => {
     // }, []);// no dependencies in [] so runs once when component loads and never again
     const user = useSelector(selectUser)
     const [posters, setPosters] = useState([]);
+    const [tv, setTV] = useState(false);
     useEffect(() => {
-      fetch(APIURL).then(res => res.json())
-      .then(data => {
-        console.log(data);
-        setPosters(data.results);
-      });
+        // if (tv === false ) {
+        //     fetch(APIURL).then(res => res.json())
+        //     .then(data => {
+        //         console.log(data);
+        //         setPosters(data.results);
+        //     });
+        // }
+        // if ( tv === true ) {
+        //     fetch(TV).then(res => res.json())
+        //     .then(data => {
+        //         console.log(data);
+        //         setPosters(data.results);
+        //     });
+        // }
+        fetch(TOPRATED).then(res => res.json())
+        .then(data => {
+            console.log(data);
+            setPosters(data.results);
+        });
     //   addUser()
     }, [])
-
+   
+   
     const characters = posters
     const [lastDirection, setLastDirection] = useState()
     // const [myLikes, setMyLikes]
@@ -153,6 +173,8 @@ const MovieCards = () => {
     }
     // const popper = false
     const [bpop, setBpop] = useState(false);
+
+    // always checking and pulling the friend that was picked from the database
     const [chosen, setChosen] = useState("")
     useEffect(() => {
         database.collection("Chosen One").onSnapshot( snapshot => {
@@ -168,7 +190,6 @@ const MovieCards = () => {
 
     const matches = () => {  
         matchArray.length = 0;
-       
         console.log("chosen one " + chosen)
         if (chosen.length != 0) {
             database.collection(user.displayName).onSnapshot( snapshot => {
@@ -186,8 +207,7 @@ const MovieCards = () => {
                   })
                 })
               })
-        }
-        
+        }   
         matchArray.shift()
     }
 
@@ -225,14 +245,16 @@ const MovieCards = () => {
                         usersRef.set({
                             title: title,
                             bool: true,
-                            overview: overview
+                            overview: overview,
+                            image: imgURL
                         });
                     } else { 
                         if (String(direction) === 'left') {
                             usersRef.set({
                                 title: title,
                                 bool: false,
-                                overview: overview
+                                overview: overview,
+                                image: imgURL
                             });
                         }
                     }
@@ -247,10 +269,12 @@ const MovieCards = () => {
         <div>
             {/* <h1 className="pageTitle">Catalog</h1> */}
             {/* <button type="button" onClick={() =>{addUser();  }} className="compare" > Add User </button> */}
-            <button type="button" onClick={() =>{matches(user) }} className="compare" > compare </button>
-            <button type="button" onClick={() =>{setBpop(true);  }} className="compare" > view matches </button>
-            
+            {/* <div className='tvMovie'>
+                <button type="button" onClick={() => setTV(false) }className="compare" > Movies </button>
+                <button type="button" onClick={() =>{setTV(true)}} className="compare" > TV Shows </button>
+            </div> */}
             <div className="movieCards__cardContainer">
+           
                 {posters.map((movie, index) => (
                     <MovieCard className="swipe" 
                             key={movie.title} 
@@ -259,10 +283,10 @@ const MovieCards = () => {
                             onCardLeftScreen={(dir) => outOfFrame(movie.title, dir, movie.id, movie.backdrop_path, movie.overview)}>
                         <div 
                             // style={{ backgroundImage: `url(${movie.url})` }}
-                            style={{ backgroundImage: `url(${"https://image.tmdb.org/t/p/w600_and_h900_bestv2" 
-                                                            + movie.backdrop_path})` }}
+                            // style={{ backgroundImage: `url(${"https://image.tmdb.org/t/p/w600_and_h900_bestv2" 
+                            //                                 + movie.backdrop_path})` }}
                             className="card">
-                                {/* <img src={"https://image.tmdb.org/t/p/w600_and_h900_bestv2" + movie.backdrop_path} /> */}
+                                <img src={IMGPATH + movie.backdrop_path} />
                             <div className = "movieInfo"> 
                                 <h3>{movie.title}</h3>
                                 {/* <span>{movie.vote_average}</span> */}
@@ -276,6 +300,33 @@ const MovieCards = () => {
                         </div>
                     </MovieCard>
                 ))}
+                {/* tried to show movies  */}
+                {/* {posters.map((movie, index) => (
+                    <MovieCard className="swipe" 
+                            key={movie.name} 
+                            preventSwipe={["up", "down"]}
+                            onSwipe={(dir) => swiped(dir, movie.name)} 
+                            onCardLeftScreen={(dir) => outOfFrame(movie.name, dir, movie.id, movie.backdrop_path, movie.overview)}>
+                        <div 
+                            // style={{ backgroundImage: `url(${movie.url})` }}
+                            // style={{ backgroundImage: `url(${"https://image.tmdb.org/t/p/w600_and_h900_bestv2" 
+                            //                                 + movie.backdrop_path})` }}
+                            className="card">
+                                <img src={IMGPATH + movie.backdrop_path} />
+                            <div className = "movieInfo"> 
+                                <h3>{movie.name}</h3>
+                                {/* <span>{movie.vote_average}</span> */}
+                            {/* </div>
+                            <div className="overview">
+                                <h1>{movie.name}</h1>
+                                <h2>Synopsis:</h2>
+                                <p>{movie.overview}</p>
+                                <p>{movie.genre}</p>
+                            </div>
+                        </div>
+                    </MovieCard>
+                ))} */} 
+
             </div> 
             <Popup trigger = {bpop} setTrigger = {setBpop}> 
                 <h1>Here are your matches!</h1>
