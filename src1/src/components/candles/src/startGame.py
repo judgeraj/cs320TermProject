@@ -2,6 +2,11 @@ import pygame
 
 import info
 
+"""
+Button class which will create button objects
+stores position, image, and has draw method which
+allows for display
+"""
 
 class Button():
     def __init__(self, screen, x, y, image):
@@ -17,6 +22,9 @@ class Button():
         self.screen.blit(self.image, (self.rect.x, self.rect.y))
         self.drawn = True
 
+"""
+Checks to see if the user is clicking on one of the valid buttons
+"""
 
 def validClick(mouseX, mouseY):
     if (mouseX > 223 and mouseX < 500) and (mouseY > 151 and mouseY < 230):
@@ -29,12 +37,13 @@ def validClick(mouseX, mouseY):
         return
 
 def play():
-
+    # loading music 
     pygame.init()
     pygame.mixer.music.load('./gameAudio/menuMusic.wav')
-
+    # Setting up screen dimensions
     SCREEN_HEIGHT = 500
     SCREEN_WIDTH = 800
+    # RGB Color values 
     WHITE = (255, 255, 255)
     PINK = (255, 192, 203)
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
